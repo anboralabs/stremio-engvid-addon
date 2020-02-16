@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: co.anbora.labs.engvid
+---
+testFramework: junit
+sourceLanguage: java
