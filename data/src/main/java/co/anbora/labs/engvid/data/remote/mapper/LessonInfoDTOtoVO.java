@@ -16,7 +16,8 @@ public class LessonInfoDTOtoVO implements Function<LessonInfoDTO, LessonInfoVO> 
                 lessonInfoDTO.getContent().getRendered(),
                 lessonInfoDTO.getEnglishLevel(),
                 lessonInfoDTO.getDate(),
-                lessonInfoDTO.getLink()
+                lessonInfoDTO.getLink(),
+                lessonInfoDTO.getSlug()
             );
         }
         return null;

@@ -53,7 +53,7 @@ public class LessonDaoImpl implements LessonDao {
     }
 
     @Override
-    public LessonVO findById(String id) {
+    public LessonVO findById(Integer id) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             return getLessonDao(session).findById(id);
         }
@@ -67,7 +67,7 @@ public class LessonDaoImpl implements LessonDao {
     }
 
     @Override
-    public List<LessonVO> findAllByCategory(String id) {
+    public List<LessonVO> findAllByCategory(Integer id) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             return getLessonDao(session).findAllByCategory(id);
         }

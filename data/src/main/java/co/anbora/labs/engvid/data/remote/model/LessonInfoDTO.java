@@ -23,6 +23,8 @@ public class LessonInfoDTO {
     private RenderDTO content;
     @SerializedName("link")
     private String link;
+    @SerializedName("slug")
+    private String slug;
     @SerializedName("categories")
     private List<Integer> categories;
 

@@ -13,6 +13,7 @@ CREATE TABLE lessons (
   publish_date VARCHAR(255)      NOT NULL,
   render_link VARCHAR(255)       NOT NULL,
   category_ BIGINT               NOT NULL,
+  slug VARCHAR(255)              NOT NULL,
   image_url VARCHAR(255)         ,
   youtube_id VARCHAR(255)        ,
   sync BOOLEAN                   NOT NULL DEFAULT false,

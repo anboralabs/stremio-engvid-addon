@@ -65,6 +65,8 @@ public class VideoManagerImpl implements IVideoManager {
 
     @Override
     public LessonMedia lessonMediaById(Integer lessonId) {
+
+        LessonVO lesson = lessonDao.findById(lessonId);
         return null;
     }
 }
