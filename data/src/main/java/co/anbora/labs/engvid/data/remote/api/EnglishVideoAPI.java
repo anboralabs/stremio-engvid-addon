@@ -10,6 +10,7 @@ import java.util.List;
 public interface EnglishVideoAPI {
 
     @GET("/wp-json/wp/v2/posts")
-    Call<List<LessonInfoDTO>> getLessonsByPage(@Query("page") Integer page);
+    Call<List<LessonInfoDTO>> getLessonsByPage(@Query("page") Integer page,
+                                               @Query("per_page") Integer maxItems);
 
 }

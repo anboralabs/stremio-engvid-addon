@@ -1,6 +1,5 @@
 package co.anbora.labs.engvid.data.remote;
 
-import co.anbora.labs.engvid.data.remote.api.EnglishVideoAPI;
 import co.anbora.labs.engvid.data.remote.manager.IVideoManager;
 import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
 import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
