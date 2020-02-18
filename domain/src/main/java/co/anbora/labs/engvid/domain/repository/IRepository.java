@@ -5,10 +5,11 @@ import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
 
 import java.util.List;
 
-public interface IAddOnRepository {
+public interface IRepository {
 
     List<LessonInfo> getLessons();
 
     LessonMedia getLessonMediaById(Integer lessonId);
 
+    List<LessonInfo> getLessonsByCategory(Integer categoryId);
 }
