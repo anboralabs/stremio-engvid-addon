@@ -19,6 +19,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     compile group: 'com.jason-goodwin', name: 'better-monads', version: '0.4.1'
 
+    compile 'org.jsoup:jsoup:1.12.2'
+
     implementation 'org.mybatis:mybatis:3.4.6'
 
     compile project(":domain")
