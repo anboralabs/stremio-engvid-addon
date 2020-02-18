@@ -7,7 +7,13 @@ import java.util.List;
 
 public interface IAddOnRepository {
 
+    void save(LessonMedia lessonMedia);
+
+    void save(List<LessonInfo> lessons);
+
     List<LessonInfo> getLessons();
+
+    List<LessonInfo> getLessonsByCategory(Integer categoryId);
 
     LessonMedia getLessonMediaById(Integer lessonId);
 

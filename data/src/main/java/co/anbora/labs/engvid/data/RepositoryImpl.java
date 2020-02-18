@@ -10,21 +10,40 @@ import java.util.List;
 
 public class RepositoryImpl implements IRepository {
 
-    private IEnglishVideoRepository remoteRepository;
     private IAddOnRepository localRepository;
+    private IEnglishVideoRepository remoteRepository;
+
+    public RepositoryImpl(IAddOnRepository localRepository,
+                          IEnglishVideoRepository remoteRepository) {
+        this.localRepository = localRepository;
+        this.remoteRepository = remoteRepository;
+    }
 
     @Override
     public List<LessonInfo> getLessons() {
-        return null;
+
+        List<LessonInfo> lessons = localRepository.getLessons();
+        if (lessons.isEmpty()) {
+            lessons = remoteRepository.getLessons();
+            localRepository.save(lessons);
+        }
+        return lessons;
     }
 
     @Override
     public LessonMedia getLessonMediaById(Integer lessonId) {
-        return null;
+
+        LessonMedia media = localRepository.getLessonMediaById(lessonId);
+        if (!media.isSync()) {
+            media = remoteRepository.getLessonMediaById(media.getSlug(), media.getId());
+            localRepository.save(media);
+        }
+        return media;
     }
 
     @Override
     public List<LessonInfo> getLessonsByCategory(Integer categoryId) {
-        return null;
+
+        return localRepository.getLessonsByCategory(categoryId);
     }
 }

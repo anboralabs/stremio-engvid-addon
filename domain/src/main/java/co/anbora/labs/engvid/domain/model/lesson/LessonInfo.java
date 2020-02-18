@@ -14,5 +14,6 @@ public class LessonInfo {
     private Integer category;
     private String date;
     private String renderLink;
+    private String slug;
 
 }
