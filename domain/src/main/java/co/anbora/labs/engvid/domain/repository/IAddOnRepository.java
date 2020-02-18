@@ -1,5 +1,6 @@
 package co.anbora.labs.engvid.domain.repository;
 
+import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
 import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
 
@@ -15,6 +16,6 @@ public interface IAddOnRepository {
 
     List<LessonInfo> getLessonsByCategory(Integer categoryId);
 
-    LessonMedia getLessonMediaById(Integer lessonId);
+    Lesson getLessonMediaById(Integer lessonId);
 
 }

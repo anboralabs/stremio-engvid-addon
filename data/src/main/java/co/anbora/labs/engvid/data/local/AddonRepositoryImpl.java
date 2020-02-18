@@ -4,6 +4,7 @@ import co.anbora.labs.engvid.data.local.dao.LessonDao;
 import co.anbora.labs.engvid.data.local.model.LessonInfoVO;
 import co.anbora.labs.engvid.data.local.model.LessonMediaVO;
 import co.anbora.labs.engvid.data.local.model.LessonVO;
+import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
 import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
 import co.anbora.labs.engvid.domain.repository.IAddOnRepository;
@@ -15,19 +16,19 @@ public class AddonRepositoryImpl implements IAddOnRepository {
 
     private Function<LessonMedia, LessonMediaVO> lessonMediaToVOMapper;
     private Function<List<LessonInfo>, List<LessonInfoVO>> listLessonInfoToVOMapper;
-    private Function<LessonVO, LessonMedia> lessonVOtoMediaMapper;
+    private Function<LessonVO, Lesson> lessonVOMapper;
     private Function<List<LessonVO>, List<LessonInfo>> listLessonVOtoInfoMapper;
 
     private LessonDao lessonDao;
 
     public AddonRepositoryImpl(Function<LessonMedia, LessonMediaVO> lessonMediaToVOMapper,
                                Function<List<LessonInfo>, List<LessonInfoVO>> listLessonInfoToVOMapper,
-                               Function<LessonVO, LessonMedia> lessonVOtoMediaMapper,
+                               Function<LessonVO, Lesson> lessonVOMapper,
                                Function<List<LessonVO>, List<LessonInfo>> listLessonVOtoInfoMapper,
                                LessonDao lessonDao) {
         this.lessonMediaToVOMapper = lessonMediaToVOMapper;
         this.listLessonInfoToVOMapper = listLessonInfoToVOMapper;
-        this.lessonVOtoMediaMapper = lessonVOtoMediaMapper;
+        this.lessonVOMapper = lessonVOMapper;
         this.listLessonVOtoInfoMapper = listLessonVOtoInfoMapper;
         this.lessonDao = lessonDao;
     }
@@ -61,8 +62,8 @@ public class AddonRepositoryImpl implements IAddOnRepository {
     }
 
     @Override
-    public LessonMedia getLessonMediaById(Integer lessonId) {
-        return lessonVOtoMediaMapper.apply(
+    public Lesson getLessonMediaById(Integer lessonId) {
+        return lessonVOMapper.apply(
                 this.lessonDao.findById(lessonId)
         );
     }
