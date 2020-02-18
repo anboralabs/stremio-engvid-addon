@@ -1,23 +1,30 @@
 package co.anbora.labs.engvid.domain.usecase.lesson;
 
 import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
+import co.anbora.labs.engvid.domain.repository.IAddOnRepository;
 import co.anbora.labs.engvid.domain.repository.IEnglishVideoRepository;
 import co.anbora.labs.engvid.domain.usecase.UseCase;
 import lombok.Value;
 
 import java.util.List;
 
-public class SyncRemoteLessons extends UseCase<SyncRemoteLessons.Request, SyncRemoteLessons.Response> {
+public class SyncRemoteLessonsUseCase extends UseCase<SyncRemoteLessonsUseCase.Request, SyncRemoteLessonsUseCase.Response> {
 
+    private IAddOnRepository addOnRepository;
     private IEnglishVideoRepository englishVideoRepository;
 
-    public SyncRemoteLessons(IEnglishVideoRepository englishVideoRepository) {
+    public SyncRemoteLessonsUseCase(IAddOnRepository addOnRepository,
+                                    IEnglishVideoRepository englishVideoRepository) {
+        this.addOnRepository = addOnRepository;
         this.englishVideoRepository = englishVideoRepository;
     }
 
     @Override
     public Response execute(Request input) {
-        return new Response(this.englishVideoRepository.getLessons());
+
+        List<LessonInfo> lessons = this.englishVideoRepository.getLessons();
+        this.addOnRepository.save(lessons);
+        return new Response(lessons);
     }
 
     @Value
