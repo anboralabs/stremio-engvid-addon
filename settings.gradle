@@ -1,4 +1,4 @@
-rootProject.name = 'stremio-engvid-addon'
+include 'addon'
 include 'domain'
 include 'data'
 

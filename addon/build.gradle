@@ -41,6 +41,9 @@ dependencies {
     implementation 'io.micronaut.configuration:micronaut-flyway'
     //end::flyway[]
 
+    compile project(":data")
+    compile project(":domain")
+
     runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
     testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
