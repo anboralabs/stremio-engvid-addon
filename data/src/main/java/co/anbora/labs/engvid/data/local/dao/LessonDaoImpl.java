@@ -31,6 +31,8 @@ public class LessonDaoImpl implements LessonDao {
             lessons.forEach(lessonDao::insert);
             session.commit();
             session.clearCache();
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 

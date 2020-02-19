@@ -13,14 +13,14 @@ public interface LessonDao {
 
     @Insert("merge into lessons(lesson_id, title, description, publish_date, render_link, category_, slug, image_url) "
             + "key (lesson_id) "
-            + "values(#{lesson.lesson_id}, #{lesson.title}, #{lesson.description}, "
-            + "#{lesson.publish_date}, #{lesson.render_link}, #{lesson.category_}, #{lesson.slug}, #{lesson.imageUrl})")
+            + "values(#{lesson.id}, #{lesson.title}, #{lesson.description}, "
+            + "#{lesson.date}, #{lesson.renderLink}, #{lesson.category}, #{lesson.slug}, #{lesson.imageUrl})")
     void insert(@Param("lesson") LessonInfoVO video);
 
     void insert(List<LessonInfoVO> lessons);
 
     @Insert("merge into lessons(lesson_id, image_url, youtube_id, sync) key (lesson_id) "
-            + "values(#{lesson.lesson_id}, #{lesson.image_url}, #{lesson.youtube_id}, "
+            + "values(#{lesson.id}, #{lesson.imageUrl}, #{lesson.youtubeId}, "
             + "#{lesson.sync})")
     void insertMedia(@Param("lesson") LessonMediaVO video);
 
