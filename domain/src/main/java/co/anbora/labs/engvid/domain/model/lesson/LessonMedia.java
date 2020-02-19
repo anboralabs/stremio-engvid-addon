@@ -10,7 +10,6 @@ import java.util.Objects;
 public class LessonMedia {
 
     private Integer id;
-    private String slug;
     private String imageUrl;
     private String youtubeId;
     private Boolean sync;
