@@ -60,7 +60,7 @@ public class EnglishVideoRepositoryImpl implements IEnglishVideoRepository {
         return Try.ofFailable(() -> englishVideoAPI.getMediaInfoBySlug(slug).execute())
                 .filter(Response::isSuccessful)
                 .map(Response::body)
-                .map(response -> htmlMediaDTOMapper.apply(response, lessonId))
+                .map(response -> htmlMediaDTOMapper.apply(response.string(), lessonId))
                 .orElseThrow(LessonNotFoundException::new);
     }
 }

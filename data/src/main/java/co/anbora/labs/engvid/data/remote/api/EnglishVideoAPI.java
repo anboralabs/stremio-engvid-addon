@@ -1,6 +1,7 @@
 package co.anbora.labs.engvid.data.remote.api;
 
 import co.anbora.labs.engvid.data.remote.model.LessonInfoDTO;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -15,6 +16,6 @@ public interface EnglishVideoAPI {
                                                @Query("per_page") Integer maxItems);
 
     @GET("/{slug}/")
-    Call<String> getMediaInfoBySlug(@Path("slug") String slug);
+    Call<ResponseBody> getMediaInfoBySlug(@Path("slug") String slug);
 
 }
