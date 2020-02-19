@@ -10,11 +10,11 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class ListLessonVOMapper implements Function<List<LessonVO>, List<LessonInfo>> {
+public class ListLessonVOtoInfoMapper implements Function<List<LessonVO>, List<LessonInfo>> {
 
     private Function<LessonVO, LessonInfo> mapper;
 
-    public ListLessonVOMapper(Function<LessonVO, LessonInfo> mapper) {
+    public ListLessonVOtoInfoMapper(Function<LessonVO, LessonInfo> mapper) {
         this.mapper = mapper;
     }
 

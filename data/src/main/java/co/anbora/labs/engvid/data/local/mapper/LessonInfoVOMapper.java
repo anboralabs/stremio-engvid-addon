@@ -17,6 +17,7 @@ public class LessonInfoVOMapper implements Function<LessonInfoVO, LessonInfo> {
                     .date(lessonInfoVO.getDate())
                     .category(lessonInfoVO.getCategory())
                     .renderLink(lessonInfoVO.getRenderLink())
+                    .slug(lessonInfoVO.getSlug())
                     .build();
         }
         return null;
