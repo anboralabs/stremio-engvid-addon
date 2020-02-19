@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class StreamItem {
 
-    private final String url;
+    private final String ytId;
 
 }
