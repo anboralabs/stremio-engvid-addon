@@ -26,14 +26,14 @@ public class RepositoryImpl implements IRepository {
     }
 
     @Override
-    public List<LessonInfo> getLessons() {
+    public List<Lesson> getLessons() {
 
-        List<LessonInfo> lessons = localRepository.getLessons();
+        List<Lesson> lessons = localRepository.getLessons();
         if (lessons.isEmpty()) {
-            lessons = remoteRepository.getLessons();
-            localRepository.save(lessons);
+            List<LessonInfo> lessonInfos = remoteRepository.getLessons();
+            localRepository.save(lessonInfos);
         }
-        return lessons;
+        return localRepository.getLessons();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class RepositoryImpl implements IRepository {
     }
 
     @Override
-    public List<LessonInfo> getLessonsByCategory(Integer categoryId) {
+    public List<Lesson> getLessonsByCategory(Integer categoryId) {
 
         return localRepository.getLessonsByCategory(categoryId);
     }

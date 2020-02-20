@@ -17,19 +17,19 @@ public class AddonRepositoryImpl implements IAddOnRepository {
     private Function<LessonMedia, LessonMediaVO> lessonMediaToVOMapper;
     private Function<List<LessonInfo>, List<LessonInfoVO>> listLessonInfoToVOMapper;
     private Function<LessonVO, Lesson> lessonVOMapper;
-    private Function<List<LessonVO>, List<LessonInfo>> listLessonVOtoInfoMapper;
+    private Function<List<LessonVO>, List<Lesson>> listLessonVOMapper;
 
     private LessonDao lessonDao;
 
     public AddonRepositoryImpl(Function<LessonMedia, LessonMediaVO> lessonMediaToVOMapper,
                                Function<List<LessonInfo>, List<LessonInfoVO>> listLessonInfoToVOMapper,
                                Function<LessonVO, Lesson> lessonVOMapper,
-                               Function<List<LessonVO>, List<LessonInfo>> listLessonVOtoInfoMapper,
+                               Function<List<LessonVO>, List<Lesson>> listLessonVOMapper,
                                LessonDao lessonDao) {
         this.lessonMediaToVOMapper = lessonMediaToVOMapper;
         this.listLessonInfoToVOMapper = listLessonInfoToVOMapper;
         this.lessonVOMapper = lessonVOMapper;
-        this.listLessonVOtoInfoMapper = listLessonVOtoInfoMapper;
+        this.listLessonVOMapper = listLessonVOMapper;
         this.lessonDao = lessonDao;
     }
 
@@ -48,15 +48,15 @@ public class AddonRepositoryImpl implements IAddOnRepository {
     }
 
     @Override
-    public List<LessonInfo> getLessons() {
-        return listLessonVOtoInfoMapper.apply(
+    public List<Lesson> getLessons() {
+        return listLessonVOMapper.apply(
                 this.lessonDao.findAll()
         );
     }
 
     @Override
-    public List<LessonInfo> getLessonsByCategory(Integer categoryId) {
-        return listLessonVOtoInfoMapper.apply(
+    public List<Lesson> getLessonsByCategory(Integer categoryId) {
+        return listLessonVOMapper.apply(
                 this.lessonDao.findAllByCategory(categoryId)
         );
     }
