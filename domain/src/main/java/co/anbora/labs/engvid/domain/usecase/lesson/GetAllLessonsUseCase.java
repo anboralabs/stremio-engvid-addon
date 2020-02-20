@@ -1,8 +1,7 @@
 package co.anbora.labs.engvid.domain.usecase.lesson;
 
 import co.anbora.labs.engvid.domain.model.Lesson;
-import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
-import co.anbora.labs.engvid.domain.repository.IAddOnRepository;
+import co.anbora.labs.engvid.domain.repository.IRepository;
 import co.anbora.labs.engvid.domain.usecase.UseCase;
 import lombok.Value;
 
@@ -12,9 +11,9 @@ import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCat
 
 public class GetAllLessonsUseCase extends UseCase<GetAllLessonsUseCase.Request, GetAllLessonsUseCase.Response> {
 
-    private IAddOnRepository repository;
+    private IRepository repository;
 
-    public GetAllLessonsUseCase(IAddOnRepository repository) {
+    public GetAllLessonsUseCase(IRepository repository) {
         this.repository = repository;
     }
 

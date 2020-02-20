@@ -2,8 +2,7 @@ package co.anbora.labs.engvid.domain.usecase.lesson;
 
 import co.anbora.labs.engvid.domain.model.EnglishLevel;
 import co.anbora.labs.engvid.domain.model.Lesson;
-import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
-import co.anbora.labs.engvid.domain.repository.IAddOnRepository;
+import co.anbora.labs.engvid.domain.repository.IRepository;
 import co.anbora.labs.engvid.domain.usecase.UseCase;
 import lombok.Value;
 
@@ -14,9 +13,9 @@ import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCat
 
 public class GetLessonsByCategoryUseCase extends UseCase<GetLessonsByCategoryUseCase.Request, GetLessonsByCategoryUseCase.Response> {
 
-    private IAddOnRepository repository;
+    private IRepository repository;
 
-    public GetLessonsByCategoryUseCase(IAddOnRepository repository) {
+    public GetLessonsByCategoryUseCase(IRepository repository) {
         this.repository = repository;
     }
 
