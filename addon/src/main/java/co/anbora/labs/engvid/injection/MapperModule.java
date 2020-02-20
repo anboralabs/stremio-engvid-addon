@@ -78,4 +78,10 @@ public class MapperModule {
         return new HtmlToLessonMediaMapper();
     }
 
+    @Bean
+    @Singleton
+    ListLessonVOMapper provideListLessonVOMapper(LessonVOMapper lessonVOMapper) {
+        return new ListLessonVOMapper(lessonVOMapper);
+    }
+
 }

@@ -25,10 +25,10 @@ public class DataModule {
     IAddOnRepository provideLocalRepository(LessonMediaToVOMapper lessonMediaToVOMapper,
                                             ListLessonInfoToVOMapper listLessonInfoToVOMapper,
                                             LessonVOMapper lessonVOMapper,
-                                            ListLessonVOtoInfoMapper listLessonVOtoInfoMapper,
+                                            ListLessonVOMapper listLessonVOMapper,
                                             LessonDao lessonDao) {
         return new AddonRepositoryImpl(lessonMediaToVOMapper, listLessonInfoToVOMapper,
-                lessonVOMapper, listLessonVOtoInfoMapper, lessonDao);
+                lessonVOMapper, listLessonVOMapper, lessonDao);
     }
 
     @Bean
