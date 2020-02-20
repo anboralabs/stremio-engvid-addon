@@ -1,6 +1,7 @@
 package co.anbora.labs.engvid.domain.usecase.lesson;
 
 import co.anbora.labs.engvid.domain.model.EnglishLevel;
+import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
 import co.anbora.labs.engvid.domain.repository.IAddOnRepository;
 import co.anbora.labs.engvid.domain.usecase.UseCase;
@@ -42,6 +43,6 @@ public class GetLessonsByCategoryUseCase extends UseCase<GetLessonsByCategoryUse
 
     @Value
     public static class Response implements UseCase.OutputValues {
-        private List<LessonInfo> lessons;
+        private List<Lesson> lessons;
     }
 }

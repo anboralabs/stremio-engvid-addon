@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface IRepository {
 
-    List<LessonInfo> getLessons();
+    List<Lesson> getLessons();
 
     Lesson getLessonById(Integer lessonId);
 
-    List<LessonInfo> getLessonsByCategory(Integer categoryId);
+    List<Lesson> getLessonsByCategory(Integer categoryId);
 }

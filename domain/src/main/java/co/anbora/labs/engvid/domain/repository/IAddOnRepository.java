@@ -12,9 +12,9 @@ public interface IAddOnRepository {
 
     void save(List<LessonInfo> lessons);
 
-    List<LessonInfo> getLessons();
+    List<Lesson> getLessons();
 
-    List<LessonInfo> getLessonsByCategory(Integer categoryId);
+    List<Lesson> getLessonsByCategory(Integer categoryId);
 
     Lesson getLessonMediaById(Integer lessonId);
 

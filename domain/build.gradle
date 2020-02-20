@@ -13,6 +13,8 @@ repositories {
 
 dependencies {
 
+    compile group: 'com.jason-goodwin', name: 'better-monads', version: '0.4.1'
+
     compileOnly 'org.projectlombok:lombok:1.18.10'
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
 
