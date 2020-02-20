@@ -1,25 +1,22 @@
 package co.anbora.labs.engvid.data.local.model;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@Builder
+@AllArgsConstructor
 public class LessonVO {
 
-    private Integer id;
+    private Long id;
     private String title;
     private String description;
-    private Integer category;
     private String date;
     private String renderLink;
+    private Long category;
     private String slug;
+    private String defaultImage;
     private String imageUrl;
     private String youtubeId;
     private Boolean sync;
-
-    public boolean isSync() {
-        return sync;
-    }
 
 }

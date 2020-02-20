@@ -9,6 +9,6 @@ public interface IEnglishVideoRepository {
 
     List<LessonInfo> getLessons();
 
-    LessonMedia getLessonMediaById(String slug, Integer lessonId);
+    LessonMedia getLessonMediaById(String slug, Long lessonId);
 
 }

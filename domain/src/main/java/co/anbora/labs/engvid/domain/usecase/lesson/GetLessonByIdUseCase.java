@@ -21,7 +21,7 @@ public class GetLessonByIdUseCase extends UseCase<GetLessonByIdUseCase.Request, 
     @Override
     public Response execute(Request input) {
         if (MOVIE.equals(input.type)) {
-            return Try.ofFailable(() -> Integer.parseInt(input.type))
+            return Try.ofFailable(() -> Integer.parseInt(input.id))
                         .map(this.repository::getLessonById)
                         .map(Response::new)
                         .orElseThrow(LessonNotFoundException::new);

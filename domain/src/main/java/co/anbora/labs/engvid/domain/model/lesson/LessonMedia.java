@@ -9,7 +9,7 @@ import java.util.Objects;
 @Builder
 public class LessonMedia {
 
-    private Integer id;
+    private Long id;
     private String imageUrl;
     private String youtubeId;
     private Boolean sync;

@@ -20,13 +20,13 @@ import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstants.MAX_P
 public class EnglishVideoRepositoryImpl implements IEnglishVideoRepository {
 
     private Function<List<LessonInfoDTO>, List<LessonInfo>> listLessonInfoDTOMapper;
-    private BiFunction<String, Integer, LessonMedia> htmlMediaDTOMapper;
+    private BiFunction<String, Long, LessonMedia> htmlMediaDTOMapper;
 
     private EnglishVideoAPI englishVideoAPI;
 
     public EnglishVideoRepositoryImpl(EnglishVideoAPI englishVideoAPI,
                                       Function<List<LessonInfoDTO>, List<LessonInfo>> listLessonInfoDTOMapper,
-                                      BiFunction<String, Integer, LessonMedia> htmlMediaDTOMapper) {
+                                      BiFunction<String, Long, LessonMedia> htmlMediaDTOMapper) {
         this.englishVideoAPI = englishVideoAPI;
         this.listLessonInfoDTOMapper = listLessonInfoDTOMapper;
         this.htmlMediaDTOMapper = htmlMediaDTOMapper;
@@ -52,11 +52,11 @@ public class EnglishVideoRepositoryImpl implements IEnglishVideoRepository {
     }
 
     @Override
-    public LessonMedia getLessonMediaById(String slug, Integer lessonId) {
+    public LessonMedia getLessonMediaById(String slug, Long lessonId) {
         return getMediaFromApi(slug, lessonId);
     }
 
-    private LessonMedia getMediaFromApi(String slug, Integer lessonId) {
+    private LessonMedia getMediaFromApi(String slug, Long lessonId) {
         return Try.ofFailable(() -> englishVideoAPI.getMediaInfoBySlug(slug).execute())
                 .filter(Response::isSuccessful)
                 .map(Response::body)

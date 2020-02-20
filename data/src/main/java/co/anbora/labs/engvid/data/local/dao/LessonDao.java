@@ -11,10 +11,10 @@ import java.util.List;
 
 public interface LessonDao {
 
-    @Insert("merge into lessons(lesson_id, title, description, publish_date, render_link, category_, slug, image_url) "
+    @Insert("merge into lessons(lesson_id, title, description, publish_date, render_link, category_, slug, default_image) "
             + "key (lesson_id) "
             + "values(#{lesson.id}, #{lesson.title}, #{lesson.description}, "
-            + "#{lesson.date}, #{lesson.renderLink}, #{lesson.category}, #{lesson.slug}, #{lesson.imageUrl})")
+            + "#{lesson.date}, #{lesson.renderLink}, #{lesson.category}, #{lesson.slug}, #{lesson.defaultImage})")
     void insert(@Param("lesson") LessonInfoVO video);
 
     void insert(List<LessonInfoVO> lessons);
@@ -32,7 +32,7 @@ public interface LessonDao {
     @Select("select * from lessons")
     List<LessonVO> findAll();
 
-    @Select("select * from lessons where category_ = #{categoryId} and sync = true")
+    @Select("select * from lessons where category_ = #{categoryId}")
     List<LessonVO> findAllByCategory(@Param("categoryId") Integer id);
 
 }

@@ -4,6 +4,7 @@ import co.anbora.labs.engvid.data.local.mapper.*;
 import co.anbora.labs.engvid.data.remote.mapper.HtmlToLessonMediaMapper;
 import co.anbora.labs.engvid.data.remote.mapper.LessonInfoDTOMapper;
 import co.anbora.labs.engvid.data.remote.mapper.ListLessonInfoDTOMapper;
+import co.anbora.labs.engvid.domain.mapper.LessonMediaMapper;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
 
@@ -58,6 +59,12 @@ public class MapperModule {
     @Singleton
     ListLessonVOMapper provideListLessonVOMapper(LessonVOMapper lessonVOMapper) {
         return new ListLessonVOMapper(lessonVOMapper);
+    }
+
+    @Bean
+    @Singleton
+    LessonMediaMapper provideLessonMediaMapper() {
+        return new LessonMediaMapper();
     }
 
 }

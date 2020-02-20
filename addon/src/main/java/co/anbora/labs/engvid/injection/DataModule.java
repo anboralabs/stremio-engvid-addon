@@ -1,5 +1,6 @@
 package co.anbora.labs.engvid.injection;
 
+import co.anbora.labs.engvid.data.RepositoryImpl;
 import co.anbora.labs.engvid.data.local.AddonRepositoryImpl;
 import co.anbora.labs.engvid.data.local.dao.LessonDao;
 import co.anbora.labs.engvid.data.local.mapper.*;
@@ -7,11 +8,10 @@ import co.anbora.labs.engvid.data.remote.EnglishVideoRepositoryImpl;
 import co.anbora.labs.engvid.data.remote.api.EnglishVideoAPI;
 import co.anbora.labs.engvid.data.remote.mapper.HtmlToLessonMediaMapper;
 import co.anbora.labs.engvid.data.remote.mapper.ListLessonInfoDTOMapper;
+import co.anbora.labs.engvid.domain.mapper.LessonMediaMapper;
 import co.anbora.labs.engvid.domain.repository.IAddOnRepository;
 import co.anbora.labs.engvid.domain.repository.IEnglishVideoRepository;
-import co.anbora.labs.engvid.domain.usecase.lesson.GetAllLessonsUseCase;
-import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonByIdUseCase;
-import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonsByCategoryUseCase;
+import co.anbora.labs.engvid.domain.repository.IRepository;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
 
@@ -39,6 +39,14 @@ public class DataModule {
         return new EnglishVideoRepositoryImpl(englishVideoAPI,
                 listLessonInfoDTOMapper,
                 htmlMediaMapper);
+    }
+
+    @Bean
+    @Singleton
+    IRepository provideRepository(IAddOnRepository local,
+                                  IEnglishVideoRepository remote,
+                                  LessonMediaMapper mapper) {
+        return new RepositoryImpl(local, remote, mapper);
     }
 
 }

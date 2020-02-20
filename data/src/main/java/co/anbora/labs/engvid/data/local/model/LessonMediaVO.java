@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class LessonMediaVO {
 
-    private Integer id;
+    private Long id;
     private String imageUrl;
     private String youtubeId;
     private Boolean sync;

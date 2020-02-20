@@ -14,7 +14,7 @@ public class LessonInfoVO {
     private String date;
     private String renderLink;
     private String slug;
-    private String imageUrl;
+    private String defaultImage;
 
     public LessonInfoVO(Integer id,
                         String title,
@@ -27,6 +27,6 @@ public class LessonInfoVO {
         this.date = date;
         this.renderLink = renderLink;
         this.slug = slug;
-        this.imageUrl = DEFAULT_IMAGE;
+        this.defaultImage = DEFAULT_IMAGE;
     }
 }

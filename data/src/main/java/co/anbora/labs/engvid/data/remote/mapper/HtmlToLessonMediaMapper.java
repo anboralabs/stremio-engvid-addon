@@ -9,9 +9,12 @@ import org.jsoup.nodes.Element;
 import java.util.Objects;
 import java.util.function.BiFunction;
 
-public class HtmlToLessonMediaMapper implements BiFunction<String, Integer, LessonMedia> {
+import static co.anbora.labs.engvid.domain.constants.Constants.EMPTY_VALUE;
+import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstants.YOUTUBE_EMBED_URL;
+
+public class HtmlToLessonMediaMapper implements BiFunction<String, Long, LessonMedia> {
     @Override
-    public LessonMedia apply(String html, Integer lessonId) {
+    public LessonMedia apply(String html, Long lessonId) {
         if (Objects.nonNull(html)) {
             Document mediaHtml = Jsoup.parse(html);
             Element video = getElement(mediaHtml, HtmlConstants.TWITTER_ATTR_PLAYER);
@@ -20,7 +23,7 @@ public class HtmlToLessonMediaMapper implements BiFunction<String, Integer, Less
             return LessonMedia.builder()
                     .id(lessonId)
                     .imageUrl(image.attr(HtmlConstants.CONTENT))
-                    .youtubeId(video.attr(HtmlConstants.CONTENT))
+                    .youtubeId(video.attr(HtmlConstants.CONTENT).replace(YOUTUBE_EMBED_URL, EMPTY_VALUE))
                     .sync(true)
                     .build();
         }

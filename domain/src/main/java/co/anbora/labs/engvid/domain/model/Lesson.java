@@ -9,10 +9,10 @@ import java.util.Objects;
 @Builder
 public class Lesson {
 
-    private Integer id;
+    private Long id;
     private String title;
     private String description;
-    private Integer category;
+    private Long category;
     private String date;
     private String renderLink;
     private String slug;
