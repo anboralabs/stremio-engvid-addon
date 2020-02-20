@@ -32,32 +32,8 @@ public class MapperModule {
 
     @Bean
     @Singleton
-    LessonInfoVOMapper provideLessonInfoVOMapper() {
-        return new LessonInfoVOMapper();
-    }
-
-    @Bean
-    @Singleton
-    ListLessonInfoVOMapper provideListLessonInfoVOMapper(LessonInfoVOMapper lessonInfoVOMapper) {
-        return new ListLessonInfoVOMapper(lessonInfoVOMapper);
-    }
-
-    @Bean
-    @Singleton
     LessonVOMapper provideLessonVOMapper() {
         return new LessonVOMapper();
-    }
-
-    @Bean
-    @Singleton
-    LessonVOtoInfoMapper provideLessonVOtoInfoMapper() {
-        return new LessonVOtoInfoMapper();
-    }
-
-    @Bean
-    @Singleton
-    ListLessonVOtoInfoMapper provideListLessonVOtoInfoMapper(LessonVOtoInfoMapper lessonVOtoInfoMapper) {
-        return new ListLessonVOtoInfoMapper(lessonVOtoInfoMapper);
     }
 
     @Bean
