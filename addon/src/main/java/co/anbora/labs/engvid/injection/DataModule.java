@@ -41,22 +41,4 @@ public class DataModule {
                 htmlMediaMapper);
     }
 
-    @Bean
-    @Singleton
-    GetAllLessonsUseCase provideGetAllLessonsUseCase(IAddOnRepository repository) {
-        return new GetAllLessonsUseCase(repository);
-    }
-
-    @Bean
-    @Singleton
-    GetLessonByIdUseCase provideGetLessonByIdUseCase(IAddOnRepository repository) {
-        return new GetLessonByIdUseCase(repository);
-    }
-
-    @Bean
-    @Singleton
-    GetLessonsByCategoryUseCase provideGetLessonsByCategoryUseCase(IAddOnRepository repository) {
-        return new GetLessonsByCategoryUseCase(repository);
-    }
-
 }
