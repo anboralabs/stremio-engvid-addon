@@ -1,7 +1,9 @@
 package co.anbora.labs.engvid.controller;
 
+import co.anbora.labs.engvid.domain.model.LessonVideo;
 import co.anbora.labs.engvid.domain.model.stremio.CatalogContainer;
 import co.anbora.labs.engvid.domain.model.stremio.Manifest;
+import co.anbora.labs.engvid.domain.model.stremio.MetaVideo;
 import co.anbora.labs.engvid.domain.model.stremio.Stream;
 import co.anbora.labs.engvid.domain.usecase.UseCaseExecutor;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetAllLessonsUseCase;
@@ -50,6 +52,16 @@ public class AddonController {
         return useCaseExecutor.execute(getAllLessonsUseCase,
                 new GetAllLessonsUseCase.Request(type, id, extra),
                 response -> CatalogContainer.from(response.getLessons()));
+    }
+
+    @Get("/meta/{type}/{id}.json")
+    public CompletableFuture<MetaVideo> infoVideo(String type, String id) {
+        return useCaseExecutor.execute(getLessonByIdUseCase,
+                new GetLessonByIdUseCase.Request(type, id),
+                response -> MetaVideo.from(
+                        LessonVideo.from(response.getLesson())
+                )
+        );
     }
 
     @Get("/stream/{type}/{id}.json")

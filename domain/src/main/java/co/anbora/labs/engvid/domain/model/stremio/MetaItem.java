@@ -12,5 +12,6 @@ public class MetaItem {
     protected String name;
     protected String poster;
     protected String description;
+    protected String background;
 
 }

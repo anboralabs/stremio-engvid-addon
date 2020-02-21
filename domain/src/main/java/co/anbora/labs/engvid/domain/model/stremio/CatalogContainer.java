@@ -19,7 +19,7 @@ public class CatalogContainer {
 
     public void addMovie(Lesson lesson) {
         metas.add(new LessonVideo(lesson.getId().toString(), lesson.getTitle(),
-                lesson.getImageUrl(), lesson.getDescription()));
+                lesson.getImageUrl(), lesson.getDescription(), lesson.getImageUrl()));
     }
 
     public static CatalogContainer from(List<Lesson> lessons) {
