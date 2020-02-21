@@ -46,8 +46,6 @@ public class UntrustedSSLClient {
                     return true;
                 }
             });
-            Proxy proxy = new Proxy(Proxy.Type.HTTP,  new InetSocketAddress("127.0.0.1", 8888));
-            builder.proxy(proxy);
 
             OkHttpClient okHttpClient = builder.build();
             return okHttpClient;
