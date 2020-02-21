@@ -20,7 +20,7 @@ public class AddonControllerTest {
     @Test
     public void testIndex() throws Exception {
         try(RxHttpClient client = embeddedServer.getApplicationContext().createBean(RxHttpClient.class, embeddedServer.getURL())) {
-            assertEquals(HttpStatus.OK, client.toBlocking().exchange("/addon").status());
+            assertEquals(HttpStatus.OK, client.toBlocking().exchange("/").status());
         }
     }
 }
