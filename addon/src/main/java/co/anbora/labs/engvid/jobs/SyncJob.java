@@ -4,13 +4,14 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import co.anbora.labs.engvid.domain.usecase.UseCaseExecutor;
+import co.anbora.labs.engvid.domain.usecase.lesson.SyncLessonsAtStartupUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.SyncRemoteLessonsUseCase;
 import io.micronaut.scheduling.annotation.Scheduled;
 
 import java.util.function.Function;
 
 @Singleton
-public class CrawlerJob {
+public class SyncJob {
 
     @Inject
     UseCaseExecutor useCaseExecutor;
@@ -18,8 +19,20 @@ public class CrawlerJob {
     @Inject
     SyncRemoteLessonsUseCase syncRemoteLessonsUseCase;
 
-    @Scheduled(fixedRate = "5m")
-    public void process() {
+    @Inject
+    SyncLessonsAtStartupUseCase syncLessonsAtStartupUseCase;
+
+    @Scheduled(fixedRate = "1440m")
+    public void daily() {
+        useCaseExecutor.execute(
+                syncLessonsAtStartupUseCase,
+                new SyncLessonsAtStartupUseCase.Request(),
+                Function.identity()
+        );
+    }
+
+    @Scheduled(cron = "0 0 * * 0")
+    public void weekly() {
         useCaseExecutor.execute(
                 syncRemoteLessonsUseCase,
                 new SyncRemoteLessonsUseCase.Request(),

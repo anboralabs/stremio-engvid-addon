@@ -3,10 +3,7 @@ package co.anbora.labs.engvid.injection;
 import co.anbora.labs.engvid.domain.repository.IAddOnRepository;
 import co.anbora.labs.engvid.domain.repository.IEnglishVideoRepository;
 import co.anbora.labs.engvid.domain.repository.IRepository;
-import co.anbora.labs.engvid.domain.usecase.lesson.GetAllLessonsUseCase;
-import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonByIdUseCase;
-import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonsByCategoryUseCase;
-import co.anbora.labs.engvid.domain.usecase.lesson.SyncRemoteLessonsUseCase;
+import co.anbora.labs.engvid.domain.usecase.lesson.*;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
 
@@ -20,6 +17,13 @@ public class DomainModule {
     SyncRemoteLessonsUseCase provideSyncLessonUseCase(IAddOnRepository localRepository,
                                                       IEnglishVideoRepository remoteRepository) {
         return new SyncRemoteLessonsUseCase(localRepository, remoteRepository);
+    }
+
+    @Bean
+    @Singleton
+    SyncLessonsAtStartupUseCase provideSyncLessonsAtStartupUseCase(IAddOnRepository localRepository,
+                                                                   IEnglishVideoRepository remoteRepository) {
+        return new SyncLessonsAtStartupUseCase(localRepository, remoteRepository);
     }
 
     @Bean
