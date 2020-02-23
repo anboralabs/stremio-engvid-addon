@@ -1,9 +1,7 @@
 package co.anbora.labs.engvid.domain.usecase.lesson;
 
 import co.anbora.labs.engvid.domain.model.Lesson;
-import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
-import co.anbora.labs.engvid.domain.repository.IAddOnRepository;
-import co.anbora.labs.engvid.domain.repository.IEnglishVideoRepository;
+import co.anbora.labs.engvid.domain.repository.IRepository;
 import co.anbora.labs.engvid.domain.usecase.UseCase;
 import lombok.Value;
 
@@ -11,22 +9,16 @@ import java.util.List;
 
 public class SyncLessonsAtStartupUseCase extends UseCase<SyncLessonsAtStartupUseCase.Request, SyncLessonsAtStartupUseCase.Response> {
 
-    private IAddOnRepository addOnRepository;
-    private IEnglishVideoRepository englishVideoRepository;
+    private IRepository repository;
 
-    public SyncLessonsAtStartupUseCase(IAddOnRepository addOnRepository, IEnglishVideoRepository englishVideoRepository) {
-        this.addOnRepository = addOnRepository;
-        this.englishVideoRepository = englishVideoRepository;
+    public SyncLessonsAtStartupUseCase(IRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public Response execute(Request input) {
-        List<Lesson> lessons = this.addOnRepository.getLessons();
-        if (lessons.isEmpty()) {
-            List<LessonInfo> remotes = this.englishVideoRepository.getLessons();
-            this.addOnRepository.save(remotes);
-        }
-        return new Response(lessons);
+
+        return new Response(this.repository.getLessons());
     }
 
     @Value

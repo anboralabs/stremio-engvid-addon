@@ -21,9 +21,8 @@ public class DomainModule {
 
     @Bean
     @Singleton
-    SyncLessonsAtStartupUseCase provideSyncLessonsAtStartupUseCase(IAddOnRepository localRepository,
-                                                                   IEnglishVideoRepository remoteRepository) {
-        return new SyncLessonsAtStartupUseCase(localRepository, remoteRepository);
+    SyncLessonsAtStartupUseCase provideSyncLessonsAtStartupUseCase(IRepository repository) {
+        return new SyncLessonsAtStartupUseCase(repository);
     }
 
     @Bean
