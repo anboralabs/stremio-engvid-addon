@@ -9,6 +9,9 @@ public class StremioConstants {
 
     private StremioConstants() {}
 
+    public static final int MIN_EXTRAS = 1;
+    public static final String SEARCH = "search";
+
     public interface Plugin {
         String ID = "co.anbora.labs.engvid.videos";
         String VERSION = "1.0.0";
@@ -18,9 +21,9 @@ public class StremioConstants {
         String[] RESOURCES = new String[] {"catalog", "meta", "stream"};
         String[] TYPES = new String[] {"movie"};
         Catalog[] CATALOGS = new Catalog[] {
-                new Catalog(StremioCatalog.MOVIE, StremioCatalog.BEGINNER_ID_CATALOG, "Beginner Lessons Catalog", new String[] {}, new String[0], new String[] {"search"}),
-                new Catalog(StremioCatalog.MOVIE, StremioCatalog.INTERMEDIATE_ID_CATALOG, "Intermediate Lessons Catalog", new String[] {}, new String[0], new String[] {"search"}),
-                new Catalog(StremioCatalog.MOVIE, StremioCatalog.ADVANCED_ID_CATALOG, "Advanced Lessons Catalog", new String[] {}, new String[0], new String[] {"search"})
+                new Catalog(StremioCatalog.MOVIE, StremioCatalog.BEGINNER_ID_CATALOG, "Beginner Lessons Catalog", new String[] {}, new String[0], new String[] {SEARCH}),
+                new Catalog(StremioCatalog.MOVIE, StremioCatalog.INTERMEDIATE_ID_CATALOG, "Intermediate Lessons Catalog", new String[] {}, new String[0], new String[] {SEARCH}),
+                new Catalog(StremioCatalog.MOVIE, StremioCatalog.ADVANCED_ID_CATALOG, "Advanced Lessons Catalog", new String[] {}, new String[0], new String[] {SEARCH})
         };
         String BACKGROUND = "";
         String LOGO = DEFAULT_IMAGE;
