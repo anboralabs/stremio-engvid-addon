@@ -29,10 +29,10 @@ public interface LessonDao {
     @Select("select * from lessons where lesson_id = #{lessonId}")
     LessonVO findById(@Param("lessonId") Integer id);
 
-    @Select("select * from lessons")
+    @Select("select * from lessons order by publish_date desc")
     List<LessonVO> findAll();
 
-    @Select("select * from lessons where category_ = #{categoryId}")
+    @Select("select * from lessons where category_ = #{categoryId} order by publish_date desc")
     List<LessonVO> findAllByCategory(@Param("categoryId") Integer id);
 
 }
