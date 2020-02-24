@@ -9,7 +9,6 @@ import co.anbora.labs.engvid.domain.usecase.UseCaseExecutor;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetAllLessonsUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonByIdUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonsByCategoryUseCase;
-import io.micronaut.cache.annotation.CacheConfig;
 import io.micronaut.cache.annotation.Cacheable;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
@@ -17,7 +16,6 @@ import io.micronaut.http.annotation.Get;
 import javax.inject.Inject;
 import java.util.concurrent.CompletableFuture;
 
-@CacheConfig("addon-cache")
 @Controller()
 public class AddonController {
 
@@ -42,7 +40,6 @@ public class AddonController {
         return CompletableFuture.supplyAsync(() -> manifest);
     }
 
-    @Cacheable
     @Get("/catalog/{type}/{id}.json")
     public CompletableFuture<CatalogContainer> allVideos(String type, String id) {
         return useCaseExecutor.execute(getLessonsByCategoryUseCase,
