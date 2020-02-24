@@ -4,6 +4,9 @@ micronaut:
       enabled: true
   application:
     name: api
+  caches:
+    addon-cache:
+      expire-after-write: "24h"
 ---
 engvid:
   url: "https://www.engvid.com"

@@ -9,12 +9,15 @@ import co.anbora.labs.engvid.domain.usecase.UseCaseExecutor;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetAllLessonsUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonByIdUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonsByCategoryUseCase;
+import io.micronaut.cache.annotation.CacheConfig;
+import io.micronaut.cache.annotation.Cacheable;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 
 import javax.inject.Inject;
 import java.util.concurrent.CompletableFuture;
 
+@CacheConfig("addon-cache")
 @Controller()
 public class AddonController {
 
@@ -39,6 +42,7 @@ public class AddonController {
         return CompletableFuture.supplyAsync(() -> manifest);
     }
 
+    @Cacheable
     @Get("/catalog/{type}/{id}.json")
     public CompletableFuture<CatalogContainer> allVideos(String type, String id) {
         return useCaseExecutor.execute(getLessonsByCategoryUseCase,
@@ -54,6 +58,7 @@ public class AddonController {
                 response -> CatalogContainer.from(response.getLessons()));
     }
 
+    @Cacheable(value = "addon-cache", parameters = "id")
     @Get("/meta/{type}/{id}.json")
     public CompletableFuture<MetaVideo> infoVideo(String type, String id) {
         return useCaseExecutor.execute(getLessonByIdUseCase,
@@ -64,6 +69,7 @@ public class AddonController {
         );
     }
 
+    @Cacheable
     @Get("/stream/{type}/{id}.json")
     public CompletableFuture<Stream> stream(String type, String id) {
         return useCaseExecutor.execute(getLessonByIdUseCase,
