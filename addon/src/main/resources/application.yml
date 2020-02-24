@@ -6,7 +6,7 @@ micronaut:
     name: api
   caches:
     addon-cache:
-      expire-after-write: "24h"
+      expire-after-write: "60m"
 ---
 engvid:
   url: "https://www.engvid.com"
