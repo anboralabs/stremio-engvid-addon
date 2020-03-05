@@ -1,0 +1,55 @@
+package co.anbora.labs.engvid.domain.usecase.lesson;
+
+import co.anbora.labs.engvid.domain.CommonValuesForTests;
+import co.anbora.labs.engvid.domain.constants.StremioConstants;
+import co.anbora.labs.engvid.domain.exceptions.LessonNotFoundException;
+import co.anbora.labs.engvid.domain.model.Lesson;
+import co.anbora.labs.engvid.domain.repository.IRepository;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+
+@RunWith(MockitoJUnitRunner.class)
+public class GetLessonByIdUseCaseTest {
+
+    private IRepository repository = Mockito.mock(IRepository.class);
+    private final int LESSON_ID = 6716;
+    private GetLessonByIdUseCase getLessonByIdUseCase;
+
+    @Before
+    public void setUp() throws Exception {
+        getLessonByIdUseCase = new GetLessonByIdUseCase(repository);
+        Mockito.when(repository.getLessonById(LESSON_ID)).thenReturn(CommonValuesForTests.provideBeginnerLesson());
+    }
+
+    @Test
+    public void givenANoMovieCategoryReturnEmptyResponse() {
+
+        GetLessonByIdUseCase.Request request = new GetLessonByIdUseCase.Request("serie", "1");
+        GetLessonByIdUseCase.Response response = getLessonByIdUseCase.execute(request);
+        Assert.assertNull(response.getLesson());
+    }
+
+    @Test(expected = LessonNotFoundException.class)
+    public void givenAnInvalidIdThrowsLessonNotFoundException() {
+
+        GetLessonByIdUseCase.Request request =
+                new GetLessonByIdUseCase.Request(StremioConstants.StremioCatalog.MOVIE, "invalid");
+        GetLessonByIdUseCase.Response response = getLessonByIdUseCase.execute(request);
+    }
+
+    @Test
+    public void givenAValidIdReturnLesson() {
+
+        Lesson lesson = CommonValuesForTests.provideBeginnerLesson();
+
+        GetLessonByIdUseCase.Request request =
+                new GetLessonByIdUseCase.Request(StremioConstants.StremioCatalog.MOVIE, "6716");
+        GetLessonByIdUseCase.Response response = getLessonByIdUseCase.execute(request);
+        Assert.assertEquals(response.getLesson(), lesson);
+    }
+
+}
