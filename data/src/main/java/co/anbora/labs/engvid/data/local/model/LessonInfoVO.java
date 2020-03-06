@@ -1,12 +1,14 @@
 package co.anbora.labs.engvid.data.local.model;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstants.DEFAULT_IMAGE;
 
 @Getter
 @AllArgsConstructor
+@EqualsAndHashCode
 public class LessonInfoVO {
 
     private Integer id;
