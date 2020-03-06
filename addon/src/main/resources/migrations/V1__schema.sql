@@ -14,8 +14,7 @@ CREATE TABLE lessons (
   render_link VARCHAR(255)       NOT NULL,
   category_ BIGINT               NOT NULL,
   slug VARCHAR(255)              NOT NULL,
-  default_image VARCHAR(255)     NOT NULL,
-  image_url VARCHAR(255)         ,
+  image_url VARCHAR(255)         NOT NULL DEFAULT 'https://www.engvid.com/wp-content/themes/engvid2/images/engvid.png',
   youtube_id VARCHAR(255)        ,
   sync BOOLEAN                   NOT NULL DEFAULT false,
   constraint FKM1T3YVW5I7OLWDF32CWUUL7TA foreign key (category_) references categories(category_id)

@@ -10,15 +10,13 @@ public class LessonVOMapper implements Function<LessonVO, Lesson> {
     @Override
     public Lesson apply(LessonVO lessonVO) {
         if (Objects.nonNull(lessonVO)) {
-            String imageUrl = lessonVO.getImageUrl() != null ?
-                    lessonVO.getImageUrl() : lessonVO.getDefaultImage();
             return Lesson.builder()
                     .id(lessonVO.getId())
                     .title(lessonVO.getTitle())
                     .description(lessonVO.getDescription())
                     .date(lessonVO.getDate())
                     .category(lessonVO.getCategory())
-                    .imageUrl(imageUrl)
+                    .imageUrl(lessonVO.getImageUrl())
                     .renderLink(lessonVO.getRenderLink())
                     .slug(lessonVO.getSlug())
                     .youtubeId(lessonVO.getYoutubeId())

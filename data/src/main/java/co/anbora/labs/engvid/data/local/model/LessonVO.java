@@ -14,7 +14,6 @@ public class LessonVO {
     private String renderLink;
     private Long category;
     private String slug;
-    private String defaultImage;
     private String imageUrl;
     private String youtubeId;
     private Boolean sync;

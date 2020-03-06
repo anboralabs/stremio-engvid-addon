@@ -11,10 +11,10 @@ import java.util.List;
 
 public interface LessonDao {
 
-    @Insert("merge into lessons(lesson_id, title, description, publish_date, render_link, category_, slug, default_image) "
+    @Insert("merge into lessons(lesson_id, title, description, publish_date, render_link, category_, slug) "
             + "key (lesson_id) "
             + "values(#{lesson.id}, #{lesson.title}, #{lesson.description}, "
-            + "#{lesson.date}, #{lesson.renderLink}, #{lesson.category}, #{lesson.slug}, #{lesson.defaultImage})")
+            + "#{lesson.date}, #{lesson.renderLink}, #{lesson.category}, #{lesson.slug})")
     void insert(@Param("lesson") LessonInfoVO video);
 
     void insert(List<LessonInfoVO> lessons);
