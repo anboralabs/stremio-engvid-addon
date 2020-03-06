@@ -37,4 +37,18 @@ public class LessonMediaToVOMapperTest {
 
         Assert.assertEquals(lessonMediaVO, mapper.apply(lessonMedia));
     }
+
+    @Test
+    public void givenALessonMediaReturnLessonMediaVOSync() {
+
+        LessonMedia lessonMedia = LessonMedia.builder()
+                .id(1L)
+                .imageUrl("image.jpg")
+                .youtubeId("youtubeId")
+                .build();
+
+        LessonMediaVO lessonMediaVO = new LessonMediaVO(1L, "image.jpg", "youtubeId", true);
+
+        Assert.assertEquals(lessonMediaVO, mapper.apply(lessonMedia));
+    }
 }
