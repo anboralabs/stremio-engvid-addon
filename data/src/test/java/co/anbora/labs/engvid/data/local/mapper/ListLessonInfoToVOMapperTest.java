@@ -22,7 +22,7 @@ public class ListLessonInfoToVOMapperTest {
     }
 
     @Test
-    public void givenAListLessonNullReturnNull() {
+    public void givenAListLessonInfoNullReturnNull() {
 
         Assert.assertNull(mapper.apply(null));
     }
