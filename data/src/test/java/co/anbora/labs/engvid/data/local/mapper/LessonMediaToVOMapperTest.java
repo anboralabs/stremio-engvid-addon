@@ -26,7 +26,7 @@ public class LessonMediaToVOMapperTest {
     }
 
     @Test
-    public void givenALessonMediaReturnLessonMediaVO() {
+    public void givenALessonMediaWithoutImageReturnLessonMediaVONotSync() {
 
         LessonMedia lessonMedia = LessonMedia.builder()
                 .id(1L)
@@ -39,7 +39,7 @@ public class LessonMediaToVOMapperTest {
     }
 
     @Test
-    public void givenALessonMediaReturnLessonMediaVOSync() {
+    public void givenALessonMediaWithImageReturnLessonMediaVOSync() {
 
         LessonMedia lessonMedia = LessonMedia.builder()
                 .id(1L)
