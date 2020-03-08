@@ -1,12 +1,14 @@
 package co.anbora.labs.engvid.domain.model.lesson;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.Objects;
 
 @Getter
 @Builder
+@EqualsAndHashCode
 public class LessonMedia {
 
     private Long id;
