@@ -62,7 +62,7 @@ public class AddonRepositoryImpl implements IAddOnRepository {
     }
 
     @Override
-    public Lesson getLessonMediaById(Integer lessonId) {
+    public Lesson getLessonById(Integer lessonId) {
         return lessonVOMapper.apply(
                 this.lessonDao.findById(lessonId)
         );

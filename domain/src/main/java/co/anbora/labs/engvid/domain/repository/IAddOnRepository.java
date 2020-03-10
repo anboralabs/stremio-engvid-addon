@@ -16,6 +16,6 @@ public interface IAddOnRepository {
 
     List<Lesson> getLessonsByCategory(Integer categoryId);
 
-    Lesson getLessonMediaById(Integer lessonId);
+    Lesson getLessonById(Integer lessonId);
 
 }

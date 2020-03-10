@@ -39,7 +39,7 @@ public class RepositoryImpl implements IRepository {
     @Override
     public Lesson getLessonById(Integer lessonId) {
 
-        Lesson media = localRepository.getLessonMediaById(lessonId);
+        Lesson media = localRepository.getLessonById(lessonId);
         if (!media.isSync()) {
             LessonMedia lessonMedia = remoteRepository.getLessonMediaById(media.getSlug(), media.getId());
             localRepository.save(lessonMedia);
