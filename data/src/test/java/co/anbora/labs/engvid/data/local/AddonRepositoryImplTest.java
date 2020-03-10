@@ -97,4 +97,45 @@ public class AddonRepositoryImplTest {
         Assert.assertEquals(Arrays.asList(lesson), this.addonRepository.getLessons());
     }
 
+    @Test
+    public void givenAValidIdLessonReturnLesson() {
+
+        int idLesson = 1;
+
+        LessonVO lessonVO = new LessonVO(
+                1L,  "test", "test",
+                null, null, null, null,
+                null, "youtubeId", null
+        );
+
+        Lesson lesson = Lesson.builder()
+                .id(1L)
+                .title("test")
+                .description("test")
+                .youtubeId("youtubeId")
+                .sync(true)
+                .build();
+
+        Mockito.when(lessonDao.findById(idLesson))
+                .thenReturn(lessonVO);
+        Assert.assertEquals(lesson, this.addonRepository.getLessonById(idLesson));
+    }
+
+    @Test
+    public void givenAnInvalidIdLessonReturnNull() {
+
+        int idLesson = 1;
+        int invalidId = 10;
+
+        LessonVO lessonVO = new LessonVO(
+                1L,  "test", "test",
+                null, null, null, null,
+                null, "youtubeId", null
+        );
+
+        Mockito.when(lessonDao.findById(idLesson))
+                .thenReturn(lessonVO);
+        Assert.assertNull(this.addonRepository.getLessonById(invalidId));
+    }
+
 }
