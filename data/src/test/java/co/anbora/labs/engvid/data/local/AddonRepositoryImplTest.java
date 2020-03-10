@@ -124,17 +124,10 @@ public class AddonRepositoryImplTest {
     @Test
     public void givenAnInvalidIdLessonReturnNull() {
 
-        int idLesson = 1;
         int invalidId = 10;
 
-        LessonVO lessonVO = new LessonVO(
-                1L,  "test", "test",
-                null, null, null, null,
-                null, "youtubeId", null
-        );
-
-        Mockito.when(lessonDao.findById(idLesson))
-                .thenReturn(lessonVO);
+        Mockito.when(lessonDao.findById(Mockito.anyInt()))
+                .thenReturn(null);
         Assert.assertNull(this.addonRepository.getLessonById(invalidId));
     }
 
