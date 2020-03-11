@@ -5,6 +5,7 @@ import co.anbora.labs.engvid.data.local.mapper.*;
 import co.anbora.labs.engvid.data.local.model.LessonInfoVO;
 import co.anbora.labs.engvid.data.local.model.LessonMediaVO;
 import co.anbora.labs.engvid.data.local.model.LessonVO;
+import co.anbora.labs.engvid.domain.model.EnglishLevel;
 import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
 import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
@@ -95,6 +96,28 @@ public class AddonRepositoryImplTest {
                 .thenReturn(Arrays.asList(lessonVO));
 
         Assert.assertEquals(Arrays.asList(lesson), this.addonRepository.getLessons());
+    }
+
+    @Test
+    public void getLessonsByCategoryFromLocalDB() {
+        LessonVO lessonVO = new LessonVO(
+                1L,  "test", "test",
+                null, null, null, null,
+                null, "youtubeId", null
+        );
+
+        Lesson lesson = Lesson.builder()
+                .id(1L)
+                .title("test")
+                .description("test")
+                .youtubeId("youtubeId")
+                .sync(true)
+                .build();
+
+        Mockito.when(lessonDao.findAllByCategory(EnglishLevel.BEGINNER.getId()))
+                .thenReturn(Arrays.asList(lessonVO));
+
+        Assert.assertEquals(Arrays.asList(lesson), this.addonRepository.getLessonsByCategory(EnglishLevel.BEGINNER.getId()));
     }
 
     @Test
