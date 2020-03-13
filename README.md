@@ -18,9 +18,8 @@ cd stremio-engvid-addon
 java -jar addon/build/libs/addon-0.1-all.jar
 ```
 or deploy on Heroku
-```
+
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-```
 
 ### Licence
 
