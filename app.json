@@ -1,0 +1,7 @@
+{
+  "name": "Stremio Engvid Addon",
+  "description": "Addon for stremio platform to learn English",
+  "repository": "https://github.com/anboralabs/stremio-engvid-addon.git",
+  "logo": "https://www.engvid.com/wp-content/themes/engvid2/images/engvid.png",
+  "keywords": ["Java", "Stremio", "Micronaut"]
+}
