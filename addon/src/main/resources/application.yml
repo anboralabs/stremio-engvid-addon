@@ -13,9 +13,9 @@ engvid:
 ---
 datasources:
   default:
-    url: ${DATABASE_JDBC_URL}
-    username: ${DATABASE_USER}
-    password: ${DATABASE_PASSWORD}
+    url: "${DATABASE_JDBC_URL:url}"
+    username: "${DATABASE_USER:user}"
+    password: "${DATABASE_PASSWORD:password}"
     driverClassName: org.postgresql.Driver
 ---
 flyway:
