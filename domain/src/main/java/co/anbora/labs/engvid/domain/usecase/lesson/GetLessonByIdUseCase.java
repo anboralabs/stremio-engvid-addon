@@ -30,7 +30,7 @@ public class GetLessonByIdUseCase extends UseCase<GetLessonByIdUseCase.Request, 
                         .map(Response::new)
                         .orElseThrow(() -> new LessonNotFoundException(input.type, input.id));
         }
-        return new Response(null);
+        throw new LessonNotFoundException(input.type, input.id);
     }
 
     @Value
