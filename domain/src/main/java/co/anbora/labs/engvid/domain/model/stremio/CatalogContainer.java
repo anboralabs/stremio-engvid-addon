@@ -18,7 +18,7 @@ public class CatalogContainer {
     }
 
     public void addMovie(Lesson lesson) {
-        metas.add(new LessonVideo(lesson.getId().toString(), lesson.getTitle(),
+        metas.add(new LessonVideo(lesson.getInternalId(), lesson.getTitle(),
                 lesson.getImageUrl(), lesson.getDescription(), lesson.getImageUrl()));
     }
 

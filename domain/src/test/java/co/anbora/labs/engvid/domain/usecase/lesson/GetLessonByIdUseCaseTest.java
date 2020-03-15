@@ -12,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.VIDEO_PREFIX_ID;
+
 @RunWith(MockitoJUnitRunner.class)
 public class GetLessonByIdUseCaseTest {
 
@@ -37,7 +39,7 @@ public class GetLessonByIdUseCaseTest {
     public void givenAnInvalidIdThrowsLessonNotFoundException() {
 
         GetLessonByIdUseCase.Request request =
-                new GetLessonByIdUseCase.Request(StremioConstants.StremioCatalog.MOVIE, "invalid");
+                new GetLessonByIdUseCase.Request(StremioConstants.StremioCatalog.MOVIE, VIDEO_PREFIX_ID + "invalid");
         GetLessonByIdUseCase.Response response = getLessonByIdUseCase.execute(request);
     }
 
@@ -47,7 +49,7 @@ public class GetLessonByIdUseCaseTest {
         Lesson lesson = CommonValuesForTests.provideBeginnerLesson();
 
         GetLessonByIdUseCase.Request request =
-                new GetLessonByIdUseCase.Request(StremioConstants.StremioCatalog.MOVIE, "6716");
+                new GetLessonByIdUseCase.Request(StremioConstants.StremioCatalog.MOVIE, VIDEO_PREFIX_ID + "6716");
         GetLessonByIdUseCase.Response response = getLessonByIdUseCase.execute(request);
         Assert.assertEquals(response.getLesson(), lesson);
     }

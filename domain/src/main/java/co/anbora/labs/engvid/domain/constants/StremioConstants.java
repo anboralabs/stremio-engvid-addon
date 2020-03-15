@@ -17,7 +17,7 @@ public class StremioConstants {
         String VERSION = "1.0.0";
         String NAME = "English Lessons Videos";
         String DESCRIPTION = "List of videos and courses for english learners: Beginners, Intermediate and Advanced lessons";
-        String[] ID_PREFIXES = null;
+        String[] ID_PREFIXES = new String[] {StremioCatalog.VIDEO_PREFIX_ID};
         String[] RESOURCES = new String[] {"catalog", "meta", "stream"};
         String[] TYPES = new String[] {"movie"};
         Catalog[] CATALOGS = new Catalog[] {
@@ -35,6 +35,7 @@ public class StremioConstants {
         String INTERMEDIATE_ID_CATALOG = "intermediate.english.video";
         String ADVANCED_ID_CATALOG = "advanced.english.video";
         String MOVIE = "movie";
+        String VIDEO_PREFIX_ID = "engvid";
     }
 
 }
