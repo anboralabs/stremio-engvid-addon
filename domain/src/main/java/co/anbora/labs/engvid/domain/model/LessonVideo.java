@@ -10,7 +10,7 @@ public class LessonVideo extends MetaItem {
     }
 
     public static LessonVideo from(Lesson lesson) {
-        return new LessonVideo(String.valueOf(lesson.getId()),
+        return new LessonVideo(lesson.getInternalId(),
                 lesson.getTitle(), lesson.getImageUrl(),
                 lesson.getDescription(), lesson.getImageUrl());
     }

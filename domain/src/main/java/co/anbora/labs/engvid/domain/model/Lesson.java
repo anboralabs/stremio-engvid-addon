@@ -1,10 +1,13 @@
 package co.anbora.labs.engvid.domain.model;
 
+import co.anbora.labs.engvid.domain.constants.StremioConstants;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.Objects;
+
+import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.VIDEO_PREFIX_ID;
 
 @Getter
 @Builder
@@ -21,6 +24,10 @@ public class Lesson {
     private String imageUrl;
     private String youtubeId;
     private Boolean sync;
+
+    public String getInternalId() {
+        return VIDEO_PREFIX_ID + getId();
+    }
 
     public Boolean isSync() {
         return sync && Objects.nonNull(youtubeId);
