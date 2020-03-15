@@ -41,6 +41,8 @@ dependencies {
     implementation 'io.micronaut.configuration:micronaut-flyway'
     //end::flyway[]
 
+    compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
+
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
     implementation "com.squareup.okhttp3:logging-interceptor:3.9.+"
