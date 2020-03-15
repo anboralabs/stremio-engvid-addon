@@ -24,7 +24,7 @@ public class GetLessonByIdUseCase extends UseCase<GetLessonByIdUseCase.Request, 
             return Try.ofFailable(() -> Integer.parseInt(input.id))
                         .map(this.repository::getLessonById)
                         .map(Response::new)
-                        .orElseThrow(LessonNotFoundException::new);
+                        .orElseThrow(() -> new LessonNotFoundException(input.type, input.id));
         }
         return new Response(null);
     }

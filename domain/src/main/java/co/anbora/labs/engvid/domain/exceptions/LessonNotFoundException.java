@@ -6,4 +6,8 @@ public class LessonNotFoundException extends RuntimeException {
         super("Lesson is missing unable to find it.");
     }
 
+    public LessonNotFoundException(String type, String id) {
+        super("Lesson is missing. Type: " + type + " and Id: " + id);
+    }
+
 }
