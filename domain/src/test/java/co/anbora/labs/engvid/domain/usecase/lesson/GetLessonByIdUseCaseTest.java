@@ -27,7 +27,7 @@ public class GetLessonByIdUseCaseTest {
         Mockito.when(repository.getLessonById(LESSON_ID)).thenReturn(CommonValuesForTests.provideBeginnerLesson());
     }
 
-    @Test
+    @Test(expected = LessonNotFoundException.class)
     public void givenANoMovieCategoryReturnEmptyResponse() {
 
         GetLessonByIdUseCase.Request request = new GetLessonByIdUseCase.Request("serie", "1");
