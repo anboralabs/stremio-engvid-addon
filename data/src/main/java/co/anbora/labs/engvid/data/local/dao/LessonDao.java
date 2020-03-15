@@ -11,17 +11,23 @@ import java.util.List;
 
 public interface LessonDao {
 
-    @Insert("merge into lessons(lesson_id, title, description, publish_date, render_link, category_, slug) "
-            + "key (lesson_id) "
-            + "values(#{lesson.id}, #{lesson.title}, #{lesson.description}, "
-            + "#{lesson.date}, #{lesson.renderLink}, #{lesson.category}, #{lesson.slug})")
+    @Insert("INSERT INTO lessons(lesson_id, title, description, publish_date, render_link, category_, slug) "
+            + "VALUES(#{lesson.id}, #{lesson.title}, #{lesson.description}, "
+            + "#{lesson.date}, #{lesson.renderLink}, #{lesson.category}, #{lesson.slug}) "
+            + "ON CONFLICT (lesson_id) "
+            + "DO NOTHING"
+    )
     void insert(@Param("lesson") LessonInfoVO video);
 
     void insert(List<LessonInfoVO> lessons);
 
-    @Insert("merge into lessons(lesson_id, image_url, youtube_id, sync) key (lesson_id) "
-            + "values(#{lesson.id}, #{lesson.imageUrl}, #{lesson.youtubeId}, "
-            + "#{lesson.sync})")
+    @Insert("INSERT INTO lessons(lesson_id, image_url, youtube_id, sync) "
+            + "VALUES(#{lesson.id}, #{lesson.imageUrl}, #{lesson.youtubeId}, "
+            + "#{lesson.sync}) "
+            + "ON CONFLICT (lesson_id) "
+            + "DO UPDATE "
+            + "SET image_url=#{lesson.imageUrl}, youtube_id=#{lesson.youtubeId}, sync=#{lesson.sync}"
+    )
     void insertMedia(@Param("lesson") LessonMediaVO video);
 
     void insertMedia(List<LessonMediaVO> lessons);
