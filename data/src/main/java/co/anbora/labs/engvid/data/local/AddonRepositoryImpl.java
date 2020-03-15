@@ -35,7 +35,7 @@ public class AddonRepositoryImpl implements IAddOnRepository {
 
     @Override
     public void save(LessonMedia lessonMedia) {
-        this.lessonDao.insertMedia(
+        this.lessonDao.updateMedia(
                 lessonMediaToVOMapper.apply(lessonMedia)
         );
     }

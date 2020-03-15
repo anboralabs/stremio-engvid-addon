@@ -55,7 +55,7 @@ public class AddonRepositoryImplTest {
                 true);
 
         this.addonRepository.save(lessonMedia);
-        Mockito.verify(lessonDao).insertMedia(lessonMediaVO);
+        Mockito.verify(lessonDao).updateMedia(lessonMediaVO);
     }
 
     @Test

@@ -37,20 +37,10 @@ public class LessonDaoImpl implements LessonDao {
     }
 
     @Override
-    public void insertMedia(LessonMediaVO video) {
+    public void updateMedia(LessonMediaVO video) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            getLessonDao(session).insertMedia(video);
+            getLessonDao(session).updateMedia(video);
             session.commit();
-        }
-    }
-
-    @Override
-    public void insertMedia(List<LessonMediaVO> lessons) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            LessonDao lessonDao = getLessonDao(session);
-            lessons.forEach(lessonDao::insertMedia);
-            session.commit();
-            session.clearCache();
         }
     }
 

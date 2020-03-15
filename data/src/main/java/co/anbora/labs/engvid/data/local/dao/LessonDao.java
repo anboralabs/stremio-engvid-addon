@@ -21,16 +21,11 @@ public interface LessonDao {
 
     void insert(List<LessonInfoVO> lessons);
 
-    @Insert("INSERT INTO lessons(lesson_id, image_url, youtube_id, sync) "
-            + "VALUES(#{lesson.id}, #{lesson.imageUrl}, #{lesson.youtubeId}, "
-            + "#{lesson.sync}) "
-            + "ON CONFLICT (lesson_id) "
-            + "DO UPDATE "
-            + "SET image_url=#{lesson.imageUrl}, youtube_id=#{lesson.youtubeId}, sync=#{lesson.sync}"
+    @Insert("UPDATE lessons "
+            + "SET image_url=#{lesson.imageUrl}, youtube_id=#{lesson.youtubeId}, sync=#{lesson.sync} "
+            + "WHERE lesson_id=#{lesson.id}"
     )
-    void insertMedia(@Param("lesson") LessonMediaVO video);
-
-    void insertMedia(List<LessonMediaVO> lessons);
+    void updateMedia(@Param("lesson") LessonMediaVO video);
 
     @Select("select * from lessons where lesson_id = #{lessonId}")
     LessonVO findById(@Param("lessonId") Integer id);
