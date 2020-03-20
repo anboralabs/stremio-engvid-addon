@@ -1,4 +1,15 @@
-FROM adoptopenjdk/openjdk11-openj9:jdk-11.0.1.13-alpine-slim
-COPY build/libs/api-*-all.jar api.jar
+FROM oracle/graalvm-ce:20.0.0-java8 as graalvm
+# For JDK 11
+#FROM oracle/graalvm-ce:20.0.0-java11 as graalvm
+RUN gu install native-image
+
+COPY . /home/app/addon
+WORKDIR /home/app/addon
+
+RUN native-image --verbose --no-server -cp build/libs/addon-*-all.jar
+
+FROM frolvlad/alpine-glibc
+RUN apk update && apk add libstdc++
 EXPOSE 8080
-CMD java -Dcom.sun.management.jmxremote -noverify ${JAVA_OPTS} -jar api.jar
+COPY --from=graalvm /home/app/addon/addon /app/addon
+ENTRYPOINT ["/app/addon"]
