@@ -36,4 +36,6 @@ public interface LessonDao {
     @Select("select * from lessons where category_ = #{categoryId} order by publish_date desc")
     List<LessonVO> findAllByCategory(@Param("categoryId") Integer id);
 
+    @Select("select * from lessons where category_ = #{categoryId} and description ilike ('%'::varchar || #{descriptionValue} || '%'::varchar) order by publish_date desc")
+    List<LessonVO> findAllByDescription(@Param("categoryId") Integer id, @Param("descriptionValue") String searchValue);
 }
