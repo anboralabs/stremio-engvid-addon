@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 import co.anbora.labs.engvid.domain.usecase.UseCaseExecutor;
 import co.anbora.labs.engvid.domain.usecase.lesson.SyncLessonsAtStartupUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.SyncRemoteLessonsUseCase;
+import io.micronaut.cache.annotation.CacheInvalidate;
 import io.micronaut.scheduling.annotation.Scheduled;
 
 import java.util.function.Function;
@@ -31,6 +32,7 @@ public class SyncJob {
         );
     }
 
+    @CacheInvalidate(value = "all-video", all = true)
     @Scheduled(cron = "0 0 * * 0")
     public void weekly() {
         useCaseExecutor.execute(
