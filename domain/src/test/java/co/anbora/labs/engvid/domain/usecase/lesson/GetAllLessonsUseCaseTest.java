@@ -40,8 +40,9 @@ public class GetAllLessonsUseCaseTest {
     public void givenBeginnerIdCatalogIdReturnAllBeginnerLessons() {
 
         String search = "search=In this easy English class";
+        String searchValue = "In this easy English class";
 
-        Mockito.when(repository.getLessonsByCategory(EnglishLevel.BEGINNER.getId()))
+        Mockito.when(repository.getLessonsByDescription(EnglishLevel.BEGINNER.getId(), searchValue))
                 .thenReturn(CommonValuesForTests.beginnerLessons());
 
         GetAllLessonsUseCase.Request request = new GetAllLessonsUseCase.Request(StremioConstants.StremioCatalog.MOVIE, StremioConstants.StremioCatalog.BEGINNER_ID_CATALOG, search);
@@ -53,8 +54,9 @@ public class GetAllLessonsUseCaseTest {
     public void givenIntermediateIdCatalogIdReturnAllIntermediateLessons() {
 
         String search = "search=set phrases is one";
+        String searchValue = "set phrases is one";
 
-        Mockito.when(repository.getLessonsByCategory(EnglishLevel.INTERMEDIATE.getId()))
+        Mockito.when(repository.getLessonsByDescription(EnglishLevel.INTERMEDIATE.getId(), searchValue))
                 .thenReturn(CommonValuesForTests.intermediateLessons());
 
         GetAllLessonsUseCase.Request request = new GetAllLessonsUseCase.Request(StremioConstants.StremioCatalog.MOVIE,
@@ -67,8 +69,9 @@ public class GetAllLessonsUseCaseTest {
     public void givenAdvancedIdCatalogIdReturnAllAdvancedLessons() {
 
         String search = "search=lesson is all about English";
+        String searchValue = "lesson is all about English";
 
-        Mockito.when(repository.getLessonsByCategory(EnglishLevel.ADVANCE.getId()))
+        Mockito.when(repository.getLessonsByDescription(EnglishLevel.ADVANCE.getId(), searchValue))
                 .thenReturn(CommonValuesForTests.advancedLessons());
 
         GetAllLessonsUseCase.Request request = new GetAllLessonsUseCase.Request(StremioConstants.StremioCatalog.MOVIE,

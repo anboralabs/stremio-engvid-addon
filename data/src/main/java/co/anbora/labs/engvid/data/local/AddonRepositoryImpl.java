@@ -67,4 +67,11 @@ public class AddonRepositoryImpl implements IAddOnRepository {
                 this.lessonDao.findById(lessonId)
         );
     }
+
+    @Override
+    public List<Lesson> getLessonsByDescription(Integer categoryId, String searchValue) {
+        return listLessonVOMapper.apply(
+                this.lessonDao.findAllByDescription(categoryId, searchValue)
+        );
+    }
 }

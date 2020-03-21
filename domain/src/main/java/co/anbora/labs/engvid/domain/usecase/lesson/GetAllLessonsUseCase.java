@@ -8,11 +8,11 @@ import lombok.Value;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static co.anbora.labs.engvid.domain.constants.Constants.EMPTY_VALUE;
-import static co.anbora.labs.engvid.domain.constants.Constants.EQUAL_CHARACTER;
+import static co.anbora.labs.engvid.domain.constants.Constants.*;
 import static co.anbora.labs.engvid.domain.constants.StremioConstants.MIN_EXTRAS;
 import static co.anbora.labs.engvid.domain.constants.StremioConstants.SEARCH;
 import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.*;
@@ -28,32 +28,28 @@ public class GetAllLessonsUseCase extends UseCase<GetAllLessonsUseCase.Request, 
     @Override
     public Response execute(Request input) {
         String searchValue = getSearchValue(input.extra);
-        if (MOVIE.equals(input.type) && BEGINNER_ID_CATALOG.equals(input.id)) {
-            return getResponse(searchValue, EnglishLevel.BEGINNER);
-        }
-        if (MOVIE.equals(input.type) && INTERMEDIATE_ID_CATALOG.equals(input.id)) {
-            return getResponse(searchValue, EnglishLevel.INTERMEDIATE);
-        }
-        if (MOVIE.equals(input.type) && ADVANCED_ID_CATALOG.equals(input.id)) {
-            return getResponse(searchValue, EnglishLevel.ADVANCE);
+        switch (input.id) {
+            case BEGINNER_ID_CATALOG:
+                return getResponse(searchValue, EnglishLevel.BEGINNER);
+            case INTERMEDIATE_ID_CATALOG:
+                return getResponse(searchValue, EnglishLevel.INTERMEDIATE);
+            case ADVANCED_ID_CATALOG:
+                return getResponse(searchValue, EnglishLevel.ADVANCE);
         }
         return new Response(null);
     }
 
-    private Response getResponse(String searchValue, EnglishLevel beginner) {
-        return new Response(getFilteredLessons(
-                repository.getLessonsByCategory(beginner.getId()), searchValue)
-        );
-    }
-
-    private List<Lesson> getFilteredLessons(List<Lesson> lessons, String extra) {
-        return lessons
-                .stream()
-                .filter(lesson -> lesson.getDescription().contains(extra))
-                .collect(Collectors.toList());
+    private Response getResponse(String searchValue, EnglishLevel englishLevel) {
+        if (searchValue.isEmpty()) {
+            return new Response(repository.getLessonsByCategory(englishLevel.getId()));
+        }
+        return new Response(repository.getLessonsByDescription(englishLevel.getId(), searchValue));
     }
 
     private String getSearchValue(String extra) {
+        if (Objects.nonNull(extra) && extra.isEmpty()) {
+            return EMPTY_VALUE;
+        }
         Map<String, String> mapExtras = Stream.of(extra)
                 .map(str -> str.split(EQUAL_CHARACTER))
                 .filter(extras -> extras.length > MIN_EXTRAS)

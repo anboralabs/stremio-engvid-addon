@@ -5,6 +5,10 @@ micronaut:
   application:
     name: api
   caches:
+    all-video:
+      expire-after-write: "60m"
+    search-video:
+      expire-after-write: "60m"
     addon-cache:
       expire-after-write: "60m"
 ---

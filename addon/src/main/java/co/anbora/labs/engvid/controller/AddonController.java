@@ -40,6 +40,7 @@ public class AddonController {
         return CompletableFuture.supplyAsync(() -> manifest);
     }
 
+    @Cacheable(value = "all-video", parameters = "id")
     @Get("/catalog/{type}/{id}.json")
     public CompletableFuture<CatalogContainer> allVideos(String type, String id) {
         return useCaseExecutor.execute(getLessonsByCategoryUseCase,
@@ -48,6 +49,7 @@ public class AddonController {
         );
     }
 
+    @Cacheable(value = "search-video", parameters = "extra")
     @Get("/catalog/{type}/{id}/{extra}.json")
     public CompletableFuture<CatalogContainer> searchVideos(String type, String id, String extra) {
         return useCaseExecutor.execute(getAllLessonsUseCase,

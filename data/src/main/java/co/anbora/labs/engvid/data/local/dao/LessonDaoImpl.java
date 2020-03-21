@@ -63,6 +63,13 @@ public class LessonDaoImpl implements LessonDao {
         }
     }
 
+    @Override
+    public List<LessonVO> findAllByDescription(Integer id, String searchValue) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return getLessonDao(session).findAllByDescription(id, searchValue);
+        }
+    }
+
     private LessonDao getLessonDao(SqlSession session) {
         return session.getMapper(LessonDao.class);
     }

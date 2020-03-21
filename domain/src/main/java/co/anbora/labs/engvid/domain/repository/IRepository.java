@@ -12,4 +12,6 @@ public interface IRepository {
     Lesson getLessonById(Integer lessonId);
 
     List<Lesson> getLessonsByCategory(Integer categoryId);
+
+    List<Lesson> getLessonsByDescription(Integer categoryId, String searchValue);
 }
