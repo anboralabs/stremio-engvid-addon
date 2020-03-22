@@ -1,12 +1,11 @@
 package co.anbora.labs.engvid.injection;
 
 import co.anbora.labs.engvid.data.remote.api.EnglishVideoAPI;
+import co.anbora.labs.engvid.data.remote.api.EnglishVideoAPIImpl;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Property;
 import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import javax.inject.Singleton;
 
@@ -17,22 +16,14 @@ public class NetworkModule {
 
     @Bean
     @Singleton
-    Retrofit provideRetrofit(@Property(name = "engvid.url") String url) {
-        OkHttpClient okHttpClient = getUnsafeOkHttpClient()
-                .newBuilder()
-                .build();
-
-        return new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
-                .build();
+    OkHttpClient provideHttpClient() {
+        return getUnsafeOkHttpClient();
     }
 
     @Bean
     @Singleton
-    EnglishVideoAPI provideEnglishVideoAPI(Retrofit retrofit) {
-        return retrofit.create(EnglishVideoAPI.class);
+    EnglishVideoAPI provideEnglishVideoAPI(@Property(name = "engvid.url") String url, OkHttpClient httpClient) {
+        return new EnglishVideoAPIImpl(url, httpClient);
     }
 
 }

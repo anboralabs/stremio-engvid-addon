@@ -7,7 +7,7 @@ import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
 import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
 import co.anbora.labs.engvid.domain.repository.IEnglishVideoRepository;
 import com.jasongoodwin.monads.Try;
-import retrofit2.Response;
+import okhttp3.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +40,7 @@ public class EnglishVideoRepositoryImpl implements IEnglishVideoRepository {
     }
 
     private List<LessonInfoDTO> getLessons(final int page, int maxItems) {
-        List<LessonInfoDTO> lessonInfoDTOS = Try.ofFailable(() -> englishVideoAPI.getLessonsByPage(page, maxItems).execute())
-                .filter(Response::isSuccessful)
-                .map(Response::body)
+        List<LessonInfoDTO> lessonInfoDTOS = Try.ofFailable(() -> englishVideoAPI.getLessonsByPage(page, maxItems))
                 .orElse(new ArrayList<>());
 
         if (!lessonInfoDTOS.isEmpty()) {
@@ -57,7 +55,7 @@ public class EnglishVideoRepositoryImpl implements IEnglishVideoRepository {
     }
 
     private LessonMedia getMediaFromApi(String slug, Long lessonId) {
-        return Try.ofFailable(() -> englishVideoAPI.getMediaInfoBySlug(slug).execute())
+        return Try.ofFailable(() -> englishVideoAPI.getMediaInfoBySlug(slug))
                 .filter(Response::isSuccessful)
                 .map(Response::body)
                 .map(response -> htmlMediaDTOMapper.apply(response.string(), lessonId))
