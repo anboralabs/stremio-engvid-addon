@@ -6,7 +6,11 @@ RUN gu install native-image
 COPY . /home/app/addon
 WORKDIR /home/app/addon
 
-RUN native-image --verbose --no-server -cp build/libs/addon-*-all.jar
+RUN native-image --verbose --no-server \
+                           --no-fallback \
+                           --initialize-at-build-time=org.postgresql.Driver \
+                           --initialize-at-build-time=org.postgresql.util.SharedTimer \
+                           -cp build/libs/addon-*-all.jar
 
 FROM frolvlad/alpine-glibc
 RUN apk update && apk add libstdc++
