@@ -13,7 +13,7 @@ import java.util.function.Function;
 
 public class SyncJob {
 
-    /*@Inject
+    @Inject
     UseCaseExecutor useCaseExecutor;
 
     @Inject
@@ -31,12 +31,12 @@ public class SyncJob {
         );
     }
 
-    //@Scheduled(cron = "0 0 12 *///7 * ?")
-    /*public void weekly() {
+    @Scheduled(cron = "0 0 12 */7 * ?")
+    public void weekly() {
         useCaseExecutor.execute(
                 syncRemoteLessonsUseCase,
                 new SyncRemoteLessonsUseCase.Request(),
                 Function.identity()
         );
-    }*/
+    }
 }

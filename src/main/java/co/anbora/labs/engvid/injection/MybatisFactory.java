@@ -13,13 +13,13 @@ import javax.inject.Singleton;
 @Dependent
 public class MybatisFactory {
 
-    //@Inject
-    //AgroalDataSource defaultDataSource;
+    @Inject
+    AgroalDataSource defaultDataSource;
 
     @Produces
     LessonDao provideLessonDao() {
 
-        Jdbi jdbi = Jdbi.create("");
+        Jdbi jdbi = Jdbi.create(defaultDataSource);
         return new LessonDaoImpl(jdbi);
     }
 

@@ -16,12 +16,16 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 @Path("/")
 public class AddonController {
 
-    /*@Inject
+    @Inject
     Manifest manifest;
     @Inject
     UseCaseExecutor useCaseExecutor;
@@ -33,19 +37,22 @@ public class AddonController {
     GetAllLessonsUseCase getAllLessonsUseCase;
 
     @GET
-    public CompletableFuture<Manifest> index() {
+    @Produces(MediaType.APPLICATION_JSON)
+    public CompletionStage<Manifest> index() {
         return CompletableFuture.supplyAsync(() -> manifest);
     }
 
     @GET
     @Path("/manifest.json")
-    public CompletableFuture<Manifest> manifest() {
+    @Produces(MediaType.APPLICATION_JSON)
+    public CompletionStage<Manifest> manifest() {
         return CompletableFuture.supplyAsync(() -> manifest);
     }
 
     @GET
     @Path("/catalog/{type}/{id}.json")
-    public CompletableFuture<CatalogContainer> allVideos(String type, String id) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public CompletionStage<CatalogContainer> allVideos(@PathParam("type") String type, @PathParam("id") String id) {
         return useCaseExecutor.execute(getLessonsByCategoryUseCase,
                 new GetLessonsByCategoryUseCase.Request(type, id),
                 response -> CatalogContainer.from(response.getLessons())
@@ -54,7 +61,8 @@ public class AddonController {
 
     @GET
     @Path("/catalog/{type}/{id}/{extra}.json")
-    public CompletableFuture<CatalogContainer> searchVideos(String type, String id, String extra) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public CompletionStage<CatalogContainer> searchVideos(@PathParam("type") String type, @PathParam("id") String id, @PathParam("extra") String extra) {
         return useCaseExecutor.execute(getAllLessonsUseCase,
                 new GetAllLessonsUseCase.Request(type, id, extra),
                 response -> CatalogContainer.from(response.getLessons()));
@@ -63,7 +71,8 @@ public class AddonController {
     @CacheResult(cacheName = "cache-meta")
     @GET
     @Path("/meta/{type}/{id}.json")
-    public CompletableFuture<MetaVideo> infoVideo(String type, @CacheKey String id) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public CompletionStage<MetaVideo> infoVideo(@PathParam("type") String type, @PathParam("id") @CacheKey String id) {
         return useCaseExecutor.execute(getLessonByIdUseCase,
                 new GetLessonByIdUseCase.Request(type, id),
                 response -> MetaVideo.from(
@@ -75,14 +84,10 @@ public class AddonController {
     @CacheResult(cacheName = "cache-stream")
     @GET
     @Path("/stream/{type}/{id}.json")
-    public CompletableFuture<Stream> stream(String type, @CacheKey String id) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public CompletionStage<Stream> stream(@PathParam("type") String type, @PathParam("id") @CacheKey String id) {
         return useCaseExecutor.execute(getLessonByIdUseCase,
                 new GetLessonByIdUseCase.Request(type, id),
                 response -> Stream.from(response.getLesson()));
-    }*/
-    @GET
-    @Path("/manifest.json")
-    public CompletableFuture<String> manifest() {
-        return CompletableFuture.supplyAsync(() -> "manifest");
     }
 }

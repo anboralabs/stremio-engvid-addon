@@ -1,4 +1,14 @@
-include 'addon'
-include 'domain'
+pluginManagement {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    plugins {
+      id 'io.quarkus' version "${quarkusPluginVersion}"
+    }
+}
+rootProject.name='stremio-engvid-addon'
 include 'data'
+include 'domain'
 
