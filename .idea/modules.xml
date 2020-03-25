@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/api/src/main/main.iml" filepath="$PROJECT_DIR$/api/src/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rest-api/src/main/main1.iml" filepath="$PROJECT_DIR$/rest-api/src/main/main1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/api/src/main/main2.iml" filepath="$PROJECT_DIR$/api/src/main/main2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/api/src/native-test/native-test.iml" filepath="$PROJECT_DIR$/api/src/native-test/native-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rest-api/src/native-test/native-test1.iml" filepath="$PROJECT_DIR$/rest-api/src/native-test/native-test1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/api/src/native-test/native-test2.iml" filepath="$PROJECT_DIR$/api/src/native-test/native-test2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/addon/stremio-engvid-addon.addon.main.iml" filepath="$PROJECT_DIR$/.idea/modules/addon/stremio-engvid-addon.addon.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/addon/stremio-engvid-addon.addon.test.iml" filepath="$PROJECT_DIR$/.idea/modules/addon/stremio-engvid-addon.addon.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/api/src/test/test.iml" filepath="$PROJECT_DIR$/api/src/test/test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rest-api/src/test/test1.iml" filepath="$PROJECT_DIR$/rest-api/src/test/test1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/api/src/test/test2.iml" filepath="$PROJECT_DIR$/api/src/test/test2.iml" />
+    </modules>
+  </component>
+</project>

@@ -2,8 +2,8 @@ plugins {
     id 'java'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group 'co.anbora.labs.engvid'
+version '1.0.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
@@ -20,7 +20,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-text', version: '1.8'
     compile 'org.jsoup:jsoup:1.12.2'
 
-    implementation 'org.mybatis:mybatis:3.4.6'
+    compile group: 'org.jdbi', name: 'jdbi3-core', version: '3.1.0'
 
     compile project(":domain")
 
