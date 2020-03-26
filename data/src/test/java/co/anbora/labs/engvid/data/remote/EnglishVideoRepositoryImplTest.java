@@ -10,16 +10,13 @@ import co.anbora.labs.engvid.domain.exceptions.LessonNotFoundException;
 import co.anbora.labs.engvid.domain.model.EnglishLevel;
 import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
 import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
-import okhttp3.MediaType;
-import okhttp3.ResponseBody;
+import okhttp3.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-//import retrofit2.Call;
-//import retrofit2.Response;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -29,8 +26,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EnglishVideoRepositoryImplTest {
@@ -57,7 +52,7 @@ public class EnglishVideoRepositoryImplTest {
         Assert.assertTrue(repository.getLessons().isEmpty());
     }
 
-    /*@Test
+    @Test
     public void givenARequestAllLessonReturnLessonsAvailable() throws IOException {
 
         int lessonInfoId = 1;
@@ -83,27 +78,16 @@ public class EnglishVideoRepositoryImplTest {
         lessonInfoDTO2.setTitle(renderTitle2);
         lessonInfoDTO2.setContent(renderDescription2);
 
-        Call<List<LessonInfoDTO>> firstResponse = Mockito.mock(Call.class);
-        Call<List<LessonInfoDTO>> secondResponse = Mockito.mock(Call.class);
-        Call<List<LessonInfoDTO>> thirdResponse = Mockito.mock(Call.class);
-
         List<LessonInfoDTO> list1Page = new ArrayList<>();
         list1Page.add(lessonInfoDTO);
-
-        Mockito.when(firstResponse.execute())
-                .thenReturn(Response.success(list1Page));
 
         List<LessonInfoDTO> list2Page = new ArrayList<>();
         list2Page.add(lessonInfoDTO2);
 
-        Mockito.when(secondResponse.execute())
-                .thenReturn(Response.success(list2Page));
-
-        Mockito.when(thirdResponse.execute())
-                .thenReturn(Response.success(new ArrayList<>()));
+        List<LessonInfoDTO> list3Page = new ArrayList<>();
 
         Mockito.when(api.getLessonsByPage(Mockito.anyInt(), Mockito.anyInt()))
-                .thenReturn(firstResponse, secondResponse, thirdResponse);
+                .thenReturn(list1Page, list2Page, list3Page);
 
         LessonInfo lessonInfo = LessonInfo.builder()
                 .id(lessonInfoId)
@@ -127,13 +111,15 @@ public class EnglishVideoRepositoryImplTest {
 
         long invalidId = -1;
 
-        Call<ResponseBody> failedResponse = Mockito.mock(Call.class);
+        Request request = new Request.Builder().url("http://localhost").build();
 
-        Mockito.when(failedResponse.execute())
-                .thenReturn(Response.error(404, ResponseBody.create(MediaType.get("application/json"), "")));
+        Response errorCode = new Response.Builder().request(request)
+                .protocol(Protocol.HTTP_1_1)
+                .message("")
+                .code(404).build();
 
-        Mockito.when(api.getMediaInfoBySlug(Mockito.anyString()))
-                .thenReturn(failedResponse);
+        Mockito.when(api.getMediaInfoBySlug("mock-lesson"))
+                .thenReturn(errorCode);
 
         repository.getLessonMediaById("mock-lesson", invalidId);
     }
@@ -148,10 +134,15 @@ public class EnglishVideoRepositoryImplTest {
         String html = Files.lines(Paths.get(classLoader.getResource("lesson_media.html").toURI()))
                 .collect(Collectors.joining());
 
-        Call<ResponseBody> okResponse = Mockito.mock(Call.class);
+        Request request = new Request.Builder().url("http://localhost").build();
 
-        Mockito.when(okResponse.execute())
-                .thenReturn(Response.success(ResponseBody.create(MediaType.get("application/text"), html)));
+        Response okResponse = new Response.Builder()
+                .request(request)
+                .protocol(Protocol.HTTP_1_1)
+                .message("")
+                .code(200)
+                .body(ResponseBody.create(MediaType.get("application/text"), html))
+                .build();
 
         Mockito.when(api.getMediaInfoBySlug(mediaSlug))
                 .thenReturn(okResponse);
@@ -164,6 +155,6 @@ public class EnglishVideoRepositoryImplTest {
                 .build();
 
         Assert.assertEquals(media, repository.getLessonMediaById(mediaSlug, lessonId));
-    }*/
+    }
 
 }
