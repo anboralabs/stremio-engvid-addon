@@ -1,14 +1,18 @@
-package co.anbora.labs.engvid.domain.model.stremio;
+package co.anbora.labs.engvid.api.dto;
 
 import co.anbora.labs.engvid.domain.model.LessonVideo;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-@Getter
-@AllArgsConstructor
 public class MetaVideo {
 
     private LessonVideo meta;
+
+    public MetaVideo(LessonVideo meta) {
+        this.meta = meta;
+    }
+
+    public LessonVideo getMeta() {
+        return meta;
+    }
 
     public static MetaVideo from(LessonVideo lesson) {
         return new MetaVideo(lesson);

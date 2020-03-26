@@ -1,13 +1,17 @@
-package co.anbora.labs.engvid.domain.model.stremio;
+package co.anbora.labs.engvid.api.dto;
 
 
 import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.model.LessonVideo;
+import co.anbora.labs.engvid.domain.model.stremio.MetaItem;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class CatalogContainer {
+
+    @JsonProperty("metas")
     private List<MetaItem> metas = new LinkedList<>();
 
     /**

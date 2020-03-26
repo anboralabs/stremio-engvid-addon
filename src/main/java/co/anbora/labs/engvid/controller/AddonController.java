@@ -1,10 +1,10 @@
 package co.anbora.labs.engvid.controller;
 
 import co.anbora.labs.engvid.domain.model.LessonVideo;
-import co.anbora.labs.engvid.domain.model.stremio.CatalogContainer;
+import co.anbora.labs.engvid.api.dto.CatalogContainer;
 import co.anbora.labs.engvid.domain.model.stremio.Manifest;
-import co.anbora.labs.engvid.domain.model.stremio.MetaVideo;
-import co.anbora.labs.engvid.domain.model.stremio.Stream;
+import co.anbora.labs.engvid.api.dto.MetaVideo;
+import co.anbora.labs.engvid.api.dto.Stream;
 import co.anbora.labs.engvid.domain.usecase.UseCaseExecutor;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetAllLessonsUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonByIdUseCase;
@@ -12,7 +12,6 @@ import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonsByCategoryUseCase;
 import io.quarkus.cache.CacheKey;
 import io.quarkus.cache.CacheResult;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

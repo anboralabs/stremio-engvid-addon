@@ -1,12 +1,15 @@
-package co.anbora.labs.engvid.domain.model.stremio;
+package co.anbora.labs.engvid.api.dto;
 
 import co.anbora.labs.engvid.domain.model.Lesson;
+import co.anbora.labs.engvid.domain.model.stremio.StreamItem;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class Stream {
 
+    @JsonProperty("streams")
     private List<StreamItem> streams = new LinkedList<>();
 
     public List<StreamItem> getStreams() {
