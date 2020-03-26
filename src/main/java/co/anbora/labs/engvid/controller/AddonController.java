@@ -49,10 +49,11 @@ public class AddonController {
         return CompletableFuture.supplyAsync(() -> manifest);
     }
 
+    @CacheResult(cacheName = "cache-lessons")
     @GET
     @Path("/catalog/{type}/{id}.json")
     @Produces(MediaType.APPLICATION_JSON)
-    public CompletionStage<CatalogContainer> allVideos(@PathParam("type") String type, @PathParam("id") String id) {
+    public CompletionStage<CatalogContainer> allVideos(@PathParam("type") String type, @PathParam("id") @CacheKey String id) {
         return useCaseExecutor.execute(getLessonsByCategoryUseCase,
                 new GetLessonsByCategoryUseCase.Request(type, id),
                 response -> CatalogContainer.from(response.getLessons())

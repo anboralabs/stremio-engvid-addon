@@ -1,12 +1,12 @@
 package co.anbora.labs.engvid.jobs;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import co.anbora.labs.engvid.domain.usecase.UseCaseExecutor;
 import co.anbora.labs.engvid.domain.usecase.lesson.SyncLessonsAtStartupUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.SyncRemoteLessonsUseCase;
+import io.quarkus.cache.CacheInvalidate;
 import io.quarkus.scheduler.Scheduled;
 
 import java.util.function.Function;
@@ -31,6 +31,7 @@ public class SyncJob {
         );
     }
 
+    @CacheInvalidate(cacheName = "cache-lessons")
     @Scheduled(cron = "0 0 12 */7 * ?")
     public void weekly() {
         useCaseExecutor.execute(
