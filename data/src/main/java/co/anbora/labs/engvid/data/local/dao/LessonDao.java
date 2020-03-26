@@ -8,17 +8,10 @@ import java.util.List;
 
 public interface LessonDao {
 
-    void insert(LessonInfoVO video);
-
     void insert(List<LessonInfoVO> lessons);
 
-    /*@Insert("UPDATE lessons "
-            + "SET image_url=#{lesson.imageUrl}, youtube_id=#{lesson.youtubeId}, sync=#{lesson.sync} "
-            + "WHERE lesson_id=#{lesson.id}"
-    )*/
     void updateMedia(LessonMediaVO video);
 
-    //@Select("select * from lessons where lesson_id = #{lessonId}")
     LessonVO findById(Integer id);
 
     List<LessonVO> findAll();
