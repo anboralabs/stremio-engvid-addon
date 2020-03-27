@@ -9,7 +9,6 @@ import co.anbora.labs.engvid.domain.usecase.UseCaseExecutor;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetAllLessonsUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonByIdUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonsByCategoryUseCase;
-import io.quarkus.cache.CacheKey;
 import io.quarkus.cache.CacheResult;
 
 import javax.inject.Inject;
@@ -52,7 +51,7 @@ public class AddonController {
     @GET
     @Path("/catalog/{type}/{id}.json")
     @Produces(MediaType.APPLICATION_JSON)
-    public CompletionStage<CatalogContainer> allVideos(@PathParam("type") String type, @PathParam("id") @CacheKey String id) {
+    public CompletionStage<CatalogContainer> allVideos(@PathParam("type") String type, @PathParam("id") String id) {
         return useCaseExecutor.execute(getLessonsByCategoryUseCase,
                 new GetLessonsByCategoryUseCase.Request(type, id),
                 response -> CatalogContainer.from(response.getLessons())
@@ -72,7 +71,7 @@ public class AddonController {
     @GET
     @Path("/meta/{type}/{id}.json")
     @Produces(MediaType.APPLICATION_JSON)
-    public CompletionStage<MetaVideo> infoVideo(@PathParam("type") String type, @PathParam("id") @CacheKey String id) {
+    public CompletionStage<MetaVideo> infoVideo(@PathParam("type") String type, @PathParam("id") String id) {
         return useCaseExecutor.execute(getLessonByIdUseCase,
                 new GetLessonByIdUseCase.Request(type, id),
                 response -> MetaVideo.from(
@@ -85,7 +84,7 @@ public class AddonController {
     @GET
     @Path("/stream/{type}/{id}.json")
     @Produces(MediaType.APPLICATION_JSON)
-    public CompletionStage<Stream> stream(@PathParam("type") String type, @PathParam("id") @CacheKey String id) {
+    public CompletionStage<Stream> stream(@PathParam("type") String type, @PathParam("id") String id) {
         return useCaseExecutor.execute(getLessonByIdUseCase,
                 new GetLessonByIdUseCase.Request(type, id),
                 response -> Stream.from(response.getLesson()));
