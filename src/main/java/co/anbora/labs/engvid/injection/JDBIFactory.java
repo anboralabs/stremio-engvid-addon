@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Dependent
-public class MybatisFactory {
+public class JDBIFactory {
 
     @Inject
     AgroalDataSource defaultDataSource;
