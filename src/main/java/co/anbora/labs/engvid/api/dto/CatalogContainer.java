@@ -2,11 +2,13 @@ package co.anbora.labs.engvid.api.dto;
 
 
 import co.anbora.labs.engvid.domain.model.Lesson;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class CatalogContainer {
 
     @JsonProperty("metas")

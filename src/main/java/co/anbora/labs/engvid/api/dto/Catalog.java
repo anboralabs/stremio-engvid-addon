@@ -1,7 +1,9 @@
 package co.anbora.labs.engvid.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Catalog {
 
     @JsonProperty("type")
