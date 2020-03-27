@@ -1,9 +1,10 @@
 package co.anbora.labs.engvid.api.dto;
 
-import co.anbora.labs.engvid.domain.model.LessonVideo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MetaVideo {
 
+    @JsonProperty("meta")
     private LessonVideo meta;
 
     public MetaVideo(LessonVideo meta) {

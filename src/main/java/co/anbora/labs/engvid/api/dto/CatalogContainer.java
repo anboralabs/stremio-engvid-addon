@@ -2,8 +2,6 @@ package co.anbora.labs.engvid.api.dto;
 
 
 import co.anbora.labs.engvid.domain.model.Lesson;
-import co.anbora.labs.engvid.domain.model.LessonVideo;
-import co.anbora.labs.engvid.domain.model.stremio.MetaItem;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.LinkedList;

@@ -1,6 +1,6 @@
-package co.anbora.labs.engvid.domain.model;
+package co.anbora.labs.engvid.api.dto;
 
-import co.anbora.labs.engvid.domain.model.stremio.MetaItem;
+import co.anbora.labs.engvid.domain.model.Lesson;
 
 import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.MOVIE;
 

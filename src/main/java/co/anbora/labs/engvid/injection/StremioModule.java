@@ -1,11 +1,10 @@
 package co.anbora.labs.engvid.injection;
 
-import co.anbora.labs.engvid.domain.constants.StremioConstants.Plugin;
-import co.anbora.labs.engvid.domain.model.stremio.Manifest;
+import co.anbora.labs.engvid.api.dto.Manifest;
+import co.anbora.labs.engvid.api.dto.Plugin;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
 
 @Dependent
 public class StremioModule {

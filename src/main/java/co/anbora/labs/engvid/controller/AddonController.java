@@ -1,8 +1,8 @@
 package co.anbora.labs.engvid.controller;
 
-import co.anbora.labs.engvid.domain.model.LessonVideo;
+import co.anbora.labs.engvid.api.dto.LessonVideo;
 import co.anbora.labs.engvid.api.dto.CatalogContainer;
-import co.anbora.labs.engvid.domain.model.stremio.Manifest;
+import co.anbora.labs.engvid.api.dto.Manifest;
 import co.anbora.labs.engvid.api.dto.MetaVideo;
 import co.anbora.labs.engvid.api.dto.Stream;
 import co.anbora.labs.engvid.domain.usecase.UseCaseExecutor;
