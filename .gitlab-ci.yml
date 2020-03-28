@@ -1,13 +1,13 @@
 heroku:
-  stage: deploy
-  image: docker:latest
-  services:
-   - docker:dind
-before_script:
-   - apk add curl nodejs bash
-   - curl https://cli-assets.heroku.com/install.sh | sh
-script:
-   - heroku container:login
-   - docker pull registry.heroku.com/$HEROKU_APP/web || true
-   - heroku container:push - app $HEROKU_APP - context-path . web
-   - heroku container:release web -a $HEROKU_APP
+ stage: deploy
+ image: docker:latest
+ services:
+ - docker:dind
+ before_script:
+ - apk add curl nodejs bash
+ - curl https://cli-assets.heroku.com/install.sh | sh
+ script:
+ - heroku container:login
+ - docker pull registry.heroku.com/$HEROKU_APP/web || true
+ - heroku container:push - app $HEROKU_APP - context-path . web
+ - heroku container:release web -a $HEROKU_APP
