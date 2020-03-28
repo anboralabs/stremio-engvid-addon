@@ -2,6 +2,7 @@ image: docker:latest
 
 services:
   - docker:dind
+  - openjdk:8
   - gradle:6.3.0-jdk8
 
 before_script:
