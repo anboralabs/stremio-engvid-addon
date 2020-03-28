@@ -2,13 +2,11 @@ image: docker:latest
 
 services:
   - docker:dind
+  - gradle:6.0
 
 before_script:
-  - apk add curl nodejs bash unzip zip
+  - apk add curl nodejs bash
   - curl https://cli-assets.heroku.com/install.sh | sh
-  - curl -s "https://get.sdkman.io" | bash
-  - source "$HOME/.sdkman/bin/sdkman-init.sh"
-  - sdk install gradle 6.0
   - ./gradlew buildNative --docker-build=true
 
 production:
