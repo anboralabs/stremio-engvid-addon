@@ -23,7 +23,7 @@ public class LessonDaoImpl implements LessonDao {
     private static final String SELECT_BY_LESSON_ID = "SELECT * FROM lessons WHERE lesson_id = :lessonId";
     private static final String SELECT_ALL = "SELECT * FROM lessons ORDER BY publish_date DESC";
     private static final String SELECT_ALL_BY_CATEGORY = "SELECT * FROM lessons where category_ = :categoryId ORDER BY publish_date DESC";
-    private static final String SELECT_BY_DESCRIPTION = "SELECT * FROM lessons WHERE category_ = :categoryId and description ILIKE '%:search%' ORDER BY publish_date DESC";
+    private static final String SELECT_BY_DESCRIPTION = "SELECT * FROM lessons WHERE category_ = :categoryId and description ILIKE ('%' || :search || '%') ORDER BY publish_date DESC";
 
     private static final String CATEGORY_ID = "categoryId";
     private static final String SEARCH = "search";
