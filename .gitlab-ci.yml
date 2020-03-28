@@ -11,6 +11,6 @@ production:
   stage: deploy
   script:
     - heroku container:login
-    - docker tag $HEROKU_APP registry.heroku.com/$HEROKU_APP/web
-    - docker push registry.heroku.com/$HEROKU_APP/web
+    - docker pull registry.heroku.com/$HEROKU_APP/web || true
+    - heroku container:push web --app=$HEROKU_APP --context-path .
     - heroku container:release web -a $HEROKU_APP
