@@ -6,11 +6,16 @@ services:
 before_script:
   - apk add curl nodejs bash
   - curl https://cli-assets.heroku.com/install.sh | sh
+  - curl -s "https://get.sdkman.io" | bash
+  - source "$HOME/.sdkman/bin/sdkman-init.sh"
+  - sdk install gradle 6.0
+  - ./gradlew buildNative --docker-build=true
 
 production:
   stage: deploy
   script:
     - heroku container:login
+    - docker build -f src/main/docker/Dockerfile.native -t quarkus/$HEROKU_APP .
     - docker pull registry.heroku.com/$HEROKU_APP/web || true
     - heroku container:push web --app=$HEROKU_APP --context-path .
     - heroku container:release web -a $HEROKU_APP
