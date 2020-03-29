@@ -2,18 +2,15 @@ image: docker:latest
 
 services:
   - docker:dind
-  - oracle/graalvm-ce:20.0.0-java8
-  - gradle
 
 before_script:
+  - apk add curl nodejs bash
   - curl https://cli-assets.heroku.com/install.sh | sh
-  - ./gradlew buildNative --docker-build=true
 
 production:
   stage: deploy
   script:
     - heroku container:login
-    - docker build -f src/main/docker/Dockerfile.native -t quarkus/$HEROKU_APP .
-    - docker pull registry.heroku.com/$HEROKU_APP/web || true
+    - docker build -f Dockerfile -t quarkus/stremio-engvid-addon .
     - heroku container:push web --app=$HEROKU_APP --context-path .
     - heroku container:release web -a $HEROKU_APP
