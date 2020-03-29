@@ -6,7 +6,7 @@ services:
 
 before_script:
   - curl https://cli-assets.heroku.com/install.sh | sh
-  - ./gradle buildNative --docker-build=true
+  - ./gradlew buildNative --docker-build=true
 
 production:
   stage: deploy
