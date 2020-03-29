@@ -14,4 +14,3 @@ RUN cp /src/build/*-runner /work/application
 RUN chmod 775 /work /work/application
 
 CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
-
