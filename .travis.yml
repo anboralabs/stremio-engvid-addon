@@ -6,7 +6,8 @@ stages:
   - compile
   - test
   - name: deploy
-    if: branch = master
+    # require the type to be push to master
+    if: type = push AND branch = master
 
 jobs:
   include:
@@ -40,3 +41,5 @@ jobs:
 
       after_script:
         - docker images
+      on:
+        branch: master
