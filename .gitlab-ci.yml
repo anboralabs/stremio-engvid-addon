@@ -1,8 +1,8 @@
-image: oracle/graalvm-ce:20.0.0-java8
+image: docker:latest
 
 services:
-  - docker:latest
   - docker:dind
+  - oracle/graalvm-ce:20.0.0-java8
   - gradle
 
 before_script:
