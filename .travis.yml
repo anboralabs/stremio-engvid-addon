@@ -2,8 +2,16 @@ sudo: required
 services:
   - docker
 
+before_script:
+  # install heroku CLI
+  - curl https://cli-assets.heroku.com/install.sh | sh
+
 script:
-  - docker build -f Dockerfile -t quarkus/stremio-engvid-addon .
+  - heroku container:login
+  - docker build -f Dockerfile -t quarkus/stremio-test-docker .
+  - docker tag quarkus/$HEROKU_APP registry.heroku.com/$HEROKU_APP/web
+  - docker push registry.heroku.com/$HEROKU_APP/web
+  - heroku container:release web -a $HEROKU_APP
 
 after_script:
   - docker images
