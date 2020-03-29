@@ -6,57 +6,58 @@ import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
 import co.anbora.labs.engvid.domain.repository.IAddOnRepository;
 import co.anbora.labs.engvid.domain.repository.IEnglishVideoRepository;
 import co.anbora.labs.engvid.domain.repository.IRepository;
-
 import java.util.List;
 import java.util.function.BiFunction;
 
 public class RepositoryImpl implements IRepository {
 
-    private BiFunction<Lesson, LessonMedia, Lesson> lessonMapper;
+  private BiFunction<Lesson, LessonMedia, Lesson> lessonMapper;
 
-    private IAddOnRepository localRepository;
-    private IEnglishVideoRepository remoteRepository;
+  private IAddOnRepository localRepository;
+  private IEnglishVideoRepository remoteRepository;
 
-    public RepositoryImpl(IAddOnRepository localRepository,
-                          IEnglishVideoRepository remoteRepository,
-                          BiFunction<Lesson, LessonMedia, Lesson> lessonMapper) {
-        this.localRepository = localRepository;
-        this.remoteRepository = remoteRepository;
-        this.lessonMapper = lessonMapper;
+  public RepositoryImpl(IAddOnRepository localRepository,
+                        IEnglishVideoRepository remoteRepository,
+                        BiFunction<Lesson, LessonMedia, Lesson> lessonMapper) {
+    this.localRepository = localRepository;
+    this.remoteRepository = remoteRepository;
+    this.lessonMapper = lessonMapper;
+  }
+
+  @Override
+  public List<Lesson> getLessons() {
+
+    List<Lesson> lessons = localRepository.getLessons();
+    if (lessons.isEmpty()) {
+      List<LessonInfo> lessonInfos = remoteRepository.getLessons();
+      localRepository.save(lessonInfos);
     }
+    return localRepository.getLessons();
+  }
 
-    @Override
-    public List<Lesson> getLessons() {
+  @Override
+  public Lesson getLessonById(Integer lessonId) {
 
-        List<Lesson> lessons = localRepository.getLessons();
-        if (lessons.isEmpty()) {
-            List<LessonInfo> lessonInfos = remoteRepository.getLessons();
-            localRepository.save(lessonInfos);
-        }
-        return localRepository.getLessons();
+    Lesson media = localRepository.getLessonById(lessonId);
+    if (!media.isSync()) {
+      LessonMedia lessonMedia =
+          remoteRepository.getLessonMediaById(media.getSlug(), media.getId());
+      localRepository.save(lessonMedia);
+      media = lessonMapper.apply(media, lessonMedia);
     }
+    return media;
+  }
 
-    @Override
-    public Lesson getLessonById(Integer lessonId) {
+  @Override
+  public List<Lesson> getLessonsByCategory(Integer categoryId) {
 
-        Lesson media = localRepository.getLessonById(lessonId);
-        if (!media.isSync()) {
-            LessonMedia lessonMedia = remoteRepository.getLessonMediaById(media.getSlug(), media.getId());
-            localRepository.save(lessonMedia);
-            media = lessonMapper.apply(media, lessonMedia);
-        }
-        return media;
-    }
+    return localRepository.getLessonsByCategory(categoryId);
+  }
 
-    @Override
-    public List<Lesson> getLessonsByCategory(Integer categoryId) {
+  @Override
+  public List<Lesson> getLessonsByDescription(Integer categoryId,
+                                              String searchValue) {
 
-        return localRepository.getLessonsByCategory(categoryId);
-    }
-
-    @Override
-    public List<Lesson> getLessonsByDescription(Integer categoryId, String searchValue) {
-
-        return localRepository.getLessonsByDescription(categoryId, searchValue);
-    }
+    return localRepository.getLessonsByDescription(categoryId, searchValue);
+  }
 }

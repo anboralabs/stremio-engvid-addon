@@ -6,14 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class StreamItem {
 
-    @JsonProperty("ytId")
-    private final String ytId;
+  @JsonProperty("ytId") private final String ytId;
 
-    public StreamItem(String ytId) {
-        this.ytId = ytId;
-    }
+  public StreamItem(String ytId) { this.ytId = ytId; }
 
-    public String getYtId() {
-        return ytId;
-    }
+  public String getYtId() { return ytId; }
 }

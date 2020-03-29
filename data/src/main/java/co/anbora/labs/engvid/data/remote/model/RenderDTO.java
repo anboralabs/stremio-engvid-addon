@@ -8,7 +8,5 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RenderDTO {
 
-    @JsonProperty("rendered")
-    private String rendered;
-
+  @JsonProperty("rendered") private String rendered;
 }
