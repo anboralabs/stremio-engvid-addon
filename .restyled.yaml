@@ -193,10 +193,10 @@ restylers_version: "20200326"
 #   The command (and any required argument(s)) to perform the Restyling.
 #
 restylers:
-  - astyle
-  - jq
-  - pg_format
-  - prettier-markdown
-  - shellharden
-  - shfmt
-  - whitespace
+  - name: astyle
+  - name: jq
+  - name: pg_format
+  - name: prettier-markdown
+  - name: shellharden
+  - name: shfmt
+  - name: whitespace
