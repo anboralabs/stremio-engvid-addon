@@ -17,7 +17,7 @@ jobs:
       dist: trusty
       jdk: oraclejdk8
       script:
-        - ./gradlew clean build
+        - ./gradlew clean assemble
     - stage: test
       language: java
       install: true
