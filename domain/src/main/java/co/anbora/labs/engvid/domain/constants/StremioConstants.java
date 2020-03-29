@@ -12,6 +12,6 @@ public class StremioConstants {
         String INTERMEDIATE_ID_CATALOG = "intermediate.english.video";
         String ADVANCED_ID_CATALOG = "advanced.english.video";
         String MOVIE = "movie";
-        String VIDEO_PREFIX_ID = "engvid";
+        String VIDEO_PREFIX_ID = "engvid:";
     }
 }
