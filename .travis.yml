@@ -2,16 +2,41 @@ sudo: required
 services:
   - docker
 
-before_script:
-  # install heroku CLI
-  - curl https://cli-assets.heroku.com/install.sh | sh
+stages:
+  - compile
+  - test
+  - name: deploy
+    if: branch = master
 
-script:
-  - heroku container:login
-  - docker build -f Dockerfile -t quarkus/stremio-test-docker .
-  - docker tag quarkus/$HEROKU_APP registry.heroku.com/$HEROKU_APP/web
-  - docker push registry.heroku.com/$HEROKU_APP/web
-  - heroku container:release web -a $HEROKU_APP
+jobs:
+  include:
+    - stage: compile
+      language: java
+      install: true
+      os: linux
+      dist: trusty
+      jdk: oraclejdk8
+      script:
+        - ./gradlew clean build
+    - stage: test
+      language: java
+      install: true
+      os: linux
+      dist: trusty
+      jdk: oraclejdk8
+      script:
+        - ./gradlew check
+    - stage: deploy
+      before_script:
+        # install heroku CLI
+        - curl https://cli-assets.heroku.com/install.sh | sh
 
-after_script:
-  - docker images
+      script:
+        - heroku container:login
+        - docker build -f Dockerfile -t quarkus/$HEROKU_APP .
+        - docker tag quarkus/$HEROKU_APP registry.heroku.com/$HEROKU_APP/web
+        - docker push registry.heroku.com/$HEROKU_APP/web
+        - heroku container:release web -a $HEROKU_APP
+
+      after_script:
+        - docker images
