@@ -5,7 +5,7 @@ services:
   - gradle
 
 before_script:
-  - apk add curl nodejs bash
+  - apt-get install curl nodejs bash
   - curl https://cli-assets.heroku.com/install.sh | sh
   - ./gradle buildNative --docker-build=true
 
