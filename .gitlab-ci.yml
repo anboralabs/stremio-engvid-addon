@@ -1,14 +1,13 @@
-image: docker:latest
+image: oracle/graalvm-ce:20.0.0-java8
 
 services:
-  - docker:dind
-  - java
+  - docker
   - gradle:6.3.0-jdk8
 
 before_script:
   - apk add curl nodejs bash
   - curl https://cli-assets.heroku.com/install.sh | sh
-  - ./gradlew buildNative --docker-build=true
+  - gradle buildNative --docker-build=true
 
 production:
   stage: deploy
