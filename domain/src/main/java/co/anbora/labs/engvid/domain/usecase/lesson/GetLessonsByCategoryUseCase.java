@@ -9,7 +9,11 @@ import lombok.Value;
 import java.util.ArrayList;
 import java.util.List;
 
-import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.*;
+import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.ADVANCED_ID_CATALOG;
+import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.BEGINNER_ID_CATALOG;
+import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.INTERMEDIATE_ID_CATALOG;
+import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.MOVIE;
+
 
 public class GetLessonsByCategoryUseCase extends UseCase<GetLessonsByCategoryUseCase.Request, GetLessonsByCategoryUseCase.Response> {
 

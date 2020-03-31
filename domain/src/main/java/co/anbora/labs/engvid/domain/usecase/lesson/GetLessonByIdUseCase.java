@@ -8,8 +8,6 @@ import co.anbora.labs.engvid.domain.usecase.UseCase;
 import com.jasongoodwin.monads.Try;
 import lombok.Value;
 
-import javax.swing.plaf.BorderUIResource;
-
 import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.MOVIE;
 import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.VIDEO_PREFIX_ID;
 
