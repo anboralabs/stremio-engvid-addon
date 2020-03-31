@@ -1,6 +1,5 @@
 package co.anbora.labs.engvid.domain.model;
 
-import co.anbora.labs.engvid.domain.constants.StremioConstants;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

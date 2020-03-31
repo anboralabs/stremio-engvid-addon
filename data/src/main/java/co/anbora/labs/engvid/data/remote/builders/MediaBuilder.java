@@ -4,7 +4,9 @@ import co.anbora.labs.engvid.domain.constants.HtmlConstants;
 import org.jsoup.nodes.Element;
 
 import static co.anbora.labs.engvid.domain.constants.Constants.EMPTY_VALUE;
-import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstants.*;
+import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstants.VIDEO_ID_PATH;
+import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstants.YOUTUBE_EMBED_URL;
+import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstants.YOUTUBE_PREVIEW_IMAGE;
 
 public class MediaBuilder {
 

@@ -1,7 +1,11 @@
 package co.anbora.labs.engvid.data.local;
 
 import co.anbora.labs.engvid.data.local.dao.LessonDao;
-import co.anbora.labs.engvid.data.local.mapper.*;
+import co.anbora.labs.engvid.data.local.mapper.LessonInfoToVOMapper;
+import co.anbora.labs.engvid.data.local.mapper.LessonMediaToVOMapper;
+import co.anbora.labs.engvid.data.local.mapper.LessonVOMapper;
+import co.anbora.labs.engvid.data.local.mapper.ListLessonInfoToVOMapper;
+import co.anbora.labs.engvid.data.local.mapper.ListLessonVOMapper;
 import co.anbora.labs.engvid.data.local.model.LessonInfoVO;
 import co.anbora.labs.engvid.data.local.model.LessonMediaVO;
 import co.anbora.labs.engvid.data.local.model.LessonVO;
