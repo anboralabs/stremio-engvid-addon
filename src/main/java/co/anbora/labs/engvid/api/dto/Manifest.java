@@ -7,27 +7,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Manifest {
 
     @JsonProperty("id")
-    final String id;
+    private final String id;
     @JsonProperty("version")
-    final String version;
+    private final String version;
     @JsonProperty("name")
-    final String name;
+    private final String name;
     @JsonProperty("description")
-    final String description;
+    private final String description;
     @JsonProperty("idPrefixes")
-    final String[] idPrefixes;
+    private final String[] idPrefixes;
     @JsonProperty("resources")
-    final String[] resources;
+    private final String[] resources;
     @JsonProperty("types")
-    final String[] types;
+    private final String[] types;
     @JsonProperty("catalogs")
-    final Catalog[] catalogs;
+    private final Catalog[] catalogs;
     @JsonProperty("background")
-    final String background;
+    private final String background;
     @JsonProperty("logo")
-    final String logo;
+    private final String logo;
     @JsonProperty("contactEmail")
-    final String contactEmail;
+    private final String contactEmail;
 
     public Manifest(String id, String version, String name, String description, String[] idPrefixes, String[] resources, String[] types, Catalog[] catalogs, String background, String logo, String contactEmail) {
         this.id = id;
