@@ -1,6 +1,7 @@
 package co.anbora.labs.engvid;
 
 import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -10,6 +11,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 public class ExampleResourceTest {
 
     @Test
+    @Disabled
     public void testHelloEndpoint() {
         given()
           .when().get("/manifest.json")

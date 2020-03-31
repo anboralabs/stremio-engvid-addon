@@ -41,7 +41,7 @@ public class GetLessonByIdUseCaseTest {
 
         GetLessonByIdUseCase.Request request =
                 new GetLessonByIdUseCase.Request(StremioConstantsHelper.StremioCatalog.MOVIE, VIDEO_PREFIX_ID + "invalid");
-        GetLessonByIdUseCase.Response response = getLessonByIdUseCase.execute(request);
+        getLessonByIdUseCase.execute(request);
     }
 
     @Test

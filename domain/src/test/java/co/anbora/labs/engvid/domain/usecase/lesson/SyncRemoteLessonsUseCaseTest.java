@@ -12,6 +12,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertNotNull;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class SyncRemoteLessonsUseCaseTest {
@@ -39,6 +41,7 @@ public class SyncRemoteLessonsUseCaseTest {
                 .thenReturn(infos);
 
         SyncRemoteLessonsUseCase.Response response = useCase.execute(new SyncRemoteLessonsUseCase.Request());
+        assertNotNull(response);
         Mockito.verify(localRepository).save(infos);
     }
 }
