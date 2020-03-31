@@ -38,14 +38,12 @@ public class EnglishVideoRepositoryImplTest {
 
     private EnglishVideoAPI api = Mockito.mock(EnglishVideoAPI.class);
     private EnglishVideoRepositoryImpl repository;
-    private ListLessonInfoDTOMapper listLessonInfoDTOMapper;
-    private HtmlToLessonMediaMapper htmlToLessonMediaMapper;
 
     @Before
     public void setUp() throws Exception {
 
-        htmlToLessonMediaMapper = new HtmlToLessonMediaMapper();
-        listLessonInfoDTOMapper = new ListLessonInfoDTOMapper(new LessonInfoDTOMapper());
+        HtmlToLessonMediaMapper htmlToLessonMediaMapper = new HtmlToLessonMediaMapper();
+        ListLessonInfoDTOMapper listLessonInfoDTOMapper = new ListLessonInfoDTOMapper(new LessonInfoDTOMapper());
         repository = new EnglishVideoRepositoryImpl(api, listLessonInfoDTOMapper, htmlToLessonMediaMapper);
     }
 
