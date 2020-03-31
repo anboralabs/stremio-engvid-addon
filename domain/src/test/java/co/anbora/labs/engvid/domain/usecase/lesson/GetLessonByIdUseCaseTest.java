@@ -5,7 +5,6 @@ import co.anbora.labs.engvid.domain.constants.StremioConstants;
 import co.anbora.labs.engvid.domain.exceptions.LessonNotFoundException;
 import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.repository.IRepository;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +12,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.VIDEO_PREFIX_ID;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GetLessonByIdUseCaseTest {
@@ -32,7 +33,7 @@ public class GetLessonByIdUseCaseTest {
 
         GetLessonByIdUseCase.Request request = new GetLessonByIdUseCase.Request("serie", "1");
         GetLessonByIdUseCase.Response response = getLessonByIdUseCase.execute(request);
-        Assert.assertNull(response.getLesson());
+        assertNull(response.getLesson());
     }
 
     @Test(expected = LessonNotFoundException.class)
@@ -51,7 +52,7 @@ public class GetLessonByIdUseCaseTest {
         GetLessonByIdUseCase.Request request =
                 new GetLessonByIdUseCase.Request(StremioConstants.StremioCatalog.MOVIE, VIDEO_PREFIX_ID + "6716");
         GetLessonByIdUseCase.Response response = getLessonByIdUseCase.execute(request);
-        Assert.assertEquals(response.getLesson(), lesson);
+        assertEquals(response.getLesson(), lesson);
     }
 
 }

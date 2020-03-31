@@ -4,14 +4,13 @@ import co.anbora.labs.engvid.domain.CommonValuesForTests;
 import co.anbora.labs.engvid.domain.constants.StremioConstants;
 import co.anbora.labs.engvid.domain.model.EnglishLevel;
 import co.anbora.labs.engvid.domain.repository.IRepository;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GetLessonsByCategoryUseCaseTest {
@@ -31,7 +30,7 @@ public class GetLessonsByCategoryUseCaseTest {
         int zero = 0;
         GetLessonsByCategoryUseCase.Request request = new GetLessonsByCategoryUseCase.Request(StremioConstants.StremioCatalog.MOVIE, "invalid");
         GetLessonsByCategoryUseCase.Response response = getLessonsByCategoryUseCase.execute(request);
-        Assert.assertEquals(response.getLessons().size(), zero);
+        assertEquals(response.getLessons().size(), zero);
     }
 
     @Test
@@ -42,7 +41,7 @@ public class GetLessonsByCategoryUseCaseTest {
 
         GetLessonsByCategoryUseCase.Request request = new GetLessonsByCategoryUseCase.Request(StremioConstants.StremioCatalog.MOVIE, StremioConstants.StremioCatalog.BEGINNER_ID_CATALOG);
         GetLessonsByCategoryUseCase.Response response = getLessonsByCategoryUseCase.execute(request);
-        Assert.assertEquals(response.getLessons(), CommonValuesForTests.beginnerLessons());
+        assertEquals(response.getLessons(), CommonValuesForTests.beginnerLessons());
     }
 
     @Test
@@ -53,7 +52,7 @@ public class GetLessonsByCategoryUseCaseTest {
 
         GetLessonsByCategoryUseCase.Request request = new GetLessonsByCategoryUseCase.Request(StremioConstants.StremioCatalog.MOVIE, StremioConstants.StremioCatalog.INTERMEDIATE_ID_CATALOG);
         GetLessonsByCategoryUseCase.Response response = getLessonsByCategoryUseCase.execute(request);
-        Assert.assertEquals(response.getLessons(), CommonValuesForTests.intermediateLessons());
+        assertEquals(response.getLessons(), CommonValuesForTests.intermediateLessons());
     }
 
     @Test
@@ -64,7 +63,7 @@ public class GetLessonsByCategoryUseCaseTest {
 
         GetLessonsByCategoryUseCase.Request request = new GetLessonsByCategoryUseCase.Request(StremioConstants.StremioCatalog.MOVIE, StremioConstants.StremioCatalog.ADVANCED_ID_CATALOG);
         GetLessonsByCategoryUseCase.Response response = getLessonsByCategoryUseCase.execute(request);
-        Assert.assertEquals(response.getLessons(), CommonValuesForTests.advancedLessons());
+        assertEquals(response.getLessons(), CommonValuesForTests.advancedLessons());
     }
 
 }
