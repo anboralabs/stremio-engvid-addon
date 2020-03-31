@@ -3,8 +3,6 @@ package co.anbora.labs.engvid.usecases;
 import co.anbora.labs.engvid.domain.usecase.UseCase;
 import co.anbora.labs.engvid.domain.usecase.UseCaseExecutor;
 
-import javax.enterprise.inject.Default;
-import javax.inject.Singleton;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 

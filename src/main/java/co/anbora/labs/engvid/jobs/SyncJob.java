@@ -1,7 +1,6 @@
 package co.anbora.labs.engvid.jobs;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import co.anbora.labs.engvid.domain.usecase.UseCaseExecutor;
 import co.anbora.labs.engvid.domain.usecase.lesson.SyncLessonsAtStartupUseCase;
