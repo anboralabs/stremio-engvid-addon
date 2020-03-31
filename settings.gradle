@@ -11,4 +11,3 @@ pluginManagement {
 rootProject.name='stremio-engvid-addon'
 include 'data'
 include 'domain'
-
