@@ -8,53 +8,52 @@ import co.anbora.labs.engvid.domain.mapper.LessonMediaMapper;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
 
 @Dependent
 public class MapperModule {
 
     @Produces
-    LessonMediaToVOMapper provideLessonMediaToVOMapper() {
+    public LessonMediaToVOMapper provideLessonMediaToVOMapper() {
         return new LessonMediaToVOMapper();
     }
 
     @Produces
-    LessonInfoToVOMapper provideLessonInfoToVOMapper() {
+    public LessonInfoToVOMapper provideLessonInfoToVOMapper() {
         return new LessonInfoToVOMapper();
     }
 
     @Produces
-    ListLessonInfoToVOMapper provideListLessonInfoToVOMapper(LessonInfoToVOMapper mapper) {
+    public ListLessonInfoToVOMapper provideListLessonInfoToVOMapper(LessonInfoToVOMapper mapper) {
         return new ListLessonInfoToVOMapper(mapper);
     }
 
     @Produces
-    LessonVOMapper provideLessonVOMapper() {
+    public LessonVOMapper provideLessonVOMapper() {
         return new LessonVOMapper();
     }
 
     @Produces
-    LessonInfoDTOMapper provideLessonInfoDTOMapper() {
+    public LessonInfoDTOMapper provideLessonInfoDTOMapper() {
         return new LessonInfoDTOMapper();
     }
 
     @Produces
-    ListLessonInfoDTOMapper provideListLessonInfoDTOMapper(LessonInfoDTOMapper mapper) {
+    public ListLessonInfoDTOMapper provideListLessonInfoDTOMapper(LessonInfoDTOMapper mapper) {
         return new ListLessonInfoDTOMapper(mapper);
     }
 
     @Produces
-    HtmlToLessonMediaMapper provideHtmlToLessonMediaMapper() {
+    public HtmlToLessonMediaMapper provideHtmlToLessonMediaMapper() {
         return new HtmlToLessonMediaMapper();
     }
 
     @Produces
-    ListLessonVOMapper provideListLessonVOMapper(LessonVOMapper lessonVOMapper) {
+    public ListLessonVOMapper provideListLessonVOMapper(LessonVOMapper lessonVOMapper) {
         return new ListLessonVOMapper(lessonVOMapper);
     }
 
     @Produces
-    LessonMediaMapper provideLessonMediaMapper() {
+    public LessonMediaMapper provideLessonMediaMapper() {
         return new LessonMediaMapper();
     }
 

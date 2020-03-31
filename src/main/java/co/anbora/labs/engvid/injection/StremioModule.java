@@ -10,7 +10,7 @@ import javax.enterprise.inject.Produces;
 public class StremioModule {
 
     @Produces
-    Manifest provideManifest() {
+    public Manifest provideManifest() {
         return new Manifest(
                 Plugin.ID,
                 Plugin.VERSION,

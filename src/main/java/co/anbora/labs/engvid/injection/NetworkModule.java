@@ -7,7 +7,6 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
 
 import static co.anbora.labs.engvid.injection.UntrustedSSLClient.getUnsafeOkHttpClient;
 
@@ -15,12 +14,12 @@ import static co.anbora.labs.engvid.injection.UntrustedSSLClient.getUnsafeOkHttp
 public class NetworkModule {
 
     @Produces
-    OkHttpClient provideRetrofit(@ConfigProperty(name = "engvid.url") String url) {
+    public OkHttpClient provideRetrofit(@ConfigProperty(name = "engvid.url") String url) {
         return getUnsafeOkHttpClient();
     }
 
     @Produces
-    EnglishVideoAPI provideEnglishVideoAPI(@ConfigProperty(name = "engvid.url") String url, OkHttpClient retrofit) {
+    public EnglishVideoAPI provideEnglishVideoAPI(@ConfigProperty(name = "engvid.url") String url, OkHttpClient retrofit) {
         return new EnglishVideoAPIImpl(url, retrofit);
     }
 

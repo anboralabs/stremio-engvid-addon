@@ -2,7 +2,12 @@ package co.anbora.labs.engvid.injection;
 
 import okhttp3.OkHttpClient;
 
-import javax.net.ssl.*;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.security.cert.CertificateException;
 
 public class UntrustedSSLClient {

@@ -7,34 +7,33 @@ import co.anbora.labs.engvid.domain.usecase.lesson.*;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
 
 @Dependent
 public class DomainModule {
 
     @Produces
-    SyncRemoteLessonsUseCase provideSyncLessonUseCase(IAddOnRepository localRepository,
+    public SyncRemoteLessonsUseCase provideSyncLessonUseCase(IAddOnRepository localRepository,
                                                       IEnglishVideoRepository remoteRepository) {
         return new SyncRemoteLessonsUseCase(localRepository, remoteRepository);
     }
 
     @Produces
-    SyncLessonsAtStartupUseCase provideSyncLessonsAtStartupUseCase(IRepository repository) {
+    public SyncLessonsAtStartupUseCase provideSyncLessonsAtStartupUseCase(IRepository repository) {
         return new SyncLessonsAtStartupUseCase(repository);
     }
 
     @Produces
-    GetAllLessonsUseCase provideGetAllLessonsUseCase(IRepository repository) {
+    public GetAllLessonsUseCase provideGetAllLessonsUseCase(IRepository repository) {
         return new GetAllLessonsUseCase(repository);
     }
 
     @Produces
-    GetLessonByIdUseCase provideGetLessonByIdUseCase(IRepository repository) {
+    public GetLessonByIdUseCase provideGetLessonByIdUseCase(IRepository repository) {
         return new GetLessonByIdUseCase(repository);
     }
 
     @Produces
-    GetLessonsByCategoryUseCase provideGetLessonsByCategoryUseCase(IRepository repository) {
+    public GetLessonsByCategoryUseCase provideGetLessonsByCategoryUseCase(IRepository repository) {
         return new GetLessonsByCategoryUseCase(repository);
     }
 

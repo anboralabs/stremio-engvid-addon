@@ -8,7 +8,6 @@ import org.jdbi.v3.core.Jdbi;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 @Dependent
 public class JDBIFactory {
@@ -17,7 +16,7 @@ public class JDBIFactory {
     AgroalDataSource defaultDataSource;
 
     @Produces
-    LessonDao provideLessonDao() {
+    public LessonDao provideLessonDao() {
 
         Jdbi jdbi = Jdbi.create(defaultDataSource);
         return new LessonDaoImpl(jdbi);

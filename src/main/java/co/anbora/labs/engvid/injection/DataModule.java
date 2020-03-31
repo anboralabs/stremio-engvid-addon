@@ -15,13 +15,12 @@ import co.anbora.labs.engvid.domain.repository.IRepository;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
 
 @Dependent
 public class DataModule {
 
     @Produces
-    IAddOnRepository provideLocalRepository(LessonMediaToVOMapper lessonMediaToVOMapper,
+    public IAddOnRepository provideLocalRepository(LessonMediaToVOMapper lessonMediaToVOMapper,
                                             ListLessonInfoToVOMapper listLessonInfoToVOMapper,
                                             LessonVOMapper lessonVOMapper,
                                             ListLessonVOMapper listLessonVOMapper,
@@ -31,7 +30,7 @@ public class DataModule {
     }
 
     @Produces
-    IEnglishVideoRepository provideRemoteRepository(EnglishVideoAPI englishVideoAPI,
+    public IEnglishVideoRepository provideRemoteRepository(EnglishVideoAPI englishVideoAPI,
                                                     ListLessonInfoDTOMapper listLessonInfoDTOMapper,
                                                     HtmlToLessonMediaMapper htmlMediaMapper) {
         return new EnglishVideoRepositoryImpl(englishVideoAPI,
@@ -40,7 +39,7 @@ public class DataModule {
     }
 
     @Produces
-    IRepository provideRepository(IAddOnRepository local,
+    public IRepository provideRepository(IAddOnRepository local,
                                   IEnglishVideoRepository remote,
                                   LessonMediaMapper mapper) {
         return new RepositoryImpl(local, remote, mapper);
