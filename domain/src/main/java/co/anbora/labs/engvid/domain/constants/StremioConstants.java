@@ -2,10 +2,10 @@ package co.anbora.labs.engvid.domain.constants;
 
 public class StremioConstants {
 
-    private StremioConstants() {}
-
     public static final int MIN_EXTRAS = 1;
     public static final String SEARCH = "search";
+
+    private StremioConstants() {}
 
     public interface StremioCatalog {
         String BEGINNER_ID_CATALOG = "beginner.english.video";

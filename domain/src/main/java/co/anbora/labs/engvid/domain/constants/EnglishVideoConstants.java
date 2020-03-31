@@ -2,8 +2,6 @@ package co.anbora.labs.engvid.domain.constants;
 
 public class EnglishVideoConstants {
 
-    private EnglishVideoConstants() {}
-
     public static final Integer INITIAL_PAGE = 1;
     public static final Integer MAX_POST_BY_PAGE = 100;
 
@@ -12,4 +10,6 @@ public class EnglishVideoConstants {
 
     public static final String VIDEO_ID_PATH = "{videoId}";
     public static final String YOUTUBE_PREVIEW_IMAGE = "https://img.youtube.com/vi/{videoId}/0.jpg";
+
+    private EnglishVideoConstants() {}
 }
