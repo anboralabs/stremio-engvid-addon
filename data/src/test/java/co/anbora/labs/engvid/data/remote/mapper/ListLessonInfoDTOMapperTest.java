@@ -4,13 +4,14 @@ import co.anbora.labs.engvid.data.remote.model.LessonInfoDTO;
 import co.anbora.labs.engvid.data.remote.model.RenderDTO;
 import co.anbora.labs.engvid.domain.model.EnglishLevel;
 import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 
 public class ListLessonInfoDTOMapperTest {
 
@@ -25,7 +26,7 @@ public class ListLessonInfoDTOMapperTest {
     @Test
     public void givenANullListReturnNull() {
 
-        Assert.assertNull(mapper.apply(null));
+        assertNull(mapper.apply(null));
     }
 
     @Test
@@ -52,6 +53,6 @@ public class ListLessonInfoDTOMapperTest {
                 .description("Description")
                 .build();
 
-        Assert.assertEquals(Arrays.asList(lessonInfo), mapper.apply(Arrays.asList(lessonInfoDTO)));
+        assertEquals(Arrays.asList(lessonInfo), mapper.apply(Arrays.asList(lessonInfoDTO)));
     }
 }

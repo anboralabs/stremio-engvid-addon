@@ -15,7 +15,6 @@ import okhttp3.Protocol;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +29,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EnglishVideoRepositoryImplTest {
@@ -53,7 +55,7 @@ public class EnglishVideoRepositoryImplTest {
         Mockito.when(api.getLessonsByPage(Mockito.anyInt(), Mockito.anyInt()))
                 .thenThrow(new RuntimeException());
 
-        Assert.assertTrue(repository.getLessons().isEmpty());
+        assertTrue(repository.getLessons().isEmpty());
     }
 
     @Test
@@ -107,7 +109,7 @@ public class EnglishVideoRepositoryImplTest {
                 .description("Description2")
                 .build();
 
-        Assert.assertEquals(Arrays.asList(lessonInfo, lessonInfo2), repository.getLessons());
+        assertEquals(Arrays.asList(lessonInfo, lessonInfo2), repository.getLessons());
     }
 
     @Test(expected = LessonNotFoundException.class)
@@ -158,7 +160,7 @@ public class EnglishVideoRepositoryImplTest {
                 .sync(true)
                 .build();
 
-        Assert.assertEquals(media, repository.getLessonMediaById(mediaSlug, lessonId));
+        assertEquals(media, repository.getLessonMediaById(mediaSlug, lessonId));
     }
 
 }

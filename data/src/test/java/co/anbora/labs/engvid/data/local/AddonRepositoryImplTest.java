@@ -9,7 +9,6 @@ import co.anbora.labs.engvid.domain.model.EnglishLevel;
 import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
 import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +17,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AddonRepositoryImplTest {
@@ -95,7 +95,7 @@ public class AddonRepositoryImplTest {
         Mockito.when(lessonDao.findAll())
                 .thenReturn(Arrays.asList(lessonVO));
 
-        Assert.assertEquals(Arrays.asList(lesson), this.addonRepository.getLessons());
+        assertEquals(Arrays.asList(lesson), this.addonRepository.getLessons());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class AddonRepositoryImplTest {
         Mockito.when(lessonDao.findAllByCategory(EnglishLevel.BEGINNER.getId()))
                 .thenReturn(Arrays.asList(lessonVO));
 
-        Assert.assertEquals(Arrays.asList(lesson), this.addonRepository.getLessonsByCategory(EnglishLevel.BEGINNER.getId()));
+        assertEquals(Arrays.asList(lesson), this.addonRepository.getLessonsByCategory(EnglishLevel.BEGINNER.getId()));
     }
 
     @Test
@@ -141,7 +141,7 @@ public class AddonRepositoryImplTest {
 
         Mockito.when(lessonDao.findById(idLesson))
                 .thenReturn(lessonVO);
-        Assert.assertEquals(lesson, this.addonRepository.getLessonById(idLesson));
+        assertEquals(lesson, this.addonRepository.getLessonById(idLesson));
     }
 
     @Test
@@ -151,7 +151,7 @@ public class AddonRepositoryImplTest {
 
         Mockito.when(lessonDao.findById(Mockito.anyInt()))
                 .thenReturn(null);
-        Assert.assertNull(this.addonRepository.getLessonById(invalidId));
+        assertNull(this.addonRepository.getLessonById(invalidId));
     }
 
 }
