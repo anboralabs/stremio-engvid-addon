@@ -37,8 +37,9 @@ public class GetAllLessonsUseCase extends UseCase<GetAllLessonsUseCase.Request, 
                 return getResponse(searchValue, EnglishLevel.INTERMEDIATE);
             case ADVANCED_ID_CATALOG:
                 return getResponse(searchValue, EnglishLevel.ADVANCE);
+            default:
+                return new Response(null);
         }
-        return new Response(null);
     }
 
     private Response getResponse(String searchValue, EnglishLevel englishLevel) {
