@@ -13,7 +13,7 @@ import javax.inject.Inject;
 public class JDBIFactory {
 
     @Inject
-    AgroalDataSource defaultDataSource;
+    protected AgroalDataSource defaultDataSource;
 
     @Produces
     public LessonDao provideLessonDao() {

@@ -13,13 +13,13 @@ import java.util.function.Function;
 public class SyncJob {
 
     @Inject
-    UseCaseExecutor useCaseExecutor;
+    protected UseCaseExecutor useCaseExecutor;
 
     @Inject
-    SyncRemoteLessonsUseCase syncRemoteLessonsUseCase;
+    protected SyncRemoteLessonsUseCase syncRemoteLessonsUseCase;
 
     @Inject
-    SyncLessonsAtStartupUseCase syncLessonsAtStartupUseCase;
+    protected SyncLessonsAtStartupUseCase syncLessonsAtStartupUseCase;
 
     @Scheduled(every = "1440m")
     public void daily() {
