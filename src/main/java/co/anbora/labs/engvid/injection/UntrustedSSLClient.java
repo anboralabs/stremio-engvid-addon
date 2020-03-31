@@ -1,5 +1,6 @@
 package co.anbora.labs.engvid.injection;
 
+import co.anbora.labs.engvid.exception.UntrustedSSLException;
 import okhttp3.OkHttpClient;
 
 import javax.net.ssl.HostnameVerifier;
@@ -50,10 +51,9 @@ public class UntrustedSSLClient {
                 }
             });
 
-            OkHttpClient okHttpClient = builder.build();
-            return okHttpClient;
+            return builder.build();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new UntrustedSSLException(e);
         }
     }
 }
