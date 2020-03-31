@@ -24,15 +24,15 @@ import java.util.concurrent.CompletionStage;
 public class AddonController {
 
     @Inject
-    Manifest manifest;
+    protected Manifest manifest;
     @Inject
-    UseCaseExecutor useCaseExecutor;
+    protected UseCaseExecutor useCaseExecutor;
     @Inject
-    GetLessonsByCategoryUseCase getLessonsByCategoryUseCase;
+    protected GetLessonsByCategoryUseCase getLessonsByCategoryUseCase;
     @Inject
-    GetLessonByIdUseCase getLessonByIdUseCase;
+    protected GetLessonByIdUseCase getLessonByIdUseCase;
     @Inject
-    GetAllLessonsUseCase getAllLessonsUseCase;
+    protected GetAllLessonsUseCase getAllLessonsUseCase;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
