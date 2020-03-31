@@ -2,7 +2,7 @@ package co.anbora.labs.engvid.api.dto;
 
 import co.anbora.labs.engvid.domain.model.Lesson;
 
-import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.MOVIE;
+import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.StremioCatalog.MOVIE;
 
 public class LessonVideo extends MetaItem {
     public LessonVideo(String id, String name, String poster, String description, String background) {

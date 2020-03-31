@@ -1,7 +1,7 @@
 package co.anbora.labs.engvid.domain.usecase.lesson;
 
-import co.anbora.labs.engvid.domain.CommonValuesForTests;
-import co.anbora.labs.engvid.domain.constants.StremioConstants;
+import co.anbora.labs.engvid.domain.CommonValuesForTestsHelper;
+import co.anbora.labs.engvid.domain.constants.StremioConstantsHelper;
 import co.anbora.labs.engvid.domain.exceptions.LessonNotFoundException;
 import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.repository.IRepository;
@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.VIDEO_PREFIX_ID;
+import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.StremioCatalog.VIDEO_PREFIX_ID;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -25,7 +25,7 @@ public class GetLessonByIdUseCaseTest {
     @Before
     public void setUp() throws Exception {
         getLessonByIdUseCase = new GetLessonByIdUseCase(repository);
-        Mockito.when(repository.getLessonById(LESSON_ID)).thenReturn(CommonValuesForTests.provideBeginnerLesson());
+        Mockito.when(repository.getLessonById(LESSON_ID)).thenReturn(CommonValuesForTestsHelper.provideBeginnerLesson());
     }
 
     @Test(expected = LessonNotFoundException.class)
@@ -40,17 +40,17 @@ public class GetLessonByIdUseCaseTest {
     public void givenAnInvalidIdThrowsLessonNotFoundException() {
 
         GetLessonByIdUseCase.Request request =
-                new GetLessonByIdUseCase.Request(StremioConstants.StremioCatalog.MOVIE, VIDEO_PREFIX_ID + "invalid");
+                new GetLessonByIdUseCase.Request(StremioConstantsHelper.StremioCatalog.MOVIE, VIDEO_PREFIX_ID + "invalid");
         GetLessonByIdUseCase.Response response = getLessonByIdUseCase.execute(request);
     }
 
     @Test
     public void givenAValidIdReturnLesson() {
 
-        Lesson lesson = CommonValuesForTests.provideBeginnerLesson();
+        Lesson lesson = CommonValuesForTestsHelper.provideBeginnerLesson();
 
         GetLessonByIdUseCase.Request request =
-                new GetLessonByIdUseCase.Request(StremioConstants.StremioCatalog.MOVIE, VIDEO_PREFIX_ID + "6716");
+                new GetLessonByIdUseCase.Request(StremioConstantsHelper.StremioCatalog.MOVIE, VIDEO_PREFIX_ID + "6716");
         GetLessonByIdUseCase.Response response = getLessonByIdUseCase.execute(request);
         assertEquals(response.getLesson(), lesson);
     }

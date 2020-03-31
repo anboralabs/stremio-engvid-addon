@@ -1,6 +1,6 @@
 package co.anbora.labs.engvid.domain.usecase.lesson;
 
-import co.anbora.labs.engvid.domain.constants.Constants;
+import co.anbora.labs.engvid.domain.constants.ConstantsHelper;
 import co.anbora.labs.engvid.domain.model.EnglishLevel;
 import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.repository.IRepository;
@@ -13,11 +13,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static co.anbora.labs.engvid.domain.constants.StremioConstants.MIN_EXTRAS;
-import static co.anbora.labs.engvid.domain.constants.StremioConstants.SEARCH;
-import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.ADVANCED_ID_CATALOG;
-import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.BEGINNER_ID_CATALOG;
-import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.INTERMEDIATE_ID_CATALOG;
+import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.MIN_EXTRAS;
+import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.SEARCH;
+import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.StremioCatalog.ADVANCED_ID_CATALOG;
+import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.StremioCatalog.BEGINNER_ID_CATALOG;
+import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.StremioCatalog.INTERMEDIATE_ID_CATALOG;
 
 public class GetAllLessonsUseCase extends UseCase<GetAllLessonsUseCase.Request, GetAllLessonsUseCase.Response> {
 
@@ -51,13 +51,13 @@ public class GetAllLessonsUseCase extends UseCase<GetAllLessonsUseCase.Request, 
 
     private String getSearchValue(String extra) {
         if (Objects.nonNull(extra) && extra.isEmpty()) {
-            return Constants.EMPTY_VALUE;
+            return ConstantsHelper.EMPTY_VALUE;
         }
         Map<String, String> mapExtras = Stream.of(extra)
-                .map(str -> str.split(Constants.EQUAL_CHARACTER))
+                .map(str -> str.split(ConstantsHelper.EQUAL_CHARACTER))
                 .filter(extras -> extras.length > MIN_EXTRAS)
                 .collect(Collectors.toMap(t -> t[0], t -> t[1]));
-        return mapExtras.getOrDefault(SEARCH, Constants.EMPTY_VALUE);
+        return mapExtras.getOrDefault(SEARCH, ConstantsHelper.EMPTY_VALUE);
     }
 
     @Value

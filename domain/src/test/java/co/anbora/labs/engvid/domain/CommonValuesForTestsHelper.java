@@ -6,9 +6,9 @@ import co.anbora.labs.engvid.domain.model.Lesson;
 import java.util.Arrays;
 import java.util.List;
 
-public class CommonValuesForTests {
+public class CommonValuesForTestsHelper {
 
-    private CommonValuesForTests() {}
+    private CommonValuesForTestsHelper() {}
 
     public static Lesson provideBeginnerLesson() {
         return Lesson.builder()

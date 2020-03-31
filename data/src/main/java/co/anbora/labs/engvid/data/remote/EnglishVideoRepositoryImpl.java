@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstants.INITIAL_PAGE;
-import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstants.MAX_POST_BY_PAGE;
+import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstantsHelper.INITIAL_PAGE;
+import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstantsHelper.MAX_POST_BY_PAGE;
 
 public class EnglishVideoRepositoryImpl implements IEnglishVideoRepository {
 

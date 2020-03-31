@@ -1,6 +1,6 @@
 package co.anbora.labs.engvid.domain.mapper;
 
-import co.anbora.labs.engvid.domain.CommonValuesForTests;
+import co.anbora.labs.engvid.domain.CommonValuesForTestsHelper;
 import co.anbora.labs.engvid.domain.model.EnglishLevel;
 import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
@@ -36,7 +36,7 @@ public class LessonMediaMapperTest {
 
     @Test
     public void givenLessonAndMediaReturnLessonUpdated() {
-        Lesson lesson = CommonValuesForTests.provideBeginnerLesson();
+        Lesson lesson = CommonValuesForTestsHelper.provideBeginnerLesson();
         assertEquals(lesson, mapper.apply(incompleteLesson, mediaInfo));
     }
 

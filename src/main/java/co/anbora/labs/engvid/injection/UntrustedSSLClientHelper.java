@@ -11,9 +11,9 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.security.cert.CertificateException;
 
-public class UntrustedSSLClient {
+public class UntrustedSSLClientHelper {
 
-    private UntrustedSSLClient(){}
+    private UntrustedSSLClientHelper(){}
 
     public static OkHttpClient getUnsafeOkHttpClient() {
         try {
@@ -22,10 +22,12 @@ public class UntrustedSSLClient {
                     new X509TrustManager() {
                         @Override
                         public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                            // This method is intentionally empty to avoid SSL client check
                         }
 
                         @Override
                         public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                            // This method is intentionally empty to avoid SSL server check
                         }
 
                         @Override

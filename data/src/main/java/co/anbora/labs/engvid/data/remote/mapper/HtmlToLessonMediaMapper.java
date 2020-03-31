@@ -1,7 +1,7 @@
 package co.anbora.labs.engvid.data.remote.mapper;
 
-import co.anbora.labs.engvid.data.remote.builders.MediaBuilder;
-import co.anbora.labs.engvid.domain.constants.HtmlConstants;
+import co.anbora.labs.engvid.data.remote.builders.MediaBuilderHelper;
+import co.anbora.labs.engvid.domain.constants.HtmlConstantsHelper;
 import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,12 +15,12 @@ public class HtmlToLessonMediaMapper implements BiFunction<String, Long, LessonM
     public LessonMedia apply(String html, Long lessonId) {
         if (Objects.nonNull(html)) {
             Document mediaHtml = Jsoup.parse(html);
-            Element video = getElement(mediaHtml, HtmlConstants.TWITTER_ATTR_PLAYER);
+            Element video = getElement(mediaHtml, HtmlConstantsHelper.TWITTER_ATTR_PLAYER);
 
             return LessonMedia.builder()
                     .id(lessonId)
-                    .imageUrl(MediaBuilder.imageUrl(video))
-                    .youtubeId(MediaBuilder.videoId(video))
+                    .imageUrl(MediaBuilderHelper.imageUrl(video))
+                    .youtubeId(MediaBuilderHelper.videoId(video))
                     .sync(true)
                     .build();
         }
@@ -29,8 +29,8 @@ public class HtmlToLessonMediaMapper implements BiFunction<String, Long, LessonM
 
     private Element getElement(Document mediaHtml, String twitterAttrPlayer) {
         return mediaHtml
-                .getElementsByAttributeValue(HtmlConstants.PROPERTY, twitterAttrPlayer).stream()
+                .getElementsByAttributeValue(HtmlConstantsHelper.PROPERTY, twitterAttrPlayer).stream()
                 .findFirst()
-                .orElseGet(() -> new Element(HtmlConstants.META));
+                .orElseGet(() -> new Element(HtmlConstantsHelper.META));
     }
 }

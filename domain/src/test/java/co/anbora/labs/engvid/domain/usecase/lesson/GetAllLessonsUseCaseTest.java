@@ -1,7 +1,7 @@
 package co.anbora.labs.engvid.domain.usecase.lesson;
 
-import co.anbora.labs.engvid.domain.CommonValuesForTests;
-import co.anbora.labs.engvid.domain.constants.StremioConstants;
+import co.anbora.labs.engvid.domain.CommonValuesForTestsHelper;
+import co.anbora.labs.engvid.domain.constants.StremioConstantsHelper;
 import co.anbora.labs.engvid.domain.model.EnglishLevel;
 import co.anbora.labs.engvid.domain.repository.IRepository;
 import org.junit.Before;
@@ -32,7 +32,7 @@ public class GetAllLessonsUseCaseTest {
         String search = "";
         String invalid = "invalid";
 
-        GetAllLessonsUseCase.Request request = new GetAllLessonsUseCase.Request(StremioConstants.StremioCatalog.MOVIE, invalid, search);
+        GetAllLessonsUseCase.Request request = new GetAllLessonsUseCase.Request(StremioConstantsHelper.StremioCatalog.MOVIE, invalid, search);
         GetAllLessonsUseCase.Response response = getAllLessonsUseCase.execute(request);
         assertNull(response.getLessons());
     }
@@ -44,11 +44,11 @@ public class GetAllLessonsUseCaseTest {
         String searchValue = "In this easy English class";
 
         Mockito.when(repository.getLessonsByDescription(EnglishLevel.BEGINNER.getId(), searchValue))
-                .thenReturn(CommonValuesForTests.beginnerLessons());
+                .thenReturn(CommonValuesForTestsHelper.beginnerLessons());
 
-        GetAllLessonsUseCase.Request request = new GetAllLessonsUseCase.Request(StremioConstants.StremioCatalog.MOVIE, StremioConstants.StremioCatalog.BEGINNER_ID_CATALOG, search);
+        GetAllLessonsUseCase.Request request = new GetAllLessonsUseCase.Request(StremioConstantsHelper.StremioCatalog.MOVIE, StremioConstantsHelper.StremioCatalog.BEGINNER_ID_CATALOG, search);
         GetAllLessonsUseCase.Response response = getAllLessonsUseCase.execute(request);
-        assertEquals(response.getLessons(), CommonValuesForTests.beginnerLessons());
+        assertEquals(response.getLessons(), CommonValuesForTestsHelper.beginnerLessons());
     }
 
     @Test
@@ -58,12 +58,12 @@ public class GetAllLessonsUseCaseTest {
         String searchValue = "set phrases is one";
 
         Mockito.when(repository.getLessonsByDescription(EnglishLevel.INTERMEDIATE.getId(), searchValue))
-                .thenReturn(CommonValuesForTests.intermediateLessons());
+                .thenReturn(CommonValuesForTestsHelper.intermediateLessons());
 
-        GetAllLessonsUseCase.Request request = new GetAllLessonsUseCase.Request(StremioConstants.StremioCatalog.MOVIE,
-                StremioConstants.StremioCatalog.INTERMEDIATE_ID_CATALOG, search);
+        GetAllLessonsUseCase.Request request = new GetAllLessonsUseCase.Request(StremioConstantsHelper.StremioCatalog.MOVIE,
+                StremioConstantsHelper.StremioCatalog.INTERMEDIATE_ID_CATALOG, search);
         GetAllLessonsUseCase.Response response = getAllLessonsUseCase.execute(request);
-        assertEquals(response.getLessons(), CommonValuesForTests.intermediateLessons());
+        assertEquals(response.getLessons(), CommonValuesForTestsHelper.intermediateLessons());
     }
 
     @Test
@@ -73,12 +73,12 @@ public class GetAllLessonsUseCaseTest {
         String searchValue = "lesson is all about English";
 
         Mockito.when(repository.getLessonsByDescription(EnglishLevel.ADVANCE.getId(), searchValue))
-                .thenReturn(CommonValuesForTests.advancedLessons());
+                .thenReturn(CommonValuesForTestsHelper.advancedLessons());
 
-        GetAllLessonsUseCase.Request request = new GetAllLessonsUseCase.Request(StremioConstants.StremioCatalog.MOVIE,
-                StremioConstants.StremioCatalog.ADVANCED_ID_CATALOG, search);
+        GetAllLessonsUseCase.Request request = new GetAllLessonsUseCase.Request(StremioConstantsHelper.StremioCatalog.MOVIE,
+                StremioConstantsHelper.StremioCatalog.ADVANCED_ID_CATALOG, search);
         GetAllLessonsUseCase.Response response = getAllLessonsUseCase.execute(request);
-        assertEquals(response.getLessons(), CommonValuesForTests.advancedLessons());
+        assertEquals(response.getLessons(), CommonValuesForTestsHelper.advancedLessons());
     }
 
 }

@@ -1,6 +1,6 @@
 package co.anbora.labs.engvid.domain.usecase.lesson;
 
-import co.anbora.labs.engvid.domain.CommonValuesForTests;
+import co.anbora.labs.engvid.domain.CommonValuesForTestsHelper;
 import co.anbora.labs.engvid.domain.repository.IRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,8 +25,8 @@ public class SyncLessonsAtStartupUseCaseTest {
     @Test
     public void returnAllLessonFromRepository() {
         Mockito.when(repository.getLessons())
-                .thenReturn(CommonValuesForTests.advancedLessons());
+                .thenReturn(CommonValuesForTestsHelper.advancedLessons());
         SyncLessonsAtStartupUseCase.Response response = this.useCase.execute(new SyncLessonsAtStartupUseCase.Request());
-        assertEquals(response.getLessons(), CommonValuesForTests.advancedLessons());
+        assertEquals(response.getLessons(), CommonValuesForTestsHelper.advancedLessons());
     }
 }

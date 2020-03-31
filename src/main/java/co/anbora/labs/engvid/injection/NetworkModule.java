@@ -8,7 +8,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 
-import static co.anbora.labs.engvid.injection.UntrustedSSLClient.getUnsafeOkHttpClient;
+import static co.anbora.labs.engvid.injection.UntrustedSSLClientHelper.getUnsafeOkHttpClient;
 
 @Dependent
 public class NetworkModule {
