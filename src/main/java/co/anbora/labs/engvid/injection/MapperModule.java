@@ -1,6 +1,10 @@
 package co.anbora.labs.engvid.injection;
 
-import co.anbora.labs.engvid.data.local.mapper.*;
+import co.anbora.labs.engvid.data.local.mapper.LessonInfoToVOMapper;
+import co.anbora.labs.engvid.data.local.mapper.LessonMediaToVOMapper;
+import co.anbora.labs.engvid.data.local.mapper.LessonVOMapper;
+import co.anbora.labs.engvid.data.local.mapper.ListLessonInfoToVOMapper;
+import co.anbora.labs.engvid.data.local.mapper.ListLessonVOMapper;
 import co.anbora.labs.engvid.data.remote.mapper.HtmlToLessonMediaMapper;
 import co.anbora.labs.engvid.data.remote.mapper.LessonInfoDTOMapper;
 import co.anbora.labs.engvid.data.remote.mapper.ListLessonInfoDTOMapper;
