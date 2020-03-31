@@ -1,10 +1,10 @@
 package co.anbora.labs.engvid.controller;
 
 import co.anbora.labs.engvid.api.dto.LessonVideo;
-import co.anbora.labs.engvid.api.dto.CatalogContainer;
-import co.anbora.labs.engvid.api.dto.Manifest;
-import co.anbora.labs.engvid.api.dto.MetaVideo;
-import co.anbora.labs.engvid.api.dto.Stream;
+import co.anbora.labs.engvid.api.CatalogContainer;
+import co.anbora.labs.engvid.api.Manifest;
+import co.anbora.labs.engvid.api.MetaVideo;
+import co.anbora.labs.engvid.api.Stream;
 import co.anbora.labs.engvid.domain.usecase.UseCaseExecutor;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetAllLessonsUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonByIdUseCase;

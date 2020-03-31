@@ -1,6 +1,8 @@
-package co.anbora.labs.engvid.api.dto;
+package co.anbora.labs.engvid.api;
 
 
+import co.anbora.labs.engvid.api.dto.LessonVideo;
+import co.anbora.labs.engvid.api.dto.MetaItem;
 import co.anbora.labs.engvid.domain.model.Lesson;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

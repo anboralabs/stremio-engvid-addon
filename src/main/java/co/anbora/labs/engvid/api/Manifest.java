@@ -1,5 +1,7 @@
-package co.anbora.labs.engvid.api.dto;
+package co.anbora.labs.engvid.api;
 
+import co.anbora.labs.engvid.api.dto.Catalog;
+import co.anbora.labs.engvid.api.manifest.Plugin;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -29,18 +31,18 @@ public class Manifest {
     @JsonProperty("contactEmail")
     private final String contactEmail;
 
-    public Manifest(String id, String version, String name, String description, String[] idPrefixes, String[] resources, String[] types, Catalog[] catalogs, String background, String logo, String contactEmail) {
-        this.id = id;
-        this.version = version;
-        this.name = name;
-        this.description = description;
-        this.idPrefixes = idPrefixes;
-        this.resources = resources;
-        this.types = types;
-        this.catalogs = catalogs;
-        this.background = background;
-        this.logo = logo;
-        this.contactEmail = contactEmail;
+    public Manifest(Plugin.Version version, Plugin.Resources resources, Plugin.Contact contact) {
+        this.id = version.getId();
+        this.version = version.getVersion();
+        this.name = version.getName();
+        this.description = version.getDescription();
+        this.idPrefixes = resources.getIdPrefixes();
+        this.resources = resources.getResources();
+        this.types = resources.getTypes();
+        this.catalogs = resources.getCatalogs();
+        this.background = contact.getBackground();
+        this.logo = contact.getLogo();
+        this.contactEmail = contact.getContactEmail();
     }
 
     public String getId() {
