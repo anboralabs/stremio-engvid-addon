@@ -3,5 +3,27 @@
   "description": "Addon for stremio platform to learn English",
   "repository": "https://github.com/anboralabs/stremio-engvid-addon.git",
   "logo": "https://www.engvid.com/wp-content/themes/engvid2/images/engvid.png",
-  "keywords": ["Java", "Stremio", "Micronaut"]
+  "keywords": ["Java", "Stremio", "Micronaut"],
+  "env": {
+    "DATABASE_USER": {
+      "description": "User postgres database",
+      "value": "postgres"
+    },
+    "DATABASE_PASSWORD": {
+      "description": "User postgres database password",
+      "value": "test"
+    },
+    "DATABASE_JDBC_URL": {
+      "description": "Database postgres url, example: jdbc:postgresql://<server>:<port>/<name_db>",
+      "value": "jdbc:postgres://localhost:5432/test"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "12.2"
+      }
+    }
+  ]
 }
