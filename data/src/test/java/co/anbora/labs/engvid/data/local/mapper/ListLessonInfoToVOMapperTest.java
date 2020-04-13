@@ -2,14 +2,14 @@ package co.anbora.labs.engvid.data.local.mapper;
 
 import co.anbora.labs.engvid.data.local.model.LessonInfoVO;
 import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 
 public class ListLessonInfoToVOMapperTest {
 
@@ -24,7 +24,7 @@ public class ListLessonInfoToVOMapperTest {
     @Test
     public void givenAListLessonInfoNullReturnNull() {
 
-        Assert.assertNull(mapper.apply(null));
+        assertNull(mapper.apply(null));
     }
 
     @Test
@@ -40,6 +40,6 @@ public class ListLessonInfoToVOMapperTest {
                 1, "test", "test", null, null, null, null
         );
 
-        Assert.assertEquals(Arrays.asList(lessonInfoVO), mapper.apply(Arrays.asList(lessonInfo)));
+        assertEquals(Arrays.asList(lessonInfoVO), mapper.apply(Arrays.asList(lessonInfo)));
     }
 }

@@ -7,7 +7,6 @@ import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
 import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
 import co.anbora.labs.engvid.domain.repository.IAddOnRepository;
 import co.anbora.labs.engvid.domain.repository.IEnglishVideoRepository;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class RepositoryImplTest {
@@ -47,7 +47,7 @@ public class RepositoryImplTest {
         Mockito.when(addOnRepository.getLessons())
                 .thenReturn(Arrays.asList(lesson));
 
-        Assert.assertEquals(Arrays.asList(lesson), this.repository.getLessons());
+        assertEquals(Arrays.asList(lesson), this.repository.getLessons());
     }
 
     @Test
@@ -81,7 +81,7 @@ public class RepositoryImplTest {
         List<Lesson> lessons = repository.getLessons();
 
         Mockito.verify(addOnRepository).save(lessonInfoList);
-        Assert.assertEquals(lessons, Arrays.asList(lesson));
+        assertEquals(lessons, Arrays.asList(lesson));
     }
 
     @Test
@@ -102,7 +102,7 @@ public class RepositoryImplTest {
         Mockito.when(addOnRepository.getLessonsByCategory(EnglishLevel.BEGINNER.getId()))
                 .thenReturn(beginnerLessons);
 
-        Assert.assertEquals(beginnerLessons, repository.getLessonsByCategory(EnglishLevel.BEGINNER.getId()));
+        assertEquals(beginnerLessons, repository.getLessonsByCategory(EnglishLevel.BEGINNER.getId()));
     }
 
     @Test
@@ -121,7 +121,7 @@ public class RepositoryImplTest {
         Mockito.when(addOnRepository.getLessonById(lessonId.intValue()))
                 .thenReturn(lesson);
 
-        Assert.assertEquals(lesson, repository.getLessonById(lessonId.intValue()));
+        assertEquals(lesson, repository.getLessonById(lessonId.intValue()));
     }
 
     @Test
@@ -162,6 +162,6 @@ public class RepositoryImplTest {
         Mockito.when(englishVideoRepository.getLessonMediaById(mediaSlug, lessonId))
                 .thenReturn(media);
 
-        Assert.assertEquals(lessonSync, repository.getLessonById(lessonId.intValue()));
+        assertEquals(lessonSync, repository.getLessonById(lessonId.intValue()));
     }
 }

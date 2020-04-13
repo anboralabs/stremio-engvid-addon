@@ -1,7 +1,6 @@
 package co.anbora.labs.engvid.data.remote.mapper;
 
 import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,6 +9,9 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class HtmlToLessonMediaMapperTest {
 
@@ -25,7 +27,7 @@ public class HtmlToLessonMediaMapperTest {
     @Test
     public void givenAHtmlNullReturnNull() {
 
-        Assert.assertNull(mapper.apply(null, LESSON_ID));
+        assertNull(mapper.apply(null, LESSON_ID));
     }
 
     @Test
@@ -41,6 +43,6 @@ public class HtmlToLessonMediaMapperTest {
                 .sync(true)
                 .build();
 
-        Assert.assertEquals(media , mapper.apply(html, LESSON_ID));
+        assertEquals(media , mapper.apply(html, LESSON_ID));
     }
 }

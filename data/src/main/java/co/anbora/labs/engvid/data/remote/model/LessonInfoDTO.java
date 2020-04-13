@@ -1,7 +1,8 @@
 package co.anbora.labs.engvid.data.remote.model;
 
 import co.anbora.labs.engvid.domain.model.EnglishLevel;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
@@ -9,23 +10,24 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LessonInfoDTO {
 
-    @SerializedName("id")
+    @JsonProperty("id")
     private Integer id;
-    @SerializedName("date")
+    @JsonProperty("date")
     private String date;
-    @SerializedName("guid")
+    @JsonProperty("guid")
     private RenderDTO guid;
-    @SerializedName("title")
+    @JsonProperty("title")
     private RenderDTO title;
-    @SerializedName("content")
+    @JsonProperty("content")
     private RenderDTO content;
-    @SerializedName("link")
+    @JsonProperty("link")
     private String link;
-    @SerializedName("slug")
+    @JsonProperty("slug")
     private String slug;
-    @SerializedName("categories")
+    @JsonProperty("categories")
     private List<Integer> categories;
 
     public Integer getEnglishLevel() {

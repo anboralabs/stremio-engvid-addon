@@ -1,5 +1,7 @@
 # Stremio Engvid Addon
-With this plugin you can improve your english skill with a lot of videos to practice.
+
+With this plugin you can improve your english skill with a lot of videos to
+practice.
 
 ### How to install addon
 
@@ -11,12 +13,21 @@ With this plugin you can improve your english skill with a lot of videos to prac
 
 ### How to deploy
 
+Before deploy server you need to configure ENV variables:
+
+```bash
+export DATABASE_JDBC_URL=jdbc:postgresql://<server>:<port>/<name_db>
+export DATABASE_USER=<user_db>
+export DATABASE_PASSWORD=<password_db>
+```
+
 ```
 git clone https://github.com/anboralabs/stremio-engvid-addon.git
 cd stremio-engvid-addon
 ./gradlew build
 java -jar addon/build/libs/addon-0.1-all.jar
 ```
+
 or deploy on Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)

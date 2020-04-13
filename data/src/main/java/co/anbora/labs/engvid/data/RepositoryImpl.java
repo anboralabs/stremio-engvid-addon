@@ -53,4 +53,10 @@ public class RepositoryImpl implements IRepository {
 
         return localRepository.getLessonsByCategory(categoryId);
     }
+
+    @Override
+    public List<Lesson> getLessonsByDescription(Integer categoryId, String searchValue) {
+
+        return localRepository.getLessonsByDescription(categoryId, searchValue);
+    }
 }

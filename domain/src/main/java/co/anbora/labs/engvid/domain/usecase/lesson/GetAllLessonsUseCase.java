@@ -1,5 +1,6 @@
 package co.anbora.labs.engvid.domain.usecase.lesson;
 
+import co.anbora.labs.engvid.domain.constants.ConstantsHelper;
 import co.anbora.labs.engvid.domain.model.EnglishLevel;
 import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.repository.IRepository;
@@ -8,14 +9,15 @@ import lombok.Value;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static co.anbora.labs.engvid.domain.constants.Constants.EMPTY_VALUE;
-import static co.anbora.labs.engvid.domain.constants.Constants.EQUAL_CHARACTER;
-import static co.anbora.labs.engvid.domain.constants.StremioConstants.MIN_EXTRAS;
-import static co.anbora.labs.engvid.domain.constants.StremioConstants.SEARCH;
-import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.*;
+import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.MIN_EXTRAS;
+import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.SEARCH;
+import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.StremioCatalog.ADVANCED_ID_CATALOG;
+import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.StremioCatalog.BEGINNER_ID_CATALOG;
+import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.StremioCatalog.INTERMEDIATE_ID_CATALOG;
 
 public class GetAllLessonsUseCase extends UseCase<GetAllLessonsUseCase.Request, GetAllLessonsUseCase.Response> {
 
@@ -28,37 +30,34 @@ public class GetAllLessonsUseCase extends UseCase<GetAllLessonsUseCase.Request, 
     @Override
     public Response execute(Request input) {
         String searchValue = getSearchValue(input.extra);
-        if (MOVIE.equals(input.type) && BEGINNER_ID_CATALOG.equals(input.id)) {
-            return getResponse(searchValue, EnglishLevel.BEGINNER);
+        switch (input.id) {
+            case BEGINNER_ID_CATALOG:
+                return getResponse(searchValue, EnglishLevel.BEGINNER);
+            case INTERMEDIATE_ID_CATALOG:
+                return getResponse(searchValue, EnglishLevel.INTERMEDIATE);
+            case ADVANCED_ID_CATALOG:
+                return getResponse(searchValue, EnglishLevel.ADVANCE);
+            default:
+                return new Response(null);
         }
-        if (MOVIE.equals(input.type) && INTERMEDIATE_ID_CATALOG.equals(input.id)) {
-            return getResponse(searchValue, EnglishLevel.INTERMEDIATE);
-        }
-        if (MOVIE.equals(input.type) && ADVANCED_ID_CATALOG.equals(input.id)) {
-            return getResponse(searchValue, EnglishLevel.ADVANCE);
-        }
-        return new Response(null);
     }
 
-    private Response getResponse(String searchValue, EnglishLevel beginner) {
-        return new Response(getFilteredLessons(
-                repository.getLessonsByCategory(beginner.getId()), searchValue)
-        );
-    }
-
-    private List<Lesson> getFilteredLessons(List<Lesson> lessons, String extra) {
-        return lessons
-                .stream()
-                .filter(lesson -> lesson.getDescription().contains(extra))
-                .collect(Collectors.toList());
+    private Response getResponse(String searchValue, EnglishLevel englishLevel) {
+        if (searchValue.isEmpty()) {
+            return new Response(repository.getLessonsByCategory(englishLevel.getId()));
+        }
+        return new Response(repository.getLessonsByDescription(englishLevel.getId(), searchValue));
     }
 
     private String getSearchValue(String extra) {
+        if (Objects.nonNull(extra) && extra.isEmpty()) {
+            return ConstantsHelper.EMPTY_VALUE;
+        }
         Map<String, String> mapExtras = Stream.of(extra)
-                .map(str -> str.split(EQUAL_CHARACTER))
+                .map(str -> str.split(ConstantsHelper.EQUAL_CHARACTER))
                 .filter(extras -> extras.length > MIN_EXTRAS)
                 .collect(Collectors.toMap(t -> t[0], t -> t[1]));
-        return mapExtras.getOrDefault(SEARCH, EMPTY_VALUE);
+        return mapExtras.getOrDefault(SEARCH, ConstantsHelper.EMPTY_VALUE);
     }
 
     @Value

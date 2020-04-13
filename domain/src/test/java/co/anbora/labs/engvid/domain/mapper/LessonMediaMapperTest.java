@@ -1,12 +1,14 @@
 package co.anbora.labs.engvid.domain.mapper;
 
-import co.anbora.labs.engvid.domain.CommonValuesForTests;
+import co.anbora.labs.engvid.domain.CommonValuesForTestsHelper;
 import co.anbora.labs.engvid.domain.model.EnglishLevel;
 import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class LessonMediaMapperTest {
 
@@ -34,18 +36,18 @@ public class LessonMediaMapperTest {
 
     @Test
     public void givenLessonAndMediaReturnLessonUpdated() {
-        Lesson lesson = CommonValuesForTests.provideBeginnerLesson();
-        Assert.assertEquals(lesson, mapper.apply(incompleteLesson, mediaInfo));
+        Lesson lesson = CommonValuesForTestsHelper.provideBeginnerLesson();
+        assertEquals(lesson, mapper.apply(incompleteLesson, mediaInfo));
     }
 
     @Test
     public void givenLessonNullAndMediaReturnNull() {
-        Assert.assertNull(mapper.apply(null, mediaInfo));
+        assertNull(mapper.apply(null, mediaInfo));
     }
 
     @Test
     public void givenLessonAndMediaNullReturnNull() {
-        Assert.assertNull(mapper.apply(incompleteLesson, null));
+        assertNull(mapper.apply(incompleteLesson, null));
     }
 
 }

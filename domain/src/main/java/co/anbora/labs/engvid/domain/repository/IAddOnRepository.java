@@ -18,4 +18,5 @@ public interface IAddOnRepository {
 
     Lesson getLessonById(Integer lessonId);
 
+    List<Lesson> getLessonsByDescription(Integer categoryId, String searchValue);
 }

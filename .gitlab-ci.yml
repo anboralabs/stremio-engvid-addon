@@ -1,0 +1,16 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+before_script:
+  - apk add curl nodejs bash
+  - curl https://cli-assets.heroku.com/install.sh | sh
+
+production:
+  stage: deploy
+  script:
+    - heroku container:login
+    - docker build -f Dockerfile -t quarkus/stremio-engvid-addon .
+    - heroku container:push web --app=$HEROKU_APP --context-path .
+    - heroku container:release web -a $HEROKU_APP

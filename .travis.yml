@@ -1,6 +1,45 @@
-language: java
-install: true
+sudo: required
+services:
+  - docker
 
-os: linux
-dist: trusty
-jdk: oraclejdk8
+stages:
+  - compile
+  - test
+  - name: deploy
+    # require the type to be push to master
+    if: type = push AND branch = master
+
+jobs:
+  include:
+    - stage: compile
+      language: java
+      install: true
+      os: linux
+      dist: trusty
+      jdk: oraclejdk8
+      script:
+        - ./gradlew clean assemble
+    - stage: test
+      language: java
+      install: true
+      os: linux
+      dist: trusty
+      jdk: oraclejdk8
+      script:
+        - ./gradlew check
+    - stage: deploy
+      before_script:
+        # install heroku CLI
+        - curl https://cli-assets.heroku.com/install.sh | sh
+
+      script:
+        - heroku container:login
+        - docker build -f Dockerfile -t quarkus/$HEROKU_APP .
+        - docker tag quarkus/$HEROKU_APP registry.heroku.com/$HEROKU_APP/web
+        - docker push registry.heroku.com/$HEROKU_APP/web
+        - heroku container:release web -a $HEROKU_APP
+
+      after_script:
+        - docker images
+      on:
+        branch: master

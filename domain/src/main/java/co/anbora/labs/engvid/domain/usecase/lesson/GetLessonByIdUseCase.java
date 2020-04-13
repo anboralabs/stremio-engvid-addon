@@ -1,6 +1,6 @@
 package co.anbora.labs.engvid.domain.usecase.lesson;
 
-import co.anbora.labs.engvid.domain.constants.Constants;
+import co.anbora.labs.engvid.domain.constants.ConstantsHelper;
 import co.anbora.labs.engvid.domain.exceptions.LessonNotFoundException;
 import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.repository.IRepository;
@@ -8,10 +8,8 @@ import co.anbora.labs.engvid.domain.usecase.UseCase;
 import com.jasongoodwin.monads.Try;
 import lombok.Value;
 
-import javax.swing.plaf.BorderUIResource;
-
-import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.MOVIE;
-import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.VIDEO_PREFIX_ID;
+import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.StremioCatalog.MOVIE;
+import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.StremioCatalog.VIDEO_PREFIX_ID;
 
 
 public class GetLessonByIdUseCase extends UseCase<GetLessonByIdUseCase.Request, GetLessonByIdUseCase.Response> {
@@ -43,7 +41,7 @@ public class GetLessonByIdUseCase extends UseCase<GetLessonByIdUseCase.Request, 
         }
 
         public String getVideoId() {
-            return id.replace(VIDEO_PREFIX_ID, Constants.EMPTY_VALUE);
+            return id.replace(VIDEO_PREFIX_ID, ConstantsHelper.EMPTY_VALUE);
         }
     }
 

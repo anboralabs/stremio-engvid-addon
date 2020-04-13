@@ -1,13 +1,13 @@
 package co.anbora.labs.engvid.data.local.mapper;
 
 import co.anbora.labs.engvid.data.local.model.LessonMediaVO;
-import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 
 public class LessonMediaToVOMapperTest {
 
@@ -22,7 +22,7 @@ public class LessonMediaToVOMapperTest {
     @Test
     public void givenALessonMediaNullReturnNull() {
 
-        Assert.assertNull(mapper.apply(null));
+        assertNull(mapper.apply(null));
     }
 
     @Test
@@ -35,7 +35,7 @@ public class LessonMediaToVOMapperTest {
 
         LessonMediaVO lessonMediaVO = new LessonMediaVO(1L, null, "youtubeId", false);
 
-        Assert.assertEquals(lessonMediaVO, mapper.apply(lessonMedia));
+        assertEquals(lessonMediaVO, mapper.apply(lessonMedia));
     }
 
     @Test
@@ -49,6 +49,6 @@ public class LessonMediaToVOMapperTest {
 
         LessonMediaVO lessonMediaVO = new LessonMediaVO(1L, "image.jpg", "youtubeId", true);
 
-        Assert.assertEquals(lessonMediaVO, mapper.apply(lessonMedia));
+        assertEquals(lessonMediaVO, mapper.apply(lessonMedia));
     }
 }

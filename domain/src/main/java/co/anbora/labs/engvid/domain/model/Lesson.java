@@ -1,13 +1,12 @@
 package co.anbora.labs.engvid.domain.model;
 
-import co.anbora.labs.engvid.domain.constants.StremioConstants;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.Objects;
 
-import static co.anbora.labs.engvid.domain.constants.StremioConstants.StremioCatalog.VIDEO_PREFIX_ID;
+import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.StremioCatalog.VIDEO_PREFIX_ID;
 
 @Getter
 @Builder

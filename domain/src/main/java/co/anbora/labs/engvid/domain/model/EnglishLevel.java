@@ -6,13 +6,13 @@ public enum EnglishLevel {
     INTERMEDIATE(9, "2-Intermediate"),
     ADVANCE(10, "3-Advanced");
 
+    private Integer id;
+    private String name;
+
     EnglishLevel(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
-
-    private Integer id;
-    private String name;
 
     public Integer getId() {
         return id;
