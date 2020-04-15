@@ -9,7 +9,6 @@ import co.anbora.labs.engvid.domain.usecase.UseCaseExecutor;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetAllLessonsUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonByIdUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonsByCategoryUseCase;
-import io.quarkus.cache.CacheResult;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -47,7 +46,6 @@ public class AddonController {
         return CompletableFuture.supplyAsync(() -> manifest);
     }
 
-    @CacheResult(cacheName = "cache-lessons")
     @GET
     @Path("/catalog/{type}/{id}.json")
     @Produces(MediaType.APPLICATION_JSON)
@@ -67,7 +65,6 @@ public class AddonController {
                 response -> CatalogContainer.from(response.getLessons()));
     }
 
-    @CacheResult(cacheName = "cache-meta")
     @GET
     @Path("/meta/{type}/{id}.json")
     @Produces(MediaType.APPLICATION_JSON)
@@ -80,7 +77,6 @@ public class AddonController {
         );
     }
 
-    @CacheResult(cacheName = "cache-stream")
     @GET
     @Path("/stream/{type}/{id}.json")
     @Produces(MediaType.APPLICATION_JSON)
