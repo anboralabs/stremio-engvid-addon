@@ -1,1 +1,1 @@
-web: java -jar addon/build/libs/addon-0.1-all.jar
+web: java -jar build/stremio-engvid-addon-1.0.0-SNAPSHOT-runner.jar
