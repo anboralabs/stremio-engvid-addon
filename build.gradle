@@ -37,6 +37,8 @@ compileTestJava {
     options.encoding = 'UTF-8'
 }
 
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
