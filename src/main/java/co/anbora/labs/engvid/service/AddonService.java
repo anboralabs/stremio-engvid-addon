@@ -8,6 +8,7 @@ import co.anbora.labs.engvid.domain.usecase.UseCaseExecutor;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetAllLessonsUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonByIdUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonsByCategoryUseCase;
+import io.quarkus.cache.CacheResult;
 import io.quarkus.vertx.ConsumeEvent;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -26,6 +27,7 @@ public class AddonService {
     @Inject
     protected GetAllLessonsUseCase getAllLessonsUseCase;
 
+    @CacheResult(cacheName = "cache-lessons")
     @ConsumeEvent(value = "allVideos", blocking = true)
     public CompletionStage<CatalogContainer> allVideos(GetLessonsByCategoryUseCase.Request request) {
         return useCaseExecutor.execute(getLessonsByCategoryUseCase,
@@ -42,6 +44,7 @@ public class AddonService {
         );
     }
 
+    @CacheResult(cacheName = "cache-meta")
     @ConsumeEvent(value = "infoVideo", blocking = true)
     public CompletionStage<MetaVideo> infoVideo(GetLessonByIdUseCase.Request request) {
         return useCaseExecutor.execute(getLessonByIdUseCase,
@@ -52,6 +55,7 @@ public class AddonService {
         );
     }
 
+    @CacheResult(cacheName = "cache-stream")
     @ConsumeEvent(value = "stream", blocking = true)
     public CompletionStage<Stream> stream(GetLessonByIdUseCase.Request request) {
         return useCaseExecutor.execute(getLessonByIdUseCase,
