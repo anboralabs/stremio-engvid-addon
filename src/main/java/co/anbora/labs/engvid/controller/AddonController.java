@@ -4,7 +4,6 @@ import co.anbora.labs.engvid.api.CatalogContainer;
 import co.anbora.labs.engvid.api.Manifest;
 import co.anbora.labs.engvid.api.MetaVideo;
 import co.anbora.labs.engvid.api.Stream;
-import co.anbora.labs.engvid.domain.exceptions.LessonNotFoundException;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetAllLessonsUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonByIdUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonsByCategoryUseCase;
@@ -70,7 +69,7 @@ public class AddonController {
     @Produces(MediaType.APPLICATION_JSON)
     public CompletionStage<MetaVideo> infoVideo(@PathParam("type") String type, @PathParam("id") String id) {
 
-        GetLessonByIdUseCase.Request request = getRequest(type, id);
+        GetLessonByIdUseCase.Request request = new GetLessonByIdUseCase.Request(type, id);
 
         return bus.<MetaVideo>request("infoVideo", request)
                 .onItem().apply(Message::body).subscribeAsCompletionStage();
@@ -81,17 +80,9 @@ public class AddonController {
     @Produces(MediaType.APPLICATION_JSON)
     public CompletionStage<Stream> stream(@PathParam("type") String type, @PathParam("id") String id) {
 
-        GetLessonByIdUseCase.Request request = getRequest(type, id);
+        GetLessonByIdUseCase.Request request = new GetLessonByIdUseCase.Request(type, id);
 
         return bus.<Stream>request("stream", request)
                 .onItem().apply(Message::body).subscribeAsCompletionStage();
-    }
-
-    private GetLessonByIdUseCase.Request getRequest(String type, String id) {
-        GetLessonByIdUseCase.Request request = new GetLessonByIdUseCase.Request(type, id);
-        if (!request.isValidVideoId()) {
-            throw new LessonNotFoundException(request.getType(), request.getId());
-        }
-        return request;
     }
 }
