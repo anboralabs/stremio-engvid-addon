@@ -1,14 +1,14 @@
 package co.anbora.labs.engvid.controller;
 
-import co.anbora.labs.engvid.api.dto.LessonVideo;
 import co.anbora.labs.engvid.api.CatalogContainer;
 import co.anbora.labs.engvid.api.Manifest;
 import co.anbora.labs.engvid.api.MetaVideo;
 import co.anbora.labs.engvid.api.Stream;
-import co.anbora.labs.engvid.domain.usecase.UseCaseExecutor;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetAllLessonsUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonByIdUseCase;
 import co.anbora.labs.engvid.domain.usecase.lesson.GetLessonsByCategoryUseCase;
+import io.vertx.mutiny.core.eventbus.EventBus;
+import io.vertx.mutiny.core.eventbus.Message;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -25,13 +25,7 @@ public class AddonController {
     @Inject
     protected Manifest manifest;
     @Inject
-    protected UseCaseExecutor useCaseExecutor;
-    @Inject
-    protected GetLessonsByCategoryUseCase getLessonsByCategoryUseCase;
-    @Inject
-    protected GetLessonByIdUseCase getLessonByIdUseCase;
-    @Inject
-    protected GetAllLessonsUseCase getAllLessonsUseCase;
+    protected EventBus bus;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -50,39 +44,45 @@ public class AddonController {
     @Path("/catalog/{type}/{id}.json")
     @Produces(MediaType.APPLICATION_JSON)
     public CompletionStage<CatalogContainer> allVideos(@PathParam("type") String type, @PathParam("id") String id) {
-        return useCaseExecutor.execute(getLessonsByCategoryUseCase,
-                new GetLessonsByCategoryUseCase.Request(type, id),
-                response -> CatalogContainer.from(response.getLessons())
-        );
+
+        GetLessonsByCategoryUseCase.Request request =
+                new GetLessonsByCategoryUseCase.Request(type, id);
+
+        return bus.<CatalogContainer>request("allVideos", request)
+                .onItem().apply(Message::body).subscribeAsCompletionStage();
     }
 
     @GET
     @Path("/catalog/{type}/{id}/{extra}.json")
     @Produces(MediaType.APPLICATION_JSON)
     public CompletionStage<CatalogContainer> searchVideos(@PathParam("type") String type, @PathParam("id") String id, @PathParam("extra") String extra) {
-        return useCaseExecutor.execute(getAllLessonsUseCase,
-                new GetAllLessonsUseCase.Request(type, id, extra),
-                response -> CatalogContainer.from(response.getLessons()));
+
+        GetAllLessonsUseCase.Request request =
+                new GetAllLessonsUseCase.Request(type, id, extra);
+
+        return bus.<CatalogContainer>request("searchVideos", request)
+                .onItem().apply(Message::body).subscribeAsCompletionStage();
     }
 
     @GET
     @Path("/meta/{type}/{id}.json")
     @Produces(MediaType.APPLICATION_JSON)
     public CompletionStage<MetaVideo> infoVideo(@PathParam("type") String type, @PathParam("id") String id) {
-        return useCaseExecutor.execute(getLessonByIdUseCase,
-                new GetLessonByIdUseCase.Request(type, id),
-                response -> MetaVideo.from(
-                        LessonVideo.from(response.getLesson())
-                )
-        );
+
+        GetLessonByIdUseCase.Request request = new GetLessonByIdUseCase.Request(type, id);
+
+        return bus.<MetaVideo>request("infoVideo", request)
+                .onItem().apply(Message::body).subscribeAsCompletionStage();
     }
 
     @GET
     @Path("/stream/{type}/{id}.json")
     @Produces(MediaType.APPLICATION_JSON)
     public CompletionStage<Stream> stream(@PathParam("type") String type, @PathParam("id") String id) {
-        return useCaseExecutor.execute(getLessonByIdUseCase,
-                new GetLessonByIdUseCase.Request(type, id),
-                response -> Stream.from(response.getLesson()));
+
+        GetLessonByIdUseCase.Request request = new GetLessonByIdUseCase.Request(type, id);
+
+        return bus.<Stream>request("stream", request)
+                .onItem().apply(Message::body).subscribeAsCompletionStage();
     }
 }

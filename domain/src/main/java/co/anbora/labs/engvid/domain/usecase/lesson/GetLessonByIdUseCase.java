@@ -6,6 +6,7 @@ import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.repository.IRepository;
 import co.anbora.labs.engvid.domain.usecase.UseCase;
 import com.jasongoodwin.monads.Try;
+import lombok.Getter;
 import lombok.Value;
 
 import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.StremioCatalog.MOVIE;
@@ -31,10 +32,18 @@ public class GetLessonByIdUseCase extends UseCase<GetLessonByIdUseCase.Request, 
         throw new LessonNotFoundException(input.type, input.id);
     }
 
-    @Value
+    @Getter
     public static class Request implements UseCase.InputValues {
         private String type;
         private String id;
+
+        public Request(String type, String id) {
+            this.type = type;
+            this.id = id;
+            if (!isValidVideoId()) {
+                throw new LessonNotFoundException(type, id);
+            }
+        }
 
         public boolean isValidVideoId() {
             return id != null && !id.isEmpty() && id.startsWith(VIDEO_PREFIX_ID);
