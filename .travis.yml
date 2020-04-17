@@ -3,8 +3,10 @@ services:
   - docker
 
 stages:
-  - compile
-  - test
+  - name: compile
+    if: type = pull_request
+  - name: test
+    if: type = pull_request
   - name: deploy
     # require the type to be push to master
     if: type = push AND branch = master
