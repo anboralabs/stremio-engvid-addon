@@ -25,7 +25,7 @@ RUN chmod 775 /work /work/application
 
 #USER 1001
 
-FROM scratch
+FROM busybox:1.30.1-glibc
 WORKDIR /work/
 COPY --from=build  /work/application /work/application
 
