@@ -5,16 +5,12 @@ import co.anbora.labs.engvid.domain.model.EnglishLevel;
 import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.repository.IRepository;
 import co.anbora.labs.engvid.domain.usecase.UseCase;
+import com.jasongoodwin.monads.Try;
 import lombok.Value;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.MIN_EXTRAS;
-import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.SEARCH;
 import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.StremioCatalog.ADVANCED_ID_CATALOG;
 import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.StremioCatalog.BEGINNER_ID_CATALOG;
 import static co.anbora.labs.engvid.domain.constants.StremioConstantsHelper.StremioCatalog.INTERMEDIATE_ID_CATALOG;
@@ -29,7 +25,7 @@ public class GetAllLessonsUseCase extends UseCase<GetAllLessonsUseCase.Request, 
 
     @Override
     public Response execute(Request input) {
-        String searchValue = getSearchValue(input.extra);
+        String searchValue = input.getSearchValue();
         switch (input.id) {
             case BEGINNER_ID_CATALOG:
                 return getResponse(searchValue, EnglishLevel.BEGINNER);
@@ -49,22 +45,21 @@ public class GetAllLessonsUseCase extends UseCase<GetAllLessonsUseCase.Request, 
         return new Response(repository.getLessonsByDescription(englishLevel.getId(), searchValue));
     }
 
-    private String getSearchValue(String extra) {
-        if (Objects.nonNull(extra) && extra.isEmpty()) {
-            return ConstantsHelper.EMPTY_VALUE;
-        }
-        Map<String, String> mapExtras = Stream.of(extra)
-                .map(str -> str.split(ConstantsHelper.EQUAL_CHARACTER))
-                .filter(extras -> extras.length > MIN_EXTRAS)
-                .collect(Collectors.toMap(t -> t[0], t -> t[1]));
-        return mapExtras.getOrDefault(SEARCH, ConstantsHelper.EMPTY_VALUE);
-    }
 
     @Value
     public static class Request implements UseCase.InputValues {
         private String type;
         private String id;
         private String extra;
+
+        public String getSearchValue() {
+            if (Objects.nonNull(extra) && extra.isEmpty()) {
+                return ConstantsHelper.EMPTY_VALUE;
+            }
+            String[] extras = extra.split(ConstantsHelper.EQUAL_CHARACTER);
+            return Try.ofFailable(() -> extras[1])
+                    .orElse(ConstantsHelper.EMPTY_VALUE);
+        }
     }
 
     @Value
