@@ -5,7 +5,6 @@ import co.anbora.labs.engvid.domain.model.EnglishLevel;
 import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.repository.IRepository;
 import co.anbora.labs.engvid.domain.usecase.UseCase;
-import com.jasongoodwin.monads.Try;
 import lombok.Value;
 
 import java.util.List;
@@ -53,12 +52,19 @@ public class GetAllLessonsUseCase extends UseCase<GetAllLessonsUseCase.Request, 
         private String extra;
 
         public String getSearchValue() {
-            if (Objects.nonNull(extra) && extra.isEmpty()) {
+            if (Objects.isNull(extra)) {
                 return ConstantsHelper.EMPTY_VALUE;
             }
-            String[] extras = extra.split(ConstantsHelper.EQUAL_CHARACTER);
-            return Try.ofFailable(() -> extras[1])
-                    .orElse(ConstantsHelper.EMPTY_VALUE);
+            return deleteSearchWord();
+        }
+
+        /**
+         * Deletes the word: search=
+         * from the param ex: given search=test return test
+         * @return String
+         */
+        private String deleteSearchWord() {
+            return extra.substring(7);
         }
     }
 
