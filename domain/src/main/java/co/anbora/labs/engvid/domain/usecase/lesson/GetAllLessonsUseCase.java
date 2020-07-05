@@ -52,7 +52,7 @@ public class GetAllLessonsUseCase extends UseCase<GetAllLessonsUseCase.Request, 
         private String extra;
 
         public String getSearchValue() {
-            if (Objects.isNull(extra)) {
+            if (Objects.isNull(extra) || extra.isEmpty()) {
                 return ConstantsHelper.EMPTY_VALUE;
             }
             return deleteSearchWord();
