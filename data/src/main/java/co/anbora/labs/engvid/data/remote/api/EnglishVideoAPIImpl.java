@@ -3,6 +3,7 @@ package co.anbora.labs.engvid.data.remote.api;
 import co.anbora.labs.engvid.data.remote.model.LessonInfoDTO;
 import co.anbora.labs.engvid.domain.exceptions.MappingJsonException;
 import co.anbora.labs.engvid.domain.exceptions.MediaNotFoundException;
+import co.anbora.labs.engvid.domain.exceptions.TitlesNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jasongoodwin.monads.Try;
 import okhttp3.HttpUrl;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstantsHelper.ENGLISH_LESSONS;
+
 public class EnglishVideoAPIImpl implements EnglishVideoAPI {
 
     private String baseUrl;
@@ -23,6 +26,16 @@ public class EnglishVideoAPIImpl implements EnglishVideoAPI {
     public EnglishVideoAPIImpl(String baseUrl, OkHttpClient httpClient) {
         this.baseUrl = baseUrl;
         this.httpClient = httpClient;
+    }
+
+    @Override
+    public Response getTitles() {
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(baseUrl).newBuilder();
+        httpBuilder.addPathSegment(ENGLISH_LESSONS);
+
+        Request request = new Request.Builder().url(httpBuilder.build()).build();
+        return Try.ofFailable(() -> httpClient.newCall(request).execute())
+                .orElseThrow(TitlesNotFoundException::new);
     }
 
     @Override

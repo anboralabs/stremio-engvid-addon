@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface EnglishVideoAPI {
 
+    Response getTitles();
+
     List<LessonInfoDTO> getLessonsByPage(Integer page,
                                          Integer maxItems);
 

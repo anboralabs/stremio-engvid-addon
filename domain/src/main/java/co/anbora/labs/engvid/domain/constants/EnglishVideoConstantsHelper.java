@@ -11,5 +11,7 @@ public class EnglishVideoConstantsHelper {
     public static final String VIDEO_ID_PATH = "{videoId}";
     public static final String YOUTUBE_PREVIEW_IMAGE = "https://img.youtube.com/vi/{videoId}/0.jpg";
 
+    public static final String ENGLISH_LESSONS = "english-lesson-browser";
+
     private EnglishVideoConstantsHelper() {}
 }
