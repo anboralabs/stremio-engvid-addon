@@ -1,8 +1,7 @@
 package co.anbora.labs.engvid.domain.usecase.lesson;
 
-import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
-import co.anbora.labs.engvid.domain.repository.IAddOnRepository;
-import co.anbora.labs.engvid.domain.repository.IEnglishVideoRepository;
+import co.anbora.labs.engvid.domain.model.Lesson;
+import co.anbora.labs.engvid.domain.repository.IRepository;
 import co.anbora.labs.engvid.domain.usecase.UseCase;
 import lombok.Value;
 
@@ -10,21 +9,16 @@ import java.util.List;
 
 public class SyncRemoteLessonsUseCase extends UseCase<SyncRemoteLessonsUseCase.Request, SyncRemoteLessonsUseCase.Response> {
 
-    private IAddOnRepository addOnRepository;
-    private IEnglishVideoRepository englishVideoRepository;
+    private IRepository repository;
 
-    public SyncRemoteLessonsUseCase(IAddOnRepository addOnRepository,
-                                    IEnglishVideoRepository englishVideoRepository) {
-        this.addOnRepository = addOnRepository;
-        this.englishVideoRepository = englishVideoRepository;
+    public SyncRemoteLessonsUseCase(IRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public Response execute(Request input) {
 
-        List<LessonInfo> lessons = this.englishVideoRepository.getLessons();
-        this.addOnRepository.save(lessons);
-        return new Response(lessons);
+        return new Response(this.repository.syncLessons());
     }
 
     @Value
@@ -33,7 +27,7 @@ public class SyncRemoteLessonsUseCase extends UseCase<SyncRemoteLessonsUseCase.R
 
     @Value
     public static class Response implements UseCase.OutputValues {
-        private List<LessonInfo> lessons;
+        private List<Lesson> lessons;
     }
 
 }

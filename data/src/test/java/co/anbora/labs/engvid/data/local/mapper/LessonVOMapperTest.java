@@ -38,7 +38,7 @@ public class LessonVOMapperTest {
                 .id(1L)
                 .title("test")
                 .description("test")
-                .sync(false)
+                //.sync(false)
                 .build();
 
         assertEquals(lesson, mapper.apply(lessonVO));
@@ -58,7 +58,7 @@ public class LessonVOMapperTest {
                 .title("test")
                 .description("test")
                 .youtubeId("youtubeId")
-                .sync(true)
+                //.sync(true)
                 .build();
 
         assertEquals(lesson, mapper.apply(lessonVO));

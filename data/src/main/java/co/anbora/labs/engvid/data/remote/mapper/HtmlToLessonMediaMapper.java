@@ -2,7 +2,8 @@ package co.anbora.labs.engvid.data.remote.mapper;
 
 import co.anbora.labs.engvid.data.remote.builders.MediaBuilderHelper;
 import co.anbora.labs.engvid.domain.constants.HtmlConstantsHelper;
-import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
+import co.anbora.labs.engvid.domain.model.Lesson;
+import co.anbora.labs.engvid.domain.model.lesson.LessonTitle;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -10,18 +11,17 @@ import org.jsoup.nodes.Element;
 import java.util.Objects;
 import java.util.function.BiFunction;
 
-public class HtmlToLessonMediaMapper implements BiFunction<String, Long, LessonMedia> {
+public class HtmlToLessonMediaMapper implements BiFunction<String, LessonTitle, Lesson> {
     @Override
-    public LessonMedia apply(String html, Long lessonId) {
+    public Lesson apply(String html, LessonTitle lessonId) {
         if (Objects.nonNull(html)) {
             Document mediaHtml = Jsoup.parse(html);
             Element video = getElement(mediaHtml, HtmlConstantsHelper.TWITTER_ATTR_PLAYER);
 
-            return LessonMedia.builder()
-                    .id(lessonId)
+            return Lesson.builder()
+                    //.id(lessonId)
                     .imageUrl(MediaBuilderHelper.imageUrl(video))
                     .youtubeId(MediaBuilderHelper.videoId(video))
-                    .sync(true)
                     .build();
         }
         return null;

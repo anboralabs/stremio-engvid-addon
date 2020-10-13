@@ -22,14 +22,9 @@ public class Lesson {
     private String slug;
     private String imageUrl;
     private String youtubeId;
-    private Boolean sync;
 
     public String getInternalId() {
         return VIDEO_PREFIX_ID + getId();
-    }
-
-    public Boolean isSync() {
-        return sync && Objects.nonNull(youtubeId);
     }
 
 }

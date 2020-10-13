@@ -1,11 +1,8 @@
 package co.anbora.labs.engvid.data.remote;
 
 import co.anbora.labs.engvid.data.remote.api.EnglishVideoAPI;
-import co.anbora.labs.engvid.data.remote.mapper.HtmlToLessonTitleMapper;
-import co.anbora.labs.engvid.data.remote.model.LessonInfoDTO;
 import co.anbora.labs.engvid.domain.exceptions.LessonNotFoundException;
-import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
-import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
+import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.model.lesson.LessonTitle;
 import co.anbora.labs.engvid.domain.repository.IEnglishVideoRepository;
 import com.jasongoodwin.monads.Try;
@@ -15,24 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-
-import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstantsHelper.INITIAL_PAGE;
-import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstantsHelper.MAX_POST_BY_PAGE;
+import java.util.stream.Collectors;
 
 public class EnglishVideoRepositoryImpl implements IEnglishVideoRepository {
 
-    private Function<List<LessonInfoDTO>, List<LessonInfo>> listLessonInfoDTOMapper;
-    private BiFunction<String, Long, LessonMedia> htmlMediaDTOMapper;
-    private Function<String, List<LessonTitle>> htmlLessonTitleDTOMapper = new HtmlToLessonTitleMapper();
+    private BiFunction<String, LessonTitle, Lesson> htmlLessonMapper;
+    private Function<String, List<LessonTitle>> htmlLessonTitleDTOMapper;
 
     private EnglishVideoAPI englishVideoAPI;
 
     public EnglishVideoRepositoryImpl(EnglishVideoAPI englishVideoAPI,
-                                      Function<List<LessonInfoDTO>, List<LessonInfo>> listLessonInfoDTOMapper,
-                                      BiFunction<String, Long, LessonMedia> htmlMediaDTOMapper) {
+                                      BiFunction<String, LessonTitle, Lesson> htmlMediaDTOMapper) {
         this.englishVideoAPI = englishVideoAPI;
-        this.listLessonInfoDTOMapper = listLessonInfoDTOMapper;
-        this.htmlMediaDTOMapper = htmlMediaDTOMapper;
+        this.htmlLessonMapper = htmlMediaDTOMapper;
     }
 
     @Override
@@ -44,14 +36,7 @@ public class EnglishVideoRepositoryImpl implements IEnglishVideoRepository {
                 .orElseThrow(LessonNotFoundException::new);
     }
 
-    @Override
-    public List<LessonInfo> getLessons() {
-        return listLessonInfoDTOMapper.apply(
-                getLessons(INITIAL_PAGE, MAX_POST_BY_PAGE)
-        );
-    }
-
-    private List<LessonInfoDTO> getLessons(final int page, int maxItems) {
+    /*private List<LessonInfoDTO> getLessons(final int page, int maxItems) {
         List<LessonInfoDTO> lessonInfoDTOS = Try.ofFailable(() -> englishVideoAPI.getLessonsByPage(page, maxItems))
                 .orElse(new ArrayList<>());
 
@@ -59,18 +44,20 @@ public class EnglishVideoRepositoryImpl implements IEnglishVideoRepository {
             lessonInfoDTOS.addAll(getLessons(page + 1, maxItems));
         }
         return lessonInfoDTOS;
-    }
+    }*/
 
     @Override
-    public LessonMedia getLessonMediaById(String slug, Long lessonId) {
-        return getMediaFromApi(slug, lessonId);
+    public List<Lesson> getUnSyncLessons(List<LessonTitle> unSyncedTitles) {
+        return unSyncedTitles.stream().map(this::getMediaFromApi)
+                .filter(Try::isSuccess)
+                .map(Try::getUnchecked)
+                .collect(Collectors.toList());
     }
 
-    private LessonMedia getMediaFromApi(String slug, Long lessonId) {
-        return Try.ofFailable(() -> englishVideoAPI.getMediaInfoBySlug(slug))
+    private Try<Lesson> getMediaFromApi(LessonTitle title) {
+        return Try.ofFailable(() -> englishVideoAPI.getMediaInfoBySlug(title.getSlug()))
                 .filter(Response::isSuccessful)
                 .map(Response::body)
-                .map(response -> htmlMediaDTOMapper.apply(response.string(), lessonId))
-                .orElseThrow(LessonNotFoundException::new);
+                .map(response -> htmlLessonMapper.apply(response.string(), title));
     }
 }

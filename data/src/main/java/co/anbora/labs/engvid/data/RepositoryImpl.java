@@ -1,29 +1,23 @@
 package co.anbora.labs.engvid.data;
 
 import co.anbora.labs.engvid.domain.model.Lesson;
-import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
-import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
 import co.anbora.labs.engvid.domain.model.lesson.LessonTitle;
 import co.anbora.labs.engvid.domain.repository.IAddOnRepository;
 import co.anbora.labs.engvid.domain.repository.IEnglishVideoRepository;
 import co.anbora.labs.engvid.domain.repository.IRepository;
 
 import java.util.List;
-import java.util.function.BiFunction;
 
 public class RepositoryImpl implements IRepository {
 
-    private BiFunction<Lesson, LessonMedia, Lesson> lessonMapper;
 
     private IAddOnRepository localRepository;
     private IEnglishVideoRepository remoteRepository;
 
     public RepositoryImpl(IAddOnRepository localRepository,
-                          IEnglishVideoRepository remoteRepository,
-                          BiFunction<Lesson, LessonMedia, Lesson> lessonMapper) {
+                          IEnglishVideoRepository remoteRepository) {
         this.localRepository = localRepository;
         this.remoteRepository = remoteRepository;
-        this.lessonMapper = lessonMapper;
     }
 
     @Override
@@ -31,22 +25,27 @@ public class RepositoryImpl implements IRepository {
 
         List<Lesson> lessons = localRepository.getLessons();
         if (lessons.isEmpty()) {
-            List<LessonInfo> lessonInfos = remoteRepository.getLessons();
-            localRepository.save(lessonInfos);
+            return syncLessons();
         }
+        return localRepository.getLessons();
+    }
+
+    @Override
+    public List<Lesson> syncLessons() {
+        List<LessonTitle> titles = remoteRepository.getTitles();
+        localRepository.saveTitles(titles);
+
+        List<LessonTitle> unSync = localRepository.getUnSyncTitles();
+        List<Lesson> lessons = remoteRepository.getUnSyncLessons(unSync);
+        localRepository.save(lessons);
+
         return localRepository.getLessons();
     }
 
     @Override
     public Lesson getLessonById(Integer lessonId) {
 
-        Lesson media = localRepository.getLessonById(lessonId);
-        if (!media.isSync()) {
-            LessonMedia lessonMedia = remoteRepository.getLessonMediaById(media.getSlug(), media.getId());
-            localRepository.save(lessonMedia);
-            media = lessonMapper.apply(media, lessonMedia);
-        }
-        return media;
+        return localRepository.getLessonById(lessonId);
     }
 
     @Override

@@ -40,7 +40,7 @@ public class ListLessonVOMapperTest {
                 .title("test")
                 .description("test")
                 .youtubeId("youtubeId")
-                .sync(true)
+                //.sync(true)
                 .build();
 
         assertEquals(Arrays.asList(lesson), mapper.apply(Arrays.asList(lessonVO)));

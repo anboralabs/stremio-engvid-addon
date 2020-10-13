@@ -1,16 +1,13 @@
 package co.anbora.labs.engvid.data.local.dao;
 
-import co.anbora.labs.engvid.data.local.model.LessonInfoVO;
-import co.anbora.labs.engvid.data.local.model.LessonMediaVO;
+import co.anbora.labs.engvid.data.local.model.LessonTitleVO;
 import co.anbora.labs.engvid.data.local.model.LessonVO;
 
 import java.util.List;
 
 public interface LessonDao {
 
-    void insert(List<LessonInfoVO> lessons);
-
-    void updateMedia(LessonMediaVO video);
+    void insert(List<LessonVO> lessons);
 
     LessonVO findById(Integer id);
 
@@ -19,4 +16,8 @@ public interface LessonDao {
     List<LessonVO> findAllByCategory(Integer id);
 
     List<LessonVO> findAllByDescription(Integer id, String searchValue);
+
+    void insertTitles(List<LessonTitleVO> titles);
+
+    List<LessonTitleVO> findAllUnSync();
 }

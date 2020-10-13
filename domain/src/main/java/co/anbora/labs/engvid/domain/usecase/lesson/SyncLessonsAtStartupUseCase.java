@@ -18,7 +18,7 @@ public class SyncLessonsAtStartupUseCase extends UseCase<SyncLessonsAtStartupUse
     @Override
     public Response execute(Request input) {
 
-        return new Response(this.repository.getLessons());
+        return new Response(this.repository.syncLessons());
     }
 
     @Value

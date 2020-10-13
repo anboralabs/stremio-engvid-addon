@@ -41,4 +41,10 @@ public class HtmlToLessonTitleMapper implements Function<String, List<LessonTitl
                 .build();
     }
 
+    /*
+    return StringEscapeUtils.unescapeHtml4(
+                Jsoup.clean(render.getRendered(), Whitelist.none())
+        );
+     */
+
 }

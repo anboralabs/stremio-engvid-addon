@@ -8,6 +8,8 @@ public interface IRepository {
 
     List<Lesson> getLessons();
 
+    List<Lesson> syncLessons();
+
     Lesson getLessonById(Integer lessonId);
 
     List<Lesson> getLessonsByCategory(Integer categoryId);

@@ -1,6 +1,5 @@
 package co.anbora.labs.engvid.data.remote.api;
 
-import co.anbora.labs.engvid.data.remote.model.LessonInfoDTO;
 import co.anbora.labs.engvid.domain.exceptions.MappingJsonException;
 import co.anbora.labs.engvid.domain.exceptions.MediaNotFoundException;
 import co.anbora.labs.engvid.domain.exceptions.TitlesNotFoundException;
@@ -38,7 +37,7 @@ public class EnglishVideoAPIImpl implements EnglishVideoAPI {
                 .orElseThrow(TitlesNotFoundException::new);
     }
 
-    @Override
+    /*@Override
     public List<LessonInfoDTO> getLessonsByPage(Integer page, Integer maxItems) {
         HttpUrl.Builder httpBuilder = HttpUrl.parse(baseUrl).newBuilder();
         httpBuilder.addPathSegment("wp-json")
@@ -60,7 +59,7 @@ public class EnglishVideoAPIImpl implements EnglishVideoAPI {
                 .map(Arrays::asList)
                 .map(ArrayList::new)
                 .orElseThrow(MappingJsonException::new);
-    }
+    }*/
 
     @Override
     public Response getMediaInfoBySlug(String slug) {

@@ -20,7 +20,7 @@ public class LessonVOMapper implements Function<LessonVO, Lesson> {
                     .renderLink(lessonVO.getRenderLink())
                     .slug(lessonVO.getSlug())
                     .youtubeId(lessonVO.getYoutubeId())
-                    .sync(Objects.nonNull(lessonVO.getYoutubeId()))
+                    //.sync(Objects.nonNull(lessonVO.getYoutubeId()))
                     .build();
         }
         return null;

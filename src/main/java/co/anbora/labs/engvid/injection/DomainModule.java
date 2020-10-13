@@ -16,9 +16,8 @@ import javax.enterprise.inject.Produces;
 public class DomainModule {
 
     @Produces
-    public SyncRemoteLessonsUseCase provideSyncLessonUseCase(IAddOnRepository localRepository,
-                                                             IEnglishVideoRepository remoteRepository) {
-        return new SyncRemoteLessonsUseCase(localRepository, remoteRepository);
+    public SyncRemoteLessonsUseCase provideSyncLessonUseCase(IRepository repository) {
+        return new SyncRemoteLessonsUseCase(repository);
     }
 
     @Produces

@@ -21,7 +21,7 @@ public class CommonValuesForTestsHelper {
                 .slug("future-simple")
                 .imageUrl("https://img.youtube.com/vi/tri7u632AaA/0.jpg")
                 .youtubeId("tri7u632AaA")
-                .sync(true)
+                //.sync(true)
                 .build();
     }
 
@@ -36,7 +36,7 @@ public class CommonValuesForTestsHelper {
                 .slug("learn-30-common-will-sentences-in-english")
                 .imageUrl("https://img.youtube.com/vi/hJaFrLeFItE/0.jpg")
                 .youtubeId("hJaFrLeFItE")
-                .sync(true)
+                //.sync(true)
                 .build();
     }
 
@@ -51,7 +51,7 @@ public class CommonValuesForTestsHelper {
                 .slug("learn-english-the-mma-way")
                 .imageUrl("https://img.youtube.com/vi/iGFAbvwv8oE/0.jpg")
                 .youtubeId("iGFAbvwv8oE")
-                .sync(true)
+                //.sync(true)
                 .build();
     }
 

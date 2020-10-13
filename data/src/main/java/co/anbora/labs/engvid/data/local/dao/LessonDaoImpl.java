@@ -1,7 +1,6 @@
 package co.anbora.labs.engvid.data.local.dao;
 
-import co.anbora.labs.engvid.data.local.model.LessonInfoVO;
-import co.anbora.labs.engvid.data.local.model.LessonMediaVO;
+import co.anbora.labs.engvid.data.local.model.LessonTitleVO;
 import co.anbora.labs.engvid.data.local.model.LessonVO;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
@@ -11,15 +10,17 @@ import java.util.List;
 
 public class LessonDaoImpl implements LessonDao {
 
-    private static final String INSERT_LESSON_WITH_CONFLICT = "INSERT INTO lessons(lesson_id, title, description, publish_date, render_link, category_, slug) "
+    private static final String INSERT_LESSON_WITH_CONFLICT = "INSERT INTO lessons(lesson_id, title, description, publish_date, render_link, category_, slug, image_url, youtube_id) "
             + "VALUES(:lessonId, :title, :description, "
-            + ":date, :renderLink, :category, :slug) "
+            + ":date, :renderLink, :category, :slug, :image, :youtube) "
             + "ON CONFLICT (lesson_id) "
             + "DO NOTHING";
-    private static final String UPDATE_MEDIA_INFO = "UPDATE lessons "
-            + "SET image_url= :image, youtube_id= :youtube, sync= :sync "
-            + "WHERE lesson_id= :lessonId";
+    public static final String INSERT_TITLE_WITH_CONFLICT = "INSERT INTO titles(video_slug, video_category) "
+            + "VALUES(:slug, :category) "
+            + "ON CONFLICT (video_slug) "
+            + "DO NOTHING";
 
+    private static final String SELECT_ALL_UN_SYNC = "SELECT t.* FROM titles t LEFT JOIN lessons l ON (l.slug = t.video_slug AND l.slug IS NULL)";
     private static final String SELECT_BY_LESSON_ID = "SELECT * FROM lessons WHERE lesson_id = :lessonId";
     private static final String SELECT_ALL = "SELECT * FROM lessons ORDER BY publish_date DESC";
     private static final String SELECT_ALL_BY_CATEGORY = "SELECT * FROM lessons where category_ = :categoryId ORDER BY publish_date DESC";
@@ -45,7 +46,7 @@ public class LessonDaoImpl implements LessonDao {
     }
 
     @Override
-    public void insert(List<LessonInfoVO> lessons) {
+    public void insert(List<LessonVO> lessons) {
         try (Handle handle = jdbi.open()) {
             PreparedBatch insertBatch = handle.prepareBatch(INSERT_LESSON_WITH_CONFLICT);
             lessons.forEach(lessonInfoVO -> addBatch(lessonInfoVO, insertBatch));
@@ -53,26 +54,16 @@ public class LessonDaoImpl implements LessonDao {
         }
     }
 
-    private void addBatch(LessonInfoVO video, PreparedBatch insertBatch) {
+    private void addBatch(LessonVO video, PreparedBatch insertBatch) {
         insertBatch.bind(LESSON_ID, video.getId())
                 .bind(TITLE, video.getTitle())
                 .bind(DESCRIPTION, video.getDescription())
                 .bind(DATE, video.getDate())
                 .bind(RENDER_LINK, video.getRenderLink())
                 .bind(CATEGORY, video.getCategory())
-                .bind(SLUG, video.getSlug()).add();
-    }
-
-    @Override
-    public void updateMedia(LessonMediaVO video) {
-        try (Handle handle = jdbi.open()) {
-            handle.createUpdate(UPDATE_MEDIA_INFO)
-                    .bind(LESSON_ID, video.getId())
-                    .bind(IMAGE, video.getImageUrl())
-                    .bind(YOUTUBE, video.getYoutubeId())
-                    .bind(SYNC, video.getSync())
-                    .execute();
-        }
+                .bind(SLUG, video.getSlug()).add()
+                .bind(IMAGE, video.getImageUrl())
+                .bind(YOUTUBE, video.getYoutubeId());
     }
 
     @Override
@@ -111,6 +102,29 @@ public class LessonDaoImpl implements LessonDao {
                     .bind(CATEGORY_ID, id)
                     .bind(SEARCH, searchValue)
                     .map(new LessonRowMapper())
+                    .list();
+        }
+    }
+
+    @Override
+    public void insertTitles(List<LessonTitleVO> titles) {
+        try (Handle handle = jdbi.open()) {
+            PreparedBatch insertBatch = handle.prepareBatch(INSERT_TITLE_WITH_CONFLICT);
+            titles.forEach(title -> addBatch(title, insertBatch));
+            insertBatch.execute();
+        }
+    }
+
+    private void addBatch(LessonTitleVO title, PreparedBatch insertBatch) {
+        insertBatch.bind(SLUG, title.getSlug())
+                .bind(CATEGORY, title.getCategory());
+    }
+
+    @Override
+    public List<LessonTitleVO> findAllUnSync() {
+        try (Handle handle = jdbi.open()) {
+            return handle.createQuery(SELECT_ALL_UN_SYNC)
+                    .map(new LessonTitleRowMapper())
                     .list();
         }
     }

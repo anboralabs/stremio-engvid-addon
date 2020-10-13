@@ -1,16 +1,15 @@
 package co.anbora.labs.engvid.domain.repository;
 
 import co.anbora.labs.engvid.domain.model.Lesson;
-import co.anbora.labs.engvid.domain.model.lesson.LessonInfo;
-import co.anbora.labs.engvid.domain.model.lesson.LessonMedia;
+import co.anbora.labs.engvid.domain.model.lesson.LessonTitle;
 
 import java.util.List;
 
 public interface IAddOnRepository {
 
-    void save(LessonMedia lessonMedia);
+    void save(List<Lesson> lessons);
 
-    void save(List<LessonInfo> lessons);
+    void saveTitles(List<LessonTitle> titles);
 
     List<Lesson> getLessons();
 
@@ -19,4 +18,6 @@ public interface IAddOnRepository {
     Lesson getLessonById(Integer lessonId);
 
     List<Lesson> getLessonsByDescription(Integer categoryId, String searchValue);
+
+    List<LessonTitle> getUnSyncTitles();
 }

@@ -10,6 +10,6 @@ import lombok.Getter;
 public class LessonTitleVO {
 
     private String slug;
-    private Integer category;
+    private Long category;
 
 }
