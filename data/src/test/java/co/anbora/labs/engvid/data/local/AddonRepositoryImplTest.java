@@ -2,6 +2,9 @@ package co.anbora.labs.engvid.data.local;
 
 import co.anbora.labs.engvid.data.local.dao.LessonDao;
 import co.anbora.labs.engvid.data.local.mapper.LessonVOMapper;
+import co.anbora.labs.engvid.data.local.mapper.ListLessonMapper;
+import co.anbora.labs.engvid.data.local.mapper.ListLessonTitleMapper;
+import co.anbora.labs.engvid.data.local.mapper.ListLessonTitleVOMapper;
 import co.anbora.labs.engvid.data.local.mapper.ListLessonVOMapper;
 import co.anbora.labs.engvid.data.local.model.LessonVO;
 import co.anbora.labs.engvid.domain.model.EnglishLevel;
@@ -30,7 +33,13 @@ public class AddonRepositoryImplTest {
         LessonVOMapper lessonVOMapper = new LessonVOMapper();
         ListLessonVOMapper listLessonVOMapper = new ListLessonVOMapper(lessonVOMapper);
 
-        this.addonRepository = new AddonRepositoryImpl(lessonVOMapper, listLessonVOMapper, lessonDao);
+        ListLessonTitleMapper listLessonTitleMapper = new ListLessonTitleMapper();
+        ListLessonTitleVOMapper listLessonTitleVOMapper = new ListLessonTitleVOMapper();
+        ListLessonMapper listLessonMapper = new ListLessonMapper();
+
+        this.addonRepository = new AddonRepositoryImpl(lessonVOMapper,
+                listLessonVOMapper, listLessonTitleMapper,
+                listLessonTitleVOMapper, listLessonMapper, lessonDao);
     }
 
     @Test

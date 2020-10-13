@@ -22,9 +22,15 @@ public class AddonRepositoryImpl implements IAddOnRepository {
 
     public AddonRepositoryImpl(Function<LessonVO, Lesson> lessonVOMapper,
                                Function<List<LessonVO>, List<Lesson>> listLessonVOMapper,
+                               Function<List<LessonTitle>, List<LessonTitleVO>> listTitleMapper,
+                               Function<List<LessonTitleVO>, List<LessonTitle>> listTitleVOMapper,
+                               Function<List<Lesson>, List<LessonVO>> listLessonMapper,
                                LessonDao lessonDao) {
         this.lessonVOMapper = lessonVOMapper;
         this.listLessonVOMapper = listLessonVOMapper;
+        this.listTitleMapper = listTitleMapper;
+        this.listTitleVOMapper = listTitleVOMapper;
+        this.listLessonMapper = listLessonMapper;
         this.lessonDao = lessonDao;
     }
 

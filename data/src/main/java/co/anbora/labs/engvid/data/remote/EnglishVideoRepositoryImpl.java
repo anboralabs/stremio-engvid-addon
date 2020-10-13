@@ -22,9 +22,11 @@ public class EnglishVideoRepositoryImpl implements IEnglishVideoRepository {
     private EnglishVideoAPI englishVideoAPI;
 
     public EnglishVideoRepositoryImpl(EnglishVideoAPI englishVideoAPI,
-                                      BiFunction<String, LessonTitle, Lesson> htmlMediaDTOMapper) {
+                                      BiFunction<String, LessonTitle, Lesson> htmlMediaDTOMapper,
+                                      Function<String, List<LessonTitle>> htmlLessonTitleDTOMapper) {
         this.englishVideoAPI = englishVideoAPI;
         this.htmlLessonMapper = htmlMediaDTOMapper;
+        this.htmlLessonTitleDTOMapper = htmlLessonTitleDTOMapper;
     }
 
     @Override
