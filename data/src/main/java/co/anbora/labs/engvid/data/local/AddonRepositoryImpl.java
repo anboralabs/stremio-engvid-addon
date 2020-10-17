@@ -37,6 +37,13 @@ public class AddonRepositoryImpl implements IAddOnRepository {
     }
 
     @Override
+    public void update(List<Lesson> lessons) {
+        this.lessonDao.update(
+                listLessonMapper.apply(lessons)
+        );
+    }
+
+    @Override
     public void save(List<Lesson> lessons) {
         this.lessonDao.insert(
                 listLessonMapper.apply(lessons)

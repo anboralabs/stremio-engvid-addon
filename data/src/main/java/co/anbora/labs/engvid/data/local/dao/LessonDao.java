@@ -9,6 +9,8 @@ public interface LessonDao {
 
     void insert(List<LessonVO> lessons);
 
+    void update(List<LessonVO> lessons);
+
     LessonVO findById(Integer id);
 
     List<LessonVO> findAll();

@@ -15,6 +15,11 @@ public class LessonDaoImpl implements LessonDao {
             + ":date, :renderLink, :category, :slug, :image, :youtube) "
             + "ON CONFLICT (lesson_id) "
             + "DO NOTHING";
+    private static final String INSERT_LESSON_WITH_VIDEO_CONFLICT = "INSERT INTO lessons(lesson_id, title, description, publish_date, render_link, category_, slug, image_url, youtube_id) "
+            + "VALUES(:lessonId, :title, :description, "
+            + ":date, :renderLink, :category, :slug, :image, :youtube) "
+            + "ON CONFLICT (lesson_id) "
+            + "DO UPDATE SET image_url = :image, youtube_id = :youtube";
     public static final String INSERT_TITLE_WITH_CONFLICT = "INSERT INTO titles(video_slug, render_link, video_category, error_404) "
             + "VALUES(:slug, :renderLink, :category, :error) "
             + "ON CONFLICT (video_slug) "
@@ -27,8 +32,8 @@ public class LessonDaoImpl implements LessonDao {
     private static final String SELECT_ALL_UN_SYNC = "SELECT t.* FROM titles t LEFT JOIN lessons l ON (l.slug = t.video_slug) WHERE l.slug IS NULL AND t.error_404 IS FALSE";
     private static final String SELECT_BY_LESSON_ID = "SELECT * FROM lessons WHERE lesson_id = :lessonId";
     private static final String SELECT_ALL = "SELECT * FROM lessons ORDER BY publish_date DESC";
-    private static final String SELECT_ALL_BY_CATEGORY = "SELECT * FROM lessons where category_ = :categoryId ORDER BY publish_date DESC";
-    private static final String SELECT_BY_DESCRIPTION = "SELECT * FROM lessons WHERE category_ = :categoryId and description ILIKE ('%' || :search || '%') ORDER BY publish_date DESC";
+    private static final String SELECT_ALL_BY_CATEGORY = "SELECT l.* FROM lessons l INNER JOIN titles t ON (l.slug = t.video_slug) WHERE l.category_ = :categoryId ORDER BY l.publish_date DESC";
+    private static final String SELECT_BY_DESCRIPTION = "SELECT l.* FROM lessons l INNER JOIN titles t ON (l.slug = t.video_slug) WHERE l.category_ = :categoryId AND l.description ILIKE ('%' || :search || '%') ORDER BY l.publish_date DESC";
 
     private static final String CATEGORY_ID = "categoryId";
     private static final String SEARCH = "search";
@@ -54,6 +59,17 @@ public class LessonDaoImpl implements LessonDao {
         try (Handle handle = jdbi.open()) {
             if (!lessons.isEmpty()) {
                 PreparedBatch insertBatch = handle.prepareBatch(INSERT_LESSON_WITH_CONFLICT);
+                lessons.forEach(lessonInfoVO -> addBatch(lessonInfoVO, insertBatch));
+                insertBatch.execute();
+            }
+        }
+    }
+
+    @Override
+    public void update(List<LessonVO> lessons) {
+        try (Handle handle = jdbi.open()) {
+            if (!lessons.isEmpty()) {
+                PreparedBatch insertBatch = handle.prepareBatch(INSERT_LESSON_WITH_VIDEO_CONFLICT);
                 lessons.forEach(lessonInfoVO -> addBatch(lessonInfoVO, insertBatch));
                 insertBatch.execute();
             }

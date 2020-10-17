@@ -27,4 +27,8 @@ public class Lesson {
         return VIDEO_PREFIX_ID + getId();
     }
 
+    public boolean isSync() {
+        return Objects.nonNull(youtubeId);
+    }
+
 }

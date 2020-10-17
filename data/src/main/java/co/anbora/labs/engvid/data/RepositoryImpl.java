@@ -1,12 +1,15 @@
 package co.anbora.labs.engvid.data;
 
+import co.anbora.labs.engvid.domain.model.EnglishLevel;
 import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.model.lesson.LessonTitle;
 import co.anbora.labs.engvid.domain.repository.IAddOnRepository;
 import co.anbora.labs.engvid.domain.repository.IEnglishVideoRepository;
 import co.anbora.labs.engvid.domain.repository.IRepository;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class RepositoryImpl implements IRepository {
@@ -43,7 +46,22 @@ public class RepositoryImpl implements IRepository {
     @Override
     public Lesson getLessonById(Integer lessonId) {
 
-        return localRepository.getLessonById(lessonId);
+        Lesson lesson = localRepository.getLessonById(lessonId);
+        if (!lesson.isSync()) {
+            LessonTitle title = LessonTitle
+                    .builder()
+                    .renderLink(lesson.getRenderLink())
+                    .category(EnglishLevel.BEGINNER)
+                    .build();
+            syncLesson(title);
+            lesson = localRepository.getLessonById(lessonId);
+        }
+        return lesson;
+    }
+
+    private void syncLesson(LessonTitle title) {
+        List<Lesson> lessons = remoteRepository.getUnSyncLessons(Collections.singletonList(title));
+        localRepository.update(lessons);
     }
 
     @Override

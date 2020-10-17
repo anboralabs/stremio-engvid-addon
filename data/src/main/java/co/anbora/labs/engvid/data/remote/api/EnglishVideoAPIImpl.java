@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static co.anbora.labs.engvid.domain.constants.ConstantsHelper.EMPTY_VALUE;
 import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstantsHelper.ENGLISH_LESSONS;
 
 public class EnglishVideoAPIImpl implements EnglishVideoAPI {
@@ -65,6 +66,7 @@ public class EnglishVideoAPIImpl implements EnglishVideoAPI {
     public Response getMediaInfoBySlug(String slug) {
         HttpUrl.Builder httpBuilder = HttpUrl.parse(baseUrl).newBuilder();
         httpBuilder.addPathSegment(slug);
+        httpBuilder.addPathSegment(EMPTY_VALUE);
 
         Request request = new Request.Builder().url(httpBuilder.build()).build();
         return Try.ofFailable(() -> httpClient.newCall(request).execute())

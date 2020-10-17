@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface IAddOnRepository {
 
+    void update(List<Lesson> lessons);
+
     void save(List<Lesson> lessons);
 
     void saveTitles(List<LessonTitle> titles);
