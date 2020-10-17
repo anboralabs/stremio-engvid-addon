@@ -15,12 +15,12 @@ public class LessonDaoImpl implements LessonDao {
             + ":date, :renderLink, :category, :slug, :image, :youtube) "
             + "ON CONFLICT (lesson_id) "
             + "DO NOTHING";
-    public static final String INSERT_TITLE_WITH_CONFLICT = "INSERT INTO titles(video_slug, video_category) "
-            + "VALUES(:slug, :category) "
+    public static final String INSERT_TITLE_WITH_CONFLICT = "INSERT INTO titles(video_slug, render_link, video_category) "
+            + "VALUES(:slug, :renderLink, :category) "
             + "ON CONFLICT (video_slug) "
             + "DO NOTHING";
 
-    private static final String SELECT_ALL_UN_SYNC = "SELECT t.* FROM titles t LEFT JOIN lessons l ON (l.slug = t.video_slug AND l.slug IS NULL)";
+    private static final String SELECT_ALL_UN_SYNC = "SELECT t.* FROM titles t LEFT JOIN lessons l ON (l.slug = t.video_slug) WHERE l.slug IS NULL";
     private static final String SELECT_BY_LESSON_ID = "SELECT * FROM lessons WHERE lesson_id = :lessonId";
     private static final String SELECT_ALL = "SELECT * FROM lessons ORDER BY publish_date DESC";
     private static final String SELECT_ALL_BY_CATEGORY = "SELECT * FROM lessons where category_ = :categoryId ORDER BY publish_date DESC";
@@ -61,9 +61,10 @@ public class LessonDaoImpl implements LessonDao {
                 .bind(DATE, video.getDate())
                 .bind(RENDER_LINK, video.getRenderLink())
                 .bind(CATEGORY, video.getCategory())
-                .bind(SLUG, video.getSlug()).add()
+                .bind(SLUG, video.getSlug())
                 .bind(IMAGE, video.getImageUrl())
-                .bind(YOUTUBE, video.getYoutubeId());
+                .bind(YOUTUBE, video.getYoutubeId())
+                .add();
     }
 
     @Override
@@ -117,7 +118,9 @@ public class LessonDaoImpl implements LessonDao {
 
     private void addBatch(LessonTitleVO title, PreparedBatch insertBatch) {
         insertBatch.bind(SLUG, title.getSlug())
-                .bind(CATEGORY, title.getCategory());
+                .bind(RENDER_LINK, title.getRenderLink())
+                .bind(CATEGORY, title.getCategory())
+                .add();
     }
 
     @Override

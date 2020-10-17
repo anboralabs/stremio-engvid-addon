@@ -2,6 +2,7 @@ package co.anbora.labs.engvid.domain.constants;
 
 public class HtmlConstantsHelper {
 
+    public static final String ID = "id";
     public static final String CONTENT = "content";
     public static final String PROPERTY = "property";
     public static final String META = "meta";
@@ -9,6 +10,10 @@ public class HtmlConstantsHelper {
 
     public static final String TWITTER_ATTR_PLAYER = "twitter:player";
     public static final String TWITTER_ATTR_IMAGE = "twitter:image";
+
+    public static final String ID_VIDEO_CLASS = "featured_post";
+    public static final String TITLE_ATTR = "og:title";
+    public static final String DESCRIPTION_ATTR = "og:description";
 
     public static final String ALL_LESSONS_CLASS = "lessonlinks_all_row";
     public static final String ALL_LESSONS_LINKS_CLASS = "lessonlinks_all_lesson_link";

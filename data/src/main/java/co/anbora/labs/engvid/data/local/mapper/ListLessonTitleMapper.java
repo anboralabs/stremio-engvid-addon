@@ -21,6 +21,7 @@ public class ListLessonTitleMapper implements Function<List<LessonTitle>, List<L
     private LessonTitleVO mapToVO(LessonTitle title) {
         return new LessonTitleVO(
                 title.getSlug(),
+                title.getRenderLink(),
                 title.getCategory().getId().longValue()
         );
     }

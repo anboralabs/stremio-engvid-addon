@@ -12,6 +12,7 @@ public class LessonTitleRowMapper implements RowMapper<LessonTitleVO> {
     public LessonTitleVO map(ResultSet rs, StatementContext ctx) throws SQLException {
         return new LessonTitleVO(
                 rs.getString("video_slug"),
+                rs.getString("render_link"),
                 rs.getLong("video_category")
         );
     }

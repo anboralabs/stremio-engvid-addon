@@ -10,6 +10,7 @@ import lombok.Getter;
 public class LessonTitleVO {
 
     private String slug;
+    private String renderLink;
     private Long category;
 
 }

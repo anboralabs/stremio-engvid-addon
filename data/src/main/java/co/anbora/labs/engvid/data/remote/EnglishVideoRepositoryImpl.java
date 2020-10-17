@@ -14,6 +14,8 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static co.anbora.labs.engvid.domain.constants.EnglishVideoConstantsHelper.INITIAL_PAGE;
+
 public class EnglishVideoRepositoryImpl implements IEnglishVideoRepository {
 
     private BiFunction<String, LessonTitle, Lesson> htmlLessonMapper;
@@ -50,10 +52,21 @@ public class EnglishVideoRepositoryImpl implements IEnglishVideoRepository {
 
     @Override
     public List<Lesson> getUnSyncLessons(List<LessonTitle> unSyncedTitles) {
-        return unSyncedTitles.stream().map(this::getMediaFromApi)
+        List<Try<Lesson>> lessonsLoaded = getLessonsWithHtmlInformation(unSyncedTitles, INITIAL_PAGE);
+        return lessonsLoaded.stream()
                 .filter(Try::isSuccess)
                 .map(Try::getUnchecked)
                 .collect(Collectors.toList());
+    }
+
+    private List<Try<Lesson>> getLessonsWithHtmlInformation(List<LessonTitle> unSyncedTitles, int position) {
+        List<Try<Lesson>> loadedLessons = new ArrayList<>();
+        if (position < unSyncedTitles.size()) {
+            Try<Lesson> loaded = getMediaFromApi(unSyncedTitles.get(position));
+            loadedLessons.add(loaded);
+            loadedLessons.addAll(getLessonsWithHtmlInformation(unSyncedTitles, position + 1));
+        }
+        return loadedLessons;
     }
 
     private Try<Lesson> getMediaFromApi(LessonTitle title) {

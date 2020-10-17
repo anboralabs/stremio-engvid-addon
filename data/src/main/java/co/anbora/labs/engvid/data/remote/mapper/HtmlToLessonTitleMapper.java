@@ -32,19 +32,12 @@ public class HtmlToLessonTitleMapper implements Function<String, List<LessonTitl
     private LessonTitle getTitleFromHtmlElement(Element lessonHtml) {
         Element lessonAttributes = lessonHtml.getElementsByClass(ALL_LESSONS_LINKS_CLASS)
                 .first();
-        String slug = lessonAttributes.attr(HREF);
+        String renderLink = lessonAttributes.attr(HREF);
         Element level = lessonAttributes.getElementsByClass(ALL_LESSONS_CATEGORY_CLASS).first();
 
         return LessonTitle.builder()
-                .slug(slug)
+                .renderLink(renderLink)
                 .category(EnglishLevel.getLevel(level.text()))
                 .build();
     }
-
-    /*
-    return StringEscapeUtils.unescapeHtml4(
-                Jsoup.clean(render.getRendered(), Whitelist.none())
-        );
-     */
-
 }

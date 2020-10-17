@@ -22,7 +22,7 @@ public class ListLessonTitleVOMapper implements Function<List<LessonTitleVO>, Li
     private LessonTitle mapTo(LessonTitleVO titleVO) {
         return LessonTitle
                 .builder()
-                .slug(titleVO.getSlug())
+                .renderLink(titleVO.getRenderLink())
                 .category(EnglishLevel.getLevel(titleVO.getCategory().intValue()))
                 .build();
     }
