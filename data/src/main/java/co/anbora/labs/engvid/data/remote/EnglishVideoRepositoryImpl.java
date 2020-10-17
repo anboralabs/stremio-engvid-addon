@@ -40,16 +40,6 @@ public class EnglishVideoRepositoryImpl implements IEnglishVideoRepository {
                 .orElseThrow(LessonNotFoundException::new);
     }
 
-    /*private List<LessonInfoDTO> getLessons(final int page, int maxItems) {
-        List<LessonInfoDTO> lessonInfoDTOS = Try.ofFailable(() -> englishVideoAPI.getLessonsByPage(page, maxItems))
-                .orElse(new ArrayList<>());
-
-        if (!lessonInfoDTOS.isEmpty()) {
-            lessonInfoDTOS.addAll(getLessons(page + 1, maxItems));
-        }
-        return lessonInfoDTOS;
-    }*/
-
     @Override
     public List<Lesson> getUnSyncLessons(List<LessonTitle> unSyncedTitles) {
         List<Try<Lesson>> lessonsLoaded = getLessonsWithHtmlInformation(unSyncedTitles, INITIAL_PAGE);

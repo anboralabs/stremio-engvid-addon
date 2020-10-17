@@ -19,5 +19,7 @@ public interface LessonDao {
 
     void insertTitles(List<LessonTitleVO> titles);
 
+    void insertTitlesWithError(List<LessonTitleVO> titles);
+
     List<LessonTitleVO> findAllUnSync();
 }

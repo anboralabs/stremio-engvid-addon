@@ -21,8 +21,9 @@ public class DomainModule {
     }
 
     @Produces
-    public SyncLessonsAtStartupUseCase provideSyncLessonsAtStartupUseCase(IRepository repository) {
-        return new SyncLessonsAtStartupUseCase(repository);
+    public SyncLessonsAtStartupUseCase provideSyncLessonsAtStartupUseCase(IRepository repository,
+                                                                          SyncRemoteLessonsUseCase syncRemoteLessonsUseCase) {
+        return new SyncLessonsAtStartupUseCase(repository, syncRemoteLessonsUseCase);
     }
 
     @Produces

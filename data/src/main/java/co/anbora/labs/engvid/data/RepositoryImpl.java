@@ -6,6 +6,7 @@ import co.anbora.labs.engvid.domain.repository.IAddOnRepository;
 import co.anbora.labs.engvid.domain.repository.IEnglishVideoRepository;
 import co.anbora.labs.engvid.domain.repository.IRepository;
 
+import java.util.Collection;
 import java.util.List;
 
 public class RepositoryImpl implements IRepository {
@@ -22,23 +23,20 @@ public class RepositoryImpl implements IRepository {
 
     @Override
     public List<Lesson> getLessons() {
-
-        List<Lesson> lessons = localRepository.getLessons();
-        if (lessons.isEmpty()) {
-            return syncLessons();
-        }
         return localRepository.getLessons();
     }
 
     @Override
-    public List<Lesson> syncLessons() {
+    public List<LessonTitle> getTitles() {
         List<LessonTitle> titles = remoteRepository.getTitles();
         localRepository.saveTitles(titles);
+        return localRepository.getUnSyncTitles();
+    }
 
-        List<LessonTitle> unSync = localRepository.getUnSyncTitles();
-        List<Lesson> lessons = remoteRepository.getUnSyncLessons(unSync);
+    @Override
+    public List<Lesson> getLessonsByTitles(List<LessonTitle> titles) {
+        List<Lesson> lessons = remoteRepository.getUnSyncLessons(titles);
         localRepository.save(lessons);
-
         return localRepository.getLessons();
     }
 
@@ -58,5 +56,10 @@ public class RepositoryImpl implements IRepository {
     public List<Lesson> getLessonsByDescription(Integer categoryId, String searchValue) {
 
         return localRepository.getLessonsByDescription(categoryId, searchValue);
+    }
+
+    @Override
+    public void markTitlesUnReachable(Collection<LessonTitle> titlesError404) {
+        localRepository.markTitlesUnReachable(titlesError404);
     }
 }

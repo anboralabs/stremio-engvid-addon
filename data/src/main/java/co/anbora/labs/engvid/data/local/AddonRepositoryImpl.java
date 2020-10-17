@@ -7,6 +7,8 @@ import co.anbora.labs.engvid.domain.model.Lesson;
 import co.anbora.labs.engvid.domain.model.lesson.LessonTitle;
 import co.anbora.labs.engvid.domain.repository.IAddOnRepository;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
@@ -80,6 +82,13 @@ public class AddonRepositoryImpl implements IAddOnRepository {
     public List<LessonTitle> getUnSyncTitles() {
         return listTitleVOMapper.apply(
                 this.lessonDao.findAllUnSync()
+        );
+    }
+
+    @Override
+    public void markTitlesUnReachable(Collection<LessonTitle> titlesError404) {
+        this.lessonDao.insertTitlesWithError(
+                listTitleMapper.apply(new ArrayList<>(titlesError404))
         );
     }
 }

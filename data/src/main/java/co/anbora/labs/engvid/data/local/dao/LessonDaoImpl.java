@@ -15,12 +15,16 @@ public class LessonDaoImpl implements LessonDao {
             + ":date, :renderLink, :category, :slug, :image, :youtube) "
             + "ON CONFLICT (lesson_id) "
             + "DO NOTHING";
-    public static final String INSERT_TITLE_WITH_CONFLICT = "INSERT INTO titles(video_slug, render_link, video_category) "
-            + "VALUES(:slug, :renderLink, :category) "
+    public static final String INSERT_TITLE_WITH_CONFLICT = "INSERT INTO titles(video_slug, render_link, video_category, error_404) "
+            + "VALUES(:slug, :renderLink, :category, :error) "
             + "ON CONFLICT (video_slug) "
             + "DO NOTHING";
+    public static final String INSERT_TITLE_WITH_ERROR_CONFLICT = "INSERT INTO titles(video_slug, render_link, video_category, error_404) "
+            + "VALUES(:slug, :renderLink, :category, :error) "
+            + "ON CONFLICT (video_slug) "
+            + "DO UPDATE SET error_404 = :error";
 
-    private static final String SELECT_ALL_UN_SYNC = "SELECT t.* FROM titles t LEFT JOIN lessons l ON (l.slug = t.video_slug) WHERE l.slug IS NULL";
+    private static final String SELECT_ALL_UN_SYNC = "SELECT t.* FROM titles t LEFT JOIN lessons l ON (l.slug = t.video_slug) WHERE l.slug IS NULL AND t.error_404 IS FALSE";
     private static final String SELECT_BY_LESSON_ID = "SELECT * FROM lessons WHERE lesson_id = :lessonId";
     private static final String SELECT_ALL = "SELECT * FROM lessons ORDER BY publish_date DESC";
     private static final String SELECT_ALL_BY_CATEGORY = "SELECT * FROM lessons where category_ = :categoryId ORDER BY publish_date DESC";
@@ -37,7 +41,7 @@ public class LessonDaoImpl implements LessonDao {
     private static final String SLUG = "slug";
     private static final String IMAGE = "image";
     private static final String YOUTUBE = "youtube";
-    private static final String SYNC = "sync";
+    private static final String ERROR = "error";
 
     private Jdbi jdbi;
 
@@ -48,9 +52,11 @@ public class LessonDaoImpl implements LessonDao {
     @Override
     public void insert(List<LessonVO> lessons) {
         try (Handle handle = jdbi.open()) {
-            PreparedBatch insertBatch = handle.prepareBatch(INSERT_LESSON_WITH_CONFLICT);
-            lessons.forEach(lessonInfoVO -> addBatch(lessonInfoVO, insertBatch));
-            insertBatch.execute();
+            if (!lessons.isEmpty()) {
+                PreparedBatch insertBatch = handle.prepareBatch(INSERT_LESSON_WITH_CONFLICT);
+                lessons.forEach(lessonInfoVO -> addBatch(lessonInfoVO, insertBatch));
+                insertBatch.execute();
+            }
         }
     }
 
@@ -110,16 +116,30 @@ public class LessonDaoImpl implements LessonDao {
     @Override
     public void insertTitles(List<LessonTitleVO> titles) {
         try (Handle handle = jdbi.open()) {
-            PreparedBatch insertBatch = handle.prepareBatch(INSERT_TITLE_WITH_CONFLICT);
-            titles.forEach(title -> addBatch(title, insertBatch));
-            insertBatch.execute();
+            if (!titles.isEmpty()) {
+                PreparedBatch insertBatch = handle.prepareBatch(INSERT_TITLE_WITH_CONFLICT);
+                titles.forEach(title -> addBatch(title, insertBatch, false));
+                insertBatch.execute();
+            }
         }
     }
 
-    private void addBatch(LessonTitleVO title, PreparedBatch insertBatch) {
+    @Override
+    public void insertTitlesWithError(List<LessonTitleVO> titles) {
+        try (Handle handle = jdbi.open()) {
+            if (!titles.isEmpty()) {
+                PreparedBatch insertBatch = handle.prepareBatch(INSERT_TITLE_WITH_ERROR_CONFLICT);
+                titles.forEach(title -> addBatch(title, insertBatch, true));
+                insertBatch.execute();
+            }
+        }
+    }
+
+    private void addBatch(LessonTitleVO title, PreparedBatch insertBatch, boolean error) {
         insertBatch.bind(SLUG, title.getSlug())
                 .bind(RENDER_LINK, title.getRenderLink())
                 .bind(CATEGORY, title.getCategory())
+                .bind(ERROR, error)
                 .add();
     }
 

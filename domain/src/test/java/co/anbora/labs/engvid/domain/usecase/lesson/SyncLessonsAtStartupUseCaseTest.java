@@ -19,7 +19,8 @@ public class SyncLessonsAtStartupUseCaseTest {
     @Before
     public void setUp() throws Exception {
 
-        this.useCase = new SyncLessonsAtStartupUseCase(repository);
+        SyncRemoteLessonsUseCase syncRemote = new SyncRemoteLessonsUseCase(repository);
+        this.useCase = new SyncLessonsAtStartupUseCase(repository, syncRemote);
     }
 
     @Test
